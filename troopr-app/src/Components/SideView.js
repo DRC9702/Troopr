@@ -19,6 +19,7 @@ const styles = {
     justifyContent: 'space-around',
     alignContent: 'center ',
     height: '100vh',
+    width: '300px',
 };
 
 export default SideView;
