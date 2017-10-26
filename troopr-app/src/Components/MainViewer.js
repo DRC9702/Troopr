@@ -27,7 +27,7 @@ const topStyle = {
 const innerStyle = {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'flexStart',
 };
 
 export default MainViewer;

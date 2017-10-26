@@ -18,6 +18,7 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignContent: 'center ',
+    height: '100vh',
 };
 
 export default SideView;
