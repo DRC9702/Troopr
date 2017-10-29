@@ -4,11 +4,15 @@ class ColumnView extends Component {
 
   constructor(props){
     super(props);
+    if (this.props.viewName == 'profile')
+      this.viewHandler = this.props.toProfileHandler;
+    else
+      this.viewHandler = this.props.toProfileHandler;
   }
 
   render() {
     return (
-      <div className="ColumnView" style={styles}>
+      <div className="ColumnView" style={styles} onClick={this.props.toProfileHandler}>
       	<p>
           Troopr {this.props.viewName}
         </p>
@@ -25,6 +29,7 @@ const styles = {
     alignItems: 'center',
     height: '300px',
     width: '300px',
+    borderRadius: '10px',
 };
 
 export default ColumnView;

@@ -20,6 +20,7 @@ class MainViewer extends Component {
     })
   }
 
+
   logoutHandler(e) {
     e.preventDefault();
     this.setState({

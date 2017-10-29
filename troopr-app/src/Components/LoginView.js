@@ -34,8 +34,9 @@ const loginBoxStyle = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '600px',
-    width: '600px',
+    height: '500px',
+    width: '500px',
+    borderRadius: '10px',
 };
 
 const formStyle = {
