@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class SideView extends Component {
+
   render() {
     return (
       <div className="SideView" style={styles}>

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import ColumnView from './ColumnView';
 
 class ContentView extends Component {
   render() {
     return (
       <div className="ContentView" style={styles}>
-      	<p>
+        <ColumnView viewName='Profile'/>
+        <p>
           Troopr CONTENTVIEW
         </p>
+        <ColumnView viewName='Events'/>
       </div>
     );
   }
