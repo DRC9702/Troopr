@@ -8,10 +8,12 @@ var MyComponent =  React.createFactory(require('../components/MyComponent'));
 /* GET home page. */
 router.get('/', function(req, res, next) {
   User.find(function(err,users){
-    res.render('home', {
-      user:users,
-      context:'home'
-    });
+  //  res.render('home', {
+  //    user:users,
+   //   context:'home'
+  //  });
+	res.json({
+	user:users
   })
 
 
