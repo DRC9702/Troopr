@@ -18,7 +18,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignContent: 'center ',
+    alignItems: 'center ',
     height: '100vh',
     width: '300px',
 };

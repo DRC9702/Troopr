@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MainViewer />
+        <MainViewer loggedIn={false}/>
       </div>
     );
   }

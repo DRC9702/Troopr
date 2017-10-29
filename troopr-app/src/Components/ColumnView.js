@@ -22,7 +22,9 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignContent: 'center',
+    alignItems: 'center',
+    height: '300px',
+    width: '300px',
 };
 
 export default ColumnView;

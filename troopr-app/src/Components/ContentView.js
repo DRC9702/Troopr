@@ -6,7 +6,7 @@ class ContentView extends Component {
     return (
       <div className="ContentView" style={styles}>
         <ColumnView viewName='Profile'/>
-        <p>
+        <p style={{background: 'blue'}}>
           Troopr CONTENTVIEW
         </p>
         <ColumnView viewName='Events'/>
@@ -20,7 +20,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
     flexGrow: 1,
 };
 
