@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import ColumnView from './ColumnView';
+import DashboardView from './DashboardView';
+import ProfileView from './ProfileView';
 
 class ContentView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {viewProfile: false};
+    this.toProfileHandler = this.toProfileHandler.bind(this);
+  }
+
+  toProfileHandler(e) {
+    this.setState({
+      viewProfile: true,
+    })
+  }
+
   render() {
-    return (
-      <div className="ContentView" style={styles}>
-        <ColumnView viewName='Profile'/>
-        <p>
-          Troopr CONTENTVIEW
-        </p>
-        <ColumnView viewName='Events'/>
-      </div>
-    );
+    if(this.state.viewProfile)
+      return(
+        <div className="ContentViewer" style={styles}>
+          <ProfileView />
+        </div>
+      );
+    else
+      return(
+        <div className="ContentViewer" style={styles}>
+          <DashboardView viewProfile={this.state.viewProfile} toProfileHandler = {this.toProfileHandler} />
+        </div>
+      );
   }
 }
 
@@ -20,7 +37,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
     flexGrow: 1,
 };
 
