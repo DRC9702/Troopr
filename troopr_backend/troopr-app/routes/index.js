@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
     })
   })
 });
-router.get('addProfile', function(req, res, next) {
+router.get('/addProfile', function(req, res, next) {
   var fields = {
     skill:"ooo",
       resume: "dwqd",
