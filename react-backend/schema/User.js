@@ -12,12 +12,35 @@ var Model = mongoose.model("User",UserSchema);
 module.exports = {
   add: function(fields,callback){
     var one = new Model(fields);
-    one.save(callback);
+    one.save(function(error,user) {
+      if (error) {
+        console.log("Got error 3: " + error + "\n")
+        if (callback) callback(error)
+      } else {
+        if (callback) callback(null,user)
+      }
+    });
+    // one.save(callback);
   },
 
   find: function(criteria,callback){
     Model.find(criteria).exec(function (error, some) {
       callback(error, some);
     });
+  },
+  middleware: {
+
+		loadAll: function(req, res, next){
+      Model.find({}).populate([{
+        path:'profile',
+        model:'Profile'
+      },{
+        path:'credential',
+        model:'Credential'
+      }]).exec(function (error, all) {
+      req.users = all || [];
+      next();
+    });
+    }
   }
 }

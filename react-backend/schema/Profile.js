@@ -15,7 +15,14 @@ module.exports ={
   add:function(fields,callback){
 
     var one = new Model(fields)
-    one.save(callback)
+    one.save(function(error, profile) {
+      if (error) {
+        console.log("Got error 3: " + error + "\n")
+        if (callback) callback(error)
+      } else {
+        if (callback) callback(null,profile)
+      }
+    });
   },
 
   find: function(criteria,callback){

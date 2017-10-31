@@ -6,14 +6,14 @@ var mongoose = require('mongoose');
 
 mongoose.connect('localhost:27017/db');
 
-var users = [
-  new User({
-    id: "001",
-    profile: ,
-    credential: credentials[1],
-    eventsHosted: events[0]
-  }),
-]
+//var users = [
+//  new User({
+//    id: "001",
+//    profile: ,
+//    credential: credentials[1],
+//    eventsHosted: events[0]
+//  }),
+//]
 
 var credentials = [
   new Credential({
