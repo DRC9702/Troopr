@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Profile = require('../Schema/Profile')
-var User = require('../Schema/User')
+var Profile = require('../schema/Profile')
+var User = require('../schema/User')
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -9,7 +9,7 @@ var User = require('../Schema/User')
 // 		skill:"ooo",
 //   		resume: "dwqd",
 //   		bio: "Dwqwqdqwd",
-//   		links: "dwqdqwdqw",
+//   	s	links: "dwqdqwdqw",
 // 	}
 // 	Profile
 //   res.send('respond with a resource');
