@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Modal, Form, FormControl } from 'react-bootstrap';
 
 class LoginView extends Component {
 
@@ -8,21 +9,50 @@ class LoginView extends Component {
 
   render() {
     return (
-      <div className="LoginView" style={loginBoxStyle}>
-      	<p>
-          Troopr Login
-        </p>
-        <form style={formStyle} onSubmit={this.props.loginHandler}>
-	        <input
-	          type="text"
-	          placeholder="Username"
-	        />
-          <input
-	          type="text"
-	          placeholder="Password"
-	        />
-          <input type="submit" value="Login" />
-      	</form>
+      <div className="LoginView">
+          {/*<div className="LoginView" style={loginBoxStyle}>*/}
+      	{/*<p>*/}
+          {/*Troopr Login*/}
+        {/*</p>*/}
+        {/*<form style={formStyle}>*/}
+            {/*/!*<form style={formStyle} onSubmit={this.props.loginHandler}>*!/*/}
+	        {/*<input*/}
+	          {/*type="text"*/}
+	          {/*placeholder="Username"*/}
+	        {/*/>*/}
+          {/*<input*/}
+	          {/*type="text"*/}
+	          {/*placeholder="Password"*/}
+	        {/*/>*/}
+          {/*<Button bsStyle='success' type="submit" value="Login" >*/}
+              {/*Submit*/}
+          {/*</Button>*/}
+      	{/*</form>*/}
+          <Modal.Dialog animation>
+              <Modal.Header>
+                  <Modal.Title>Troopr Login</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                  <Form inline>
+                      {/*<form style={formStyle} onSubmit={this.props.loginHandler}>*/}
+                      <FormControl
+                          type="text"
+                          placeholder="Username"
+                      />
+                      <br/><br/>
+                      <FormControl
+                          type="text"
+                          placeholder="Password"
+                      />
+                  </Form>
+              </Modal.Body>
+
+              <Modal.Footer>
+                  <Button bsStyle="link">Create Account</Button>
+                  <Button bsStyle='success' type="submit" value="Login" onClick={this.props.loginHandler}>Sign in</Button>
+              </Modal.Footer>
+          </Modal.Dialog>
       </div>
     );
   }
