@@ -9,13 +9,10 @@ import Main from './Components/Main';
 class App extends Component {
   render() {
     return (
-      <div>
-        {/* <Nav /> */}
-        <Main />
+      <Nav />
+      <div className="App">
+        <MainViewer loggedIn={false}/>
       </div>
-      // <div className="App">
-      //   <MainViewer loggedIn={false}/>
-      // </div>
     );
   }
 }
