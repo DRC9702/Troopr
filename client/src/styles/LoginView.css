@@ -1,4 +1,4 @@
-.modal-dialog {
+.modal {
     /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
      /*Did not write this comment  */
     margin: 0;
@@ -6,8 +6,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    bottom: initial!important;
 }
 
 .modal-backdrop {
+    background-color: red;
     z-index: -1;
-}  
+ }

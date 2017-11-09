@@ -40,7 +40,7 @@ class MainViewer extends Component {
       <div className="MainViewer" style={topStyle}>
         <HeaderView loggedIn={this.state.loggedIn} logoutHandler = {this.logoutHandler}/>
         <div style={innerLoginStyle}>
-          <LoginView loginHandler = {this.loginHandler} />
+          <LoginView loginHandler = {this.loginHandler} show={true}/>
         </div>
       </div>
     );
@@ -78,7 +78,7 @@ const innerLoginStyle = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor: 'gray',
+  backgroundColor: 'green',
   height: '100vh',
 };
 
