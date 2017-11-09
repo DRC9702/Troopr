@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Navbar, Button, FormGroup, FormControl } from 'react-bootstrap';
 import SearchBar from './SearchBar';
 
 class HeaderView extends Component {
@@ -16,12 +17,23 @@ class HeaderView extends Component {
 
   renderLoggedOut(){
     return (
-      <div className="HeaderView" style={styles}>
-      	<p>
-          Troopr HEADER {this.props.loggedIn ? "in" : "out"}
-        </p>
-      	<SearchBar />
-      </div>
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="#">Brand</a>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Navbar.Form pullLeft>
+            <FormGroup>
+              <FormControl type="text" placeholder="Search" />
+            </FormGroup>
+            {' '}
+            <Button type="submit">Submit</Button>
+          </Navbar.Form>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 
