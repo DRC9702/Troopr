@@ -123,6 +123,15 @@ class Main extends Component {
                  )
              }
       />
+
+      <Route exact path='/profile'
+         render=
+             {
+                 (props) => (
+                     <ProfileView />
+                 )
+             }
+      />
     </Switch>
     </div>
 	    )

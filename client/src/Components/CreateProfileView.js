@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import {Checkbox, Radio, ControlLabel, FormControl, Button, FormGroup, HelpBlock} from 'react-bootstrap';
+import axios from 'axios';
 
 class CreateProfileView extends Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            name: '',
+            skills:'',
+            resume:''
+        };
+    }
+    handleNameChange= (e) => {
+        this.setState({name: e.target.value});
+    }
+    handleSkillsChange= (e) => {
+        this.setState({skills: e.target.value});
+    }
+
+    handleResumeChange= (e) =>{
+        this.setState({resume: e.target.value});
+    }
 
     render() {
         return (
@@ -40,7 +59,7 @@ class CreateProfileView extends Component {
                         <FormControl componentClass="textarea" placeholder="textarea" />
                     </FormGroup>
 
-                    <Button type="submit" onClick={this.create_account}>
+                    <Button type="submit" onClick={this.create_profile}>
                         Submit
                     </Button>
                 </form>
@@ -48,7 +67,7 @@ class CreateProfileView extends Component {
         );
     }
 
-    create_account= (e) =>{
+    create_profile= (e) =>{
         var self
 
         e.preventDefault()
@@ -65,9 +84,9 @@ class CreateProfileView extends Component {
         // Submit form via jQuery/AJAX
         console.log(data)
         axios.post('/api/create_profile', {
-            email: this.state.email,
-            username: this.state.username,
-            password: this.state.password
+            name: this.state.name,
+            skills: this.state.skills,
+            resume: this.state.resume
         })
             .then(function (response) {
                 console.log(response);
