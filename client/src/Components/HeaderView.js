@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Navbar, Button, ButtonToolbar, FormGroup, FormControl, Modal, Form } from 'react-bootstrap';
-import SearchBar from './SearchBar';
+import { Navbar, Button, FormGroup, FormControl, Modal, Form } from 'react-bootstrap';
+// import SearchBar from './SearchBar';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
@@ -109,10 +109,10 @@ class HeaderView extends Component {
     );
   }
   sign_in= (e) =>{
-  var self
+  // var self
 
   e.preventDefault()
-  self = this
+  // self = this
 
   console.log(this.state);
 
@@ -144,13 +144,13 @@ class HeaderView extends Component {
 }
 }
 
-const styles = {
-    backgroundColor: 'red',
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignContent: 'center',
-};
+// const styles = {
+//     backgroundColor: 'red',
+//     display: 'flex',
+//     flex: 1,
+//     flexDirection: 'row',
+//     justifyContent: 'space-around',
+//     alignContent: 'center',
+// };
 
 export default HeaderView;

@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Main_Page = () => (
+const MainPage = () => (
   <div>
     <h1>Welcome to the Tornadoes Website!</h1>
   </div>
 )
 
-export default Main_Page
+export default MainPage

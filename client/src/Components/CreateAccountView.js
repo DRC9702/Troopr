@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Checkbox, Radio, ControlLabel, FormControl, Button, FormGroup, HelpBlock, Jumbotron} from 'react-bootstrap';
+import {ControlLabel, FormControl, Button, HelpBlock, Jumbotron} from 'react-bootstrap';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 
@@ -70,10 +70,10 @@ class CreateAccountView extends Component {
         );
     }
     create_account= (e) =>{
-        var self
+        // var self
 
         e.preventDefault()
-        self = this
+        // self = this
 
         console.log(this.state);
 
@@ -118,14 +118,14 @@ const styles = {
     flexGrow: 1,
 };
 
-function FieldGroup({ id, label, help, ...props }) {
-    return (
-        <FormGroup controlId={id}>
-            <ControlLabel>{label}</ControlLabel>
-            <FormControl {...props} />
-            {help && <HelpBlock>{help}</HelpBlock>}
-        </FormGroup>
-    );
-}
+// function FieldGroup({ id, label, help, ...props }) {
+//     return (
+//         <FormGroup controlId={id}>
+//             <ControlLabel>{label}</ControlLabel>
+//             <FormControl {...props} />
+//             {help && <HelpBlock>{help}</HelpBlock>}
+//         </FormGroup>
+//     );
+// }
 
 export default CreateAccountView;

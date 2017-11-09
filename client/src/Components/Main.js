@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Main_Page from './Main_Page'
-import MainViewer from './MainViewer'
 import ProfileView from './ProfileView'
 import HeaderView from './HeaderView'
 import HomeView from './HomeView'
 import DashboardView from './DashboardView'
 import CreateAccountView from './CreateAccountView'
 import CreateProfileView from './CreateProfileView'
+import MainPage from './MainPage'
 
 
 class Main extends Component {
@@ -102,7 +101,7 @@ class Main extends Component {
     }
       />
 
-      <Route exact path='/Main_Page' component={Main_Page}/>
+      <Route exact path='/MainPage' component={MainPage}/>
 
 
       <Route exact path='/create_account'

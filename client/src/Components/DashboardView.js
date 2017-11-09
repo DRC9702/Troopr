@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import ColumnView from './ColumnView';
-import { Button, ButtonGroup } from 'react-bootstrap';
+// import ColumnView from './ColumnView';
+import { Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 
 class DashboardView extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
   render() {
     return (

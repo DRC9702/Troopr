@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import MainViewer from './Components/MainViewer';
-import Nav from './Components/Nav';
+
 import Main from './Components/Main';
 
 
