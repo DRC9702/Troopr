@@ -132,6 +132,15 @@ class Main extends Component {
                  )
              }
       />
+
+      <Route exact path='/dashboard'
+         render=
+             {
+                 (props) => (
+                     <DashboardView />
+                 )
+             }
+      />
     </Switch>
     </div>
 	    )
