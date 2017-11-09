@@ -101,8 +101,8 @@ const innerLoginStyle = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: 'green',
+  alignItems: 'flex-start',
+  backgroundColor: 'white',
   height: '100vh',
 };
 

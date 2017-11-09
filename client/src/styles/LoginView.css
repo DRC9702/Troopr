@@ -10,6 +10,10 @@
 }
 
 .modal-backdrop {
-    background-color: red;
-    z-index: -1;
+    z-index: 1;
+ }
+
+ .jumbotron {
+     position: relative;
+     margin: auto;
  }
