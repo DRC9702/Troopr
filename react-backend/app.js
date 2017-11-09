@@ -7,9 +7,16 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var cookieParser = require('cookie-parser');
 var app = express();
+var session = require('express-session');
 
+app.use(session({
+    secret: "fd34s@!@dfa453f3DF#$D&W",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: !true }
+}));
 // view engine setup
 app.set('views', 'views');
 app.set('view engine', 'ejs');
