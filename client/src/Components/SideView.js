@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Image} from 'react-bootstrap';
+import {Image, Button} from 'react-bootstrap';
 
 class SideView extends Component {
 
@@ -38,12 +38,13 @@ class SideView extends Component {
       return (
         <div className="SideView" style={styles}>
           <p>
-            Troopr SIDEVIEW
+            Username
           </p><br/>
+            <Button bsStype='info'>Edit Profile</Button>
             {/*<p>*/}
                 {/*Troopr SIDEVIEW*/}
             {/*</p><br/>*/}
-            <Image src="../Images/default.png" circle/>
+            {/*<Image src="../Images/default.png" circle/>*/}
         </div>
 
           //<Image src="../Images/default.png" circle/>
