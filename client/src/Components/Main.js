@@ -7,6 +7,8 @@ import HeaderView from './HeaderView'
 import HomeView from './HomeView'
 import DashboardView from './DashboardView'
 import CreateAccountView from './CreateAccountView'
+import CreateProfileView from './CreateProfileView'
+
 
 class Main extends Component {
   constructor(props){
@@ -108,6 +110,24 @@ class Main extends Component {
              {
                  (props) => (
                      <CreateAccountView />
+                 )
+             }
+      />
+
+      <Route exact path='/create_profile'
+         render=
+             {
+                 (props) => (
+                     <CreateProfileView />
+                 )
+             }
+      />
+
+      <Route exact path='/profile'
+         render=
+             {
+                 (props) => (
+                     <ProfileView />
                  )
              }
       />
