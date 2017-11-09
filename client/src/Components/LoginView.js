@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import { Button, Modal, Form, FormControl, Jumbotron, FormGroup, Col, ControlLabel, HelpBlock, Label } from 'react-bootstrap';
+
 require('../styles/LoginView.css');
 
 class LoginView extends Component {
@@ -8,6 +10,9 @@ class LoginView extends Component {
     super(props);
     this.state = {
         show: props.show,
+        email: '',
+        username:'',
+        password:''
     };
     this.hideModal = this.hideModal.bind(this);
     this.showModal = this.showModal.bind(this);
@@ -27,6 +32,7 @@ class LoginView extends Component {
     this.setState({show: newProps.show});
   }
 
+
   render() {
     return (
       <div className="LoginView">
@@ -43,60 +49,21 @@ class LoginView extends Component {
             </Form>
            </Modal.Body>
         <Modal.Footer>
-            {/* {<Button bsStyle="link">Create Account</Button>} */}
+            <Button bsStyle="link">
+                <Link to='/create_account'>
+                Create Account
+                </Link>
+            </Button>
             <Button bsStyle='success' type="submit" value="Login" onClick={this.props.loginHandler}>Sign in</Button>
         </Modal.Footer>
         </Modal>
 
-        <Jumbotron style={{width: '100vh'}}>
-          <h1>Welcome to Troopr!</h1>
-          <h2>Welcome to teamwork. Welcome to perfection. Welcome. Home.</h2>
-          <p>Create Account</p>
-          {/* <p><Button bsStyle="primary">Learn more</Button></p> */}
-          <form>
-            <ControlLabel>Email Address</ControlLabel>
-            <FormControl
-              type="text"
-              /* value={this.state.value} */
-              placeholder="troop@troopr.edu"
-              /* onChange={this.handleChange} */
-            />
-            <FormControl.Feedback />
-            <HelpBlock>Please enter a valid email address.</HelpBlock>
-            <ControlLabel>Username</ControlLabel>
-            <FormControl
-              type="text"
-              /* value={this.state.value} */
-              placeholder="Username"
-              /* onChange={this.handleChange} */
-            />
-            <FormControl.Feedback />
-            <HelpBlock>Please enter a username.</HelpBlock>
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              type="password"
-              /* value={this.state.value} */
-              placeholder="Password"
-              /* onChange={this.handleChange} */
-            />
-            <FormControl.Feedback />
-            <HelpBlock>Please enter your password.</HelpBlock>
-            <ControlLabel>Confirm Password</ControlLabel>
-            <FormControl
-              type="password"
-              /* value={this.state.value} */
-              placeholder="Confirm Password"
-              /* onChange={this.handleChange} */
-            />
-            <FormControl.Feedback />
-            <HelpBlock>Please confirm your password.</HelpBlock>
-            <Button type="submit">Submit</Button>
-          </form>
-      </Jumbotron>
+
 
       </div>
     );
   }
+
 }
 
 const contentStyle = {

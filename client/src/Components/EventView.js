@@ -7,9 +7,11 @@ class EventView extends Component {
 
     render() {
         return (
-            <div className="EventView" style={styles}>
+            <div className="EventView">
                 list of events
             </div>
         );
     }
-}
+};
+
+export default EventView;

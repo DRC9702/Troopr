@@ -18,18 +18,18 @@ router.get('/api', User.middleware.loadAll,function(req, res, next) {
         user:req.users,
       });
 });
-router.post('/api/create_account', User.middleware.loadAll,function(req, res, next) {
-
-      // res.render('home', {
-      //   user:req.users,
-      //   context:'home'
-      // });
-      console.log(req.body.data)
-      console.log("Dwqdqwwqd")
-      res.json({
-        success:true,
-      });
-});
+// router.post('/api/create_account', User.middleware.loadAll,function(req, res, next) {
+//
+//       // res.render('home', {
+//       //   user:req.users,
+//       //   context:'home'
+//       // });
+//       console.log(req.body.data)
+//       console.log("Dwqdqwwqd")
+//       res.json({
+//         success:true,
+//       });
+// });
 router.post('/api/create_account', User.middleware.loadAll,function(req, res, next) {
       var email=  req.body.email
       var username=  req.body.username
@@ -39,12 +39,14 @@ router.post('/api/create_account', User.middleware.loadAll,function(req, res, ne
           success:false,
           message:"infomation not completed"
         })
+        return
       }
       var fields = {
         username:username,
         email:email,
         password:password
       }
+      console.log(fields)
       credential.add(fields,function(error,cre){
         if(error){
           res.json({
@@ -56,10 +58,15 @@ router.post('/api/create_account', User.middleware.loadAll,function(req, res, ne
           credential:cre.id
         }, function(error,user){
           if(error){
+            if(error.code=="11000"){
+
+            }
             res.json({
               success:false,
               message:"user created fail"
             })
+            console.log(error)
+            return
           }
           res.json({
             success:"success",
@@ -67,10 +74,6 @@ router.post('/api/create_account', User.middleware.loadAll,function(req, res, ne
           })
         })
       })
-
-      res.json({
-        success:true,
-      });
 });
 router.get('/addProfile', function(req, res, next) {
   var fields = {
