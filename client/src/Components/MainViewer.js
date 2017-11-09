@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import HeaderView from './HeaderView';
 import SideView from './SideView';
 import ContentView from './ContentView';
-import LoginView from './LoginView';
+import HomeView from './HomeView';
 import Main_Page from './Main_Page'
 
 class MainViewer extends Component {
@@ -64,7 +64,7 @@ class MainViewer extends Component {
       <div className="MainViewer" style={topStyle}>
         <HeaderView loggedIn={this.state.loggedIn} promptLoginHandler = {this.promptLogin}/>
         <div style={innerLoginStyle}>
-          <LoginView loginHandler = {this.loginHandler} show={this.state.showLoginModal}/>
+          <HomeView loginHandler = {this.loginHandler} show={this.state.showLoginModal}/>
         </div>
       </div>
     );

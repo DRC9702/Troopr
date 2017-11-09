@@ -26,9 +26,7 @@ class CreateAccountView extends Component {
         return (
             <div className="CreateAccountView" style={styles}>
             <Jumbotron style={{width: '100vh'}}>
-              <h1>Welcome to Troopr!</h1>
-              <h2>Welcome to teamwork. Welcome to perfection. Welcome. Home.</h2>
-              <p>Create Account</p>
+              <h1>Create Account</h1>
               {/* <p><Button bsStyle="primary">Learn more</Button></p> */}
               <form>
                 <ControlLabel>Email Address</ControlLabel>
@@ -59,10 +57,10 @@ class CreateAccountView extends Component {
                 <FormControl.Feedback />
 
                 <HelpBlock>Please confirm your password.</HelpBlock>
-                <Button onClick={this.create_account}>Submit</Button>
+                <Button onClick={this.create_account}>Create Account</Button>
               </form>
-          </Jumbotron>
-            </div>
+            </Jumbotron>
+          </div>
         );
     }
     create_account= (e) =>{
