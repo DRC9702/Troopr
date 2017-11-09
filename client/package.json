@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@okta/okta-signin-widget": "^2.3.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
     "react-bootstrap-sidebar": "0.0.1",

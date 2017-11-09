@@ -7,6 +7,8 @@ import ProfileView from './ProfileView'
 import HeaderView from './HeaderView'
 import LoginView from './LoginView'
 import DashboardView from './DashboardView'
+import Create_Account from './Create_Account';
+
 
 class Main extends Component {
     constructor(props){
@@ -64,7 +66,7 @@ class Main extends Component {
           {
             (props) => (
 	      <LoginView loginHandler = {this.loginHandler} show={this.state.showLoginModal}/>
-              
+
             )
           }
       />
@@ -88,7 +90,7 @@ class Main extends Component {
       />
 
       <Route exact path='/Main_Page' component={Main_Page}/>
-
+      <Route exact path='/Create_Account' component={Create_Account}/>
     </Switch>
     </div>
 	    )
