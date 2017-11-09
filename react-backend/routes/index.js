@@ -18,6 +18,40 @@ router.get('/api', User.middleware.loadAll,function(req, res, next) {
         user:req.users,
       });
 });
+router.post('/api/profile',function(req, res, next) {
+
+      // res.render('home', {
+      //   user:req.users,
+      //   context:'home'
+      // });
+      console.log(req.session.user)
+      if(!req.session.user){
+        res.json({
+          success:false,
+          login:false,
+          message:'login plz',
+          error:'login plz'
+        });
+        return
+      }
+      if(req.user.profile){
+        res.json({
+          name: req.user.profile.name,
+          skills: req.user.profile.skills,
+          resume: req.user.profile.resume,
+          bio:req.user.profile.bio
+        });
+        return
+      }else{
+        res.json({
+          success:false,
+          message:'no profile for now',
+          error:'no profile for now'
+        });
+        return
+      }
+
+});
 // router.post('/api/create_account', User.middleware.loadAll,function(req, res, next) {
 //
 //       // res.render('home', {
@@ -77,6 +111,10 @@ router.post('/api/create_account', User.middleware.loadAll,function(req, res, ne
             console.log(error1)
             return
           }
+          console.log(req.session)
+          // console.log(req.session)
+          req.session.user=user
+          console.log(req.session)
           res.json({
             success:"success",
             user:user
@@ -105,6 +143,7 @@ router.post('/api/sign_in', credential.middleware.loadOfEmail,User.middleware.lo
       if(!req.credential){
         res.json({
           success:false,
+          login:false,
           message:"no such user",
           error:"no such user"
         })
@@ -113,6 +152,7 @@ router.post('/api/sign_in', credential.middleware.loadOfEmail,User.middleware.lo
       console.log(req.credential)
       console.log(req.body.password)
       if(req.credential.password ==password){
+        req.session.user=req.user
         res.json({
           success:true,
           user:req.user
@@ -121,12 +161,79 @@ router.post('/api/sign_in', credential.middleware.loadOfEmail,User.middleware.lo
       }else{
         res.json({
           success:false,
+          login:true,
           message:"password wrong",
           error:"password wrong"
         })
         return
       }
       console.log(fields)
+});
+router.post('/api/create_profile', function(req, res, next) {
+      // if(!req.session.user){
+      //   res.json({
+      //     success:false,
+      //     login:false,
+      //     message:"password wrong",
+      //     error:"password wrong"
+      //   })
+      // }
+      var name = req.body.name
+      var skills=  req.body.skills
+      var resume = req.body.resume
+      var bio = req.body.bio
+      if(!(name&&skills&&resume&&bio)){
+        res.json({
+          success:false,
+          message:"infomation not completed",
+          error:"infomation not completed"
+        })
+        return
+      }
+      console.log(req.session.user)
+
+
+      var fields = {
+        name : req.body.name,
+        skills:  req.body.skills,
+        resume : req.body.resume,
+        bio : req.body.bio
+      }
+      if(!req.session.user){
+        res.json({
+          success:false,
+          login:false,
+          message:"need login",
+          error:"need login"
+        })
+        return
+      }
+      Profile.add(fields,function(error,pro){
+        if(error){
+          res.json({
+            success:"fail at pro"
+          })
+          return
+        }
+        console.log(req.session)
+        console.log(req.session.user._id)
+        User.update(req.session.user._id,{
+          profile:pro.id,
+        }, function(error,user){
+          if(error){
+            res.json({
+              success:"fail at user"
+            })
+            return
+          }
+          req.session.user=user
+          res.json({
+            success:"success",
+            user:user
+          })
+          return
+        })
+      })
 });
 router.get('/addProfile', function(req, res, next) {
   var fields = {

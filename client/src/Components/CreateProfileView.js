@@ -9,7 +9,8 @@ class CreateProfileView extends Component {
         this.state = {
             name: '',
             skills:'',
-            resume:''
+            resume:'',
+            bio:''
         };
     }
     handleNameChange= (e) => {
@@ -21,6 +22,9 @@ class CreateProfileView extends Component {
 
     handleResumeChange= (e) =>{
         this.setState({resume: e.target.value});
+    }
+    handleBioChange= (e) =>{
+        this.setState({bio: e.target.value});
     }
 
     render() {
@@ -36,27 +40,37 @@ class CreateProfileView extends Component {
                     <FieldGroup
                         id="formControlsText"
                         type="text"
+                        value={this.state.name}
                         label="Name"
+                        onChange={this.handleNameChange}
                         placeholder="Enter Name"
                     />
 
                     <FieldGroup
                         id="formControlsSkills"
                         type="text"
+                        value={this.state.skills}
                         label="Skills"
+                        onChange={this.handleSkillsChange}
                         placeholder="Enter skills"
                     />
 
                     <FieldGroup
                         id="formControlsFile"
                         type="text"
+                        value={this.state.resume}
                         label="Resume"
+                        onChange={this.handleResumeChange}
                         placeholder="Enter Resume"
                     />
 
                     <FormGroup controlId="formControlsTextarea">
                         <ControlLabel>Bio</ControlLabel>
-                        <FormControl componentClass="textarea" placeholder="textarea" />
+                        <FormControl componentClass="textarea"
+                        value={this.state.bio}
+                        onChange={this.handleBioChange}
+
+                        placeholder="textarea" />
                     </FormGroup>
 
                     <Button type="submit" onClick={this.create_profile}>
@@ -78,7 +92,8 @@ class CreateProfileView extends Component {
         var data = {
             name: this.state.name,
             skills: this.state.skills,
-            resume: this.state.resume
+            resume: this.state.resume,
+            bio:this.state.bio
         }
 
         // Submit form via jQuery/AJAX
@@ -86,7 +101,8 @@ class CreateProfileView extends Component {
         axios.post('/api/create_profile', {
             name: this.state.name,
             skills: this.state.skills,
-            resume: this.state.resume
+            resume: this.state.resume,
+            bio:this.state.bio
         })
             .then(function (response) {
                 console.log(response);
@@ -96,7 +112,7 @@ class CreateProfileView extends Component {
                 if(response.data.success) {
                     window.location = '/profile';
                 } else {
-                    alert("Account already exists");
+                    alert("profile created failed");
                 }
 
             })

@@ -22,7 +22,17 @@ module.exports = {
     });
     // one.save(callback);
   },
-
+  update: function(id, fields, callback) {
+    Model.findOne({
+      _id: id
+    }).exec(function(error, one) {
+      if (error) {
+        callback(error);
+      } else {
+        one.update(fields, callback);
+      }
+    });
+  },
   find: function(criteria,callback){
     Model.find(criteria).exec(function (error, some) {
       callback(error, some);
@@ -53,6 +63,21 @@ module.exports = {
       req.user = one?one[0]:"";
       next();
     });
+  },
+    loadOfLog: function(req, res, next){
+      console.log("dwqdqwqwd")
+      Model.find({credential:(req.session.user?req.session.user.credential.id:"")}).populate([{
+        path:'profile',
+        model:'Profile'
+      },{
+        path:'credential',
+        model:'Credential'
+      }]).exec(function (error, one) {
+        console.log("error"+error)
+      req.user = one?one[0]:"";
+      next();
+    });
     }
+
   }
 }

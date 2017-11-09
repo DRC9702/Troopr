@@ -15,13 +15,7 @@ class HomeView extends Component {
         password:''
     };
   }
-  handleEmailChange= (e) => {
-     this.setState({email: e.target.value});
-  }
 
-  handlePasswordChange= (e) =>{
-     this.setState({password: e.target.value});
-  }
   render() {
     return (
       <div className="HomeView">
