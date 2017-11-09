@@ -102,11 +102,19 @@ router.post('/api/sign_in', credential.middleware.loadOfEmail,User.middleware.lo
         email:email,
         password:password
       }
+      if(!req.credential){
+        res.json({
+          success:false,
+          message:"no such user",
+          error:"no such user"
+        })
+        return
+      }
       console.log(req.credential)
       console.log(req.body.password)
       if(req.credential.password ==password){
         res.json({
-          success:"success",
+          success:true,
           user:req.user
         })
         return
