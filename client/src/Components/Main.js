@@ -7,6 +7,7 @@ import ProfileView from './ProfileView'
 import HeaderView from './HeaderView'
 import LoginView from './LoginView'
 import DashboardView from './DashboardView'
+import CreateAccountView from './CreateAccountView'
 
 class Main extends Component {
     constructor(props){
@@ -89,6 +90,14 @@ class Main extends Component {
 
       <Route exact path='/Main_Page' component={Main_Page}/>
 
+      <Route exact path='/create_account'
+         render=
+             {
+                 (props) => (
+                     <CreateAccountView />
+                 )
+             }
+      />
     </Switch>
     </div>
 	    )
