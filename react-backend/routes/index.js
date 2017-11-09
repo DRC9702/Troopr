@@ -49,23 +49,32 @@ router.post('/api/create_account', User.middleware.loadAll,function(req, res, ne
       console.log(fields)
       credential.add(fields,function(error,cre){
         if(error){
+          if(error.code=="11000"){
+            res.json({
+              success:false,
+              message:"email already used",
+              error:error
+            })
+            return
+          }
           res.json({
-            success:"fail at cre"
+            success:"fail at cre",
+            error:error
           })
+          return
         }
         User.add({
           profile:null,
           credential:cre.id
-        }, function(error,user){
-          if(error){
-            if(error.code=="11000"){
+        }, function(error1,user){
+          if(error1){
 
-            }
             res.json({
               success:false,
-              message:"user created fail"
+              message:"user created fail",
+              error:error1
             })
-            console.log(error)
+            console.log(error1)
             return
           }
           res.json({
@@ -74,6 +83,42 @@ router.post('/api/create_account', User.middleware.loadAll,function(req, res, ne
           })
         })
       })
+});
+
+router.post('/api/sign_in', credential.middleware.loadOfEmail,User.middleware.loadOfCre,function(req, res, next) {
+
+      var email=  req.body.email
+      var password = req.body.password
+      if(!(email&&password)){
+        res.json({
+          success:false,
+          message:"infomation not completed",
+          error:"infomation not completed"
+        })
+        return
+      }
+
+      var fields = {
+        email:email,
+        password:password
+      }
+      console.log(req.credential)
+      console.log(req.body.password)
+      if(req.credential.password ==password){
+        res.json({
+          success:"success",
+          user:req.user
+        })
+        return
+      }else{
+        res.json({
+          success:false,
+          message:"password wrong",
+          error:"password wrong"
+        })
+        return
+      }
+      console.log(fields)
 });
 router.get('/addProfile', function(req, res, next) {
   var fields = {

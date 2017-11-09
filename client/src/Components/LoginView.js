@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { Button, Modal, Form, FormControl, Jumbotron, FormGroup, Col, ControlLabel, HelpBlock, Label } from 'react-bootstrap';
+import axios from 'axios';
 
 require('../styles/LoginView.css');
 
@@ -11,7 +12,6 @@ class LoginView extends Component {
     this.state = {
         show: props.show,
         email: '',
-        username:'',
         password:''
     };
     this.hideModal = this.hideModal.bind(this);
@@ -31,7 +31,13 @@ class LoginView extends Component {
   componentWillReceiveProps(newProps) {
     this.setState({show: newProps.show});
   }
+  handleEmailChange= (e) => {
+     this.setState({email: e.target.value});
+  }
 
+  handlePasswordChange= (e) =>{
+     this.setState({password: e.target.value});
+  }
 
   render() {
     return (
@@ -43,9 +49,19 @@ class LoginView extends Component {
             <Modal.Body>
             <Form inline>
                 {/*<form style={formStyle} onSubmit={this.props.loginHandler}>*/}
-                <FormControl type="text" placeholder="Username"/>
+                <FormControl
+                  type="text"
+                  value={this.state.email}
+                  placeholder="Email"
+                  onChange={this.handleEmailChange}
+                />
                 <br/><br/>
-                <FormControl type="text" placeholder="Password"/>
+                <FormControl
+                  type="password"
+                  value={this.state.password}
+                  placeholder="Password"
+                  onChange={this.handlePasswordChange}
+                />
             </Form>
            </Modal.Body>
         <Modal.Footer>
@@ -54,7 +70,7 @@ class LoginView extends Component {
                 Create Account
                 </Link>
             </Button>
-            <Button bsStyle='success' type="submit" value="Login" onClick={this.props.loginHandler}>Sign in</Button>
+            <Button bsStyle='success' type="submit" value="Login" onClick={this.sign_in}>Sign in</Button>
         </Modal.Footer>
         </Modal>
 
@@ -63,6 +79,39 @@ class LoginView extends Component {
       </div>
     );
   }
+  sign_in= (e) =>{
+  var self
+
+  e.preventDefault()
+  self = this
+
+  console.log(this.state);
+
+  var data = {
+    email: this.state.email,
+    password: this.state.password
+  }
+
+  // Submit form via jQuery/AJAX
+  console.log(data)
+  axios.post('/api/sign_in', {
+    email: this.state.email,
+    password: this.state.password
+  })
+    .then(function (response) {
+      if(response.data.success){
+        console.log("YES")
+      }else{
+        console.log("No")
+      }
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+
+}
+
 
 }
 

@@ -15,7 +15,7 @@ module.exports = {
     one.save(function(error,user) {
       if (error) {
         console.log("Got error 3: " + error + "\n")
-        if (callback) callback(error)
+        if (callback) callback(error,null)
       } else {
         if (callback) callback(null,user)
       }
@@ -39,6 +39,18 @@ module.exports = {
         model:'Credential'
       }]).exec(function (error, all) {
       req.users = all || [];
+      next();
+    });
+  },
+    loadOfCre: function(req, res, next){
+      Model.find({credential:(req.credential?req.credential.id:"")}).populate([{
+        path:'profile',
+        model:'Profile'
+      },{
+        path:'credential',
+        model:'Credential'
+      }]).exec(function (error, one) {
+      req.user = one?one[0]:"";
       next();
     });
     }
