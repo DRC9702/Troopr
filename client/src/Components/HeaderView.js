@@ -72,39 +72,37 @@ class HeaderView extends Component {
         </Navbar>
 
         <Modal show={this.state.show} onHide={this.hideModal}>
-          <Modal.Header>
-              <Modal.Title>Troopr Login</Modal.Title>
-          </Modal.Header>
+            <Modal.Header>
+                <Modal.Title>Troopr Login</Modal.Title>
+            </Modal.Header>
             <Modal.Body>
-            <Form inline>
-                {/*<form style={formStyle} onSubmit={this.props.loginHandler}>*/}
-                <FormControl
-                  type="text"
-                  value={this.state.email}
-                  placeholder="Email"
-                  onChange={this.handleEmailChange}
-                />
-                <br/><br/>
-                <FormControl
-                  type="password"
-                  value={this.state.password}
-                  placeholder="Password"
-                  onChange={this.handlePasswordChange}
-                />
-            </Form>
-           </Modal.Body>
-        <Modal.Footer>
-            <Button bsStyle="link" onClick={this.props.depromptLoginHandler}>
-                <Link to='/create_account'>
-                Create Account
-                </Link>
-            </Button>
-            <Button bsStyle='success' type="submit" value="Login" onClick={this.sign_in && this.props.depromptLoginHandler}>
-              <Link to='/home'>
-                Sign in
-              </Link>
-            </Button>
-        </Modal.Footer>
+                <Form inline>
+                    {/*<form style={formStyle} onSubmit={this.props.loginHandler}>*/}
+                    <FormControl
+                      type="text"
+                      value={this.state.email}
+                      placeholder="Email"
+                      onChange={this.handleEmailChange}
+                    />
+                    <br/><br/>
+                    <FormControl
+                      type="password"
+                      value={this.state.password}
+                      placeholder="Password"
+                      onChange={this.handlePasswordChange}
+                    />
+                </Form>
+                </Modal.Body>
+            <Modal.Footer>
+                <Button bsStyle="link" onClick={this.props.depromptLoginHandler}>
+                    <Link to='/create_account'>
+                    Create Account
+                    </Link>
+                </Button>
+                <Button bsStyle='success' type="submit" value="Login" onClick={this.sign_in}>
+                    Sign in
+                </Button>
+            </Modal.Footer>
         </Modal>
 
       </div>
@@ -132,8 +130,10 @@ class HeaderView extends Component {
     .then(function (response) {
       if(response.data.success){
         console.log("YES")
+          window.location='/dashboard';
       }else{
         console.log("No")
+          alert("Wrong email or password!");
       }
 
     })

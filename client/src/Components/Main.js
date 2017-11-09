@@ -93,7 +93,7 @@ class Main extends Component {
 	     )
 	  }
       />
-      <Route exact path='/home'
+      <Route exact path='/dashboard'
         render=
 	  {
 	  (props) => (
