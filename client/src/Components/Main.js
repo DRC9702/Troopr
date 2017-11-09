@@ -83,7 +83,7 @@ class Main extends Component {
             )
           }
       />
-      <Route exact path='/me'
+      <Route exact path='/profile'
         render=
 	  {
 	    (props) => (
@@ -97,9 +97,9 @@ class Main extends Component {
         render=
 	  {
 	  (props) => (
-       	     <DashboardView />
-	         )
-          }
+        <DashboardView/>
+        )
+    }
       />
 
       <Route exact path='/Main_Page' component={Main_Page}/>
