@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Checkbox, Radio, ControlLabel, FormControl, Button, FormGroup, HelpBlock, Jumbotron} from 'react-bootstrap';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
+
 
 class CreateAccountView extends Component {
 
@@ -57,7 +59,11 @@ class CreateAccountView extends Component {
                 <FormControl.Feedback />
 
                 <HelpBlock>Please confirm your password.</HelpBlock>
-                <Button onClick={this.create_account}>Create Account</Button>
+                <Button onClick={this.create_account}>
+                  <Link to='/home'>
+                    Create Account
+                  </Link>
+                </Button>
               </form>
             </Jumbotron>
           </div>

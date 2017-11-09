@@ -74,11 +74,10 @@ class Main extends Component {
         show={this.state.showLoginModal}/>
       <Switch>
       <Route exact path='/'
-        render=
+        render =
           {
             (props) => (
-	      <HomeView/>
-
+	            <HomeView/>
             )
           }
       />

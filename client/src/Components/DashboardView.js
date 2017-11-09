@@ -8,11 +8,7 @@ class DashboardView extends Component {
   render() {
     return (
         <div className="ContentView" style={styles}>
-          <ColumnView viewName='Profile' toProfileHandler = {this.props.toProfileHandler}/>
-          <p style={{background: 'blue'}}>
-            Troopr CONTENTVIEW
-          </p>
-          <ColumnView viewName='Events'/>
+          <h1>Dashboard</h1>
         </div>
       );
   }
