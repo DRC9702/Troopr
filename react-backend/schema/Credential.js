@@ -26,8 +26,7 @@ module.exports = {
     var one = new Model(fields);
     one.save(function(error,cre) {
       if (error) {
-        console.log("Got error 3: " + error + "\n")
-        if (callback) callback(error)
+        if (callback) callback(error,null)
       } else {
         if (callback) callback(null,cre)
       }
@@ -39,5 +38,15 @@ module.exports = {
     Model.find(criteria).exec(function (error, some) {
       callback(error, some);
     });
+  },
+  middleware: {
+
+    loadOfEmail: function(req, res, next){
+      Model.find({email:req.body.email}).exec(function (error, one) {
+      req.credential =one?one[0]:"";
+      next();
+    });
+    }
   }
+
 }
