@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MainViewer from './Components/MainViewer';
+import Nav from './Components/Nav';
+import Main from './Components/Main';
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <MainViewer loggedIn={false}/>
+      <div>
+        <Nav />
+        <Main />
       </div>
+      // <div className="App">
+      //   <MainViewer loggedIn={false}/>
+      // </div>
     );
   }
 }

@@ -3,6 +3,7 @@ import HeaderView from './HeaderView';
 import SideView from './SideView';
 import ContentView from './ContentView';
 import LoginView from './LoginView';
+import Main_Page from './Main_Page'
 
 class MainViewer extends Component {
   constructor(props){
@@ -30,7 +31,8 @@ class MainViewer extends Component {
 
   render() {
     if(this.state.loggedIn)
-      return this.renderMain();
+      return <Main_Page/>
+      // return this.renderMain();
     else
       return this.renderLogin();
   }
