@@ -99,7 +99,11 @@ class HeaderView extends Component {
                 Create Account
                 </Link>
             </Button>
-            <Button bsStyle='success' type="submit" value="Login" onClick={this.sign_in}>Sign in</Button>
+            <Button bsStyle='success' type="submit" value="Login" onClick={this.sign_in && this.props.depromptLoginHandler}>
+              <Link to='/home'>
+                Sign in
+              </Link>
+            </Button>
         </Modal.Footer>
         </Modal>
 

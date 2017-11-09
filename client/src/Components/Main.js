@@ -76,15 +76,14 @@ class Main extends Component {
         show={this.state.showLoginModal}/>
       <Switch>
       <Route exact path='/'
-        render=
+        render =
           {
             (props) => (
-	      <HomeView/>
-
+	            <HomeView/>
             )
           }
       />
-      <Route exact path='/me'
+      <Route exact path='/profile'
         render=
 	  {
 	    (props) => (
@@ -98,9 +97,9 @@ class Main extends Component {
         render=
 	  {
 	  (props) => (
-       	     <DashboardView />
-	         )
-          }
+      <DashboardView username={"TestyMcTestface"}/>
+    )
+    }
       />
 
       <Route exact path='/Main_Page' component={Main_Page}/>
