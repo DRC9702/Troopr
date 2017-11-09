@@ -35,7 +35,7 @@ class HeaderView extends Component {
               <Button type="submit">Submit</Button>
             </Navbar.Form>
             <Navbar.Form pullRight>
-              <Button type="button" onClick={this.props.logoutHandler}>{this.getText()}</Button>
+              <Button type="button" onClick={this.props.promptLoginHandler}>{this.getText()}</Button>
             </Navbar.Form>
           </Navbar.Collapse>
         </Navbar>

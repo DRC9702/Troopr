@@ -12,7 +12,8 @@ const Main = () => (
           {
             (props) => (
               <MainViewer
-                 loggedIn={true}
+                 loggedIn={false}
+                 showLoginModal={false} 
               />
             )
           }

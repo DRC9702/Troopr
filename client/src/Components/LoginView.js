@@ -23,6 +23,9 @@ class LoginView extends Component {
     });
   };
 
+  componentWillReceiveProps(newProps) {
+    this.setState({show: newProps.show});
+  }
 
   render() {
     return (
