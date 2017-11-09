@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
-  skill: [String],
+  name:String,
+  skills: String,
   resume: String,
   bio: String,
   links: [String]

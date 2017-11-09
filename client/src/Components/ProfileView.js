@@ -6,20 +6,30 @@ import axios from 'axios';
 
 class ProfileView extends Component {
 
-
+  constructor(props){
+      super(props);
+      this.state = {
+          name: '',
+          skills:'',
+          resume:'',
+          bio:''
+      };
+  }
   componentDidMount() {
+    var _this = this;
     axios.post('/api/profile', {
     })
       .then(function (response) {
         if(response.data.success){
-          this.setState({name:response.data.name});
-          this.setState({skills:response.data.skills});
-          this.setState({resume:response.data.resume});
-          this.setState({bio:response.data.bio});
+          _this.setState({name:response.data.name});
+          _this.setState({skills:response.data.skills});
+          _this.setState({resume:response.data.resume});
+          _this.setState({bio:response.data.bio});
           console.log(response.data.name)
           console.log(response.data.skills)
           console.log(response.data.resume)
           console.log(response.data.bio)
+
         }else{
           console.log("failed2")
 
@@ -27,6 +37,7 @@ class ProfileView extends Component {
 
       })
       .catch(function (error) {
+        console.log(error)
         console.log("failed1")
       })
   }
@@ -34,10 +45,10 @@ class ProfileView extends Component {
   render() {
     return (
       <div className="ProfileView" style={styles}>
-        <p>Name</p>
-        <SkillsList />
-        <p>Bio</p>
-        <p>Links</p>
+        <p>Name: {this.state.name}</p>
+        <p>SkillsList: {this.state.skills}</p>
+        <p>Bio: {this.state.bio}</p>
+        <p>Resume: {this.state.resume}</p>
       </div>
     );
   }

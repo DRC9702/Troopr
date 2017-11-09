@@ -18,7 +18,7 @@ router.get('/api', User.middleware.loadAll,function(req, res, next) {
         user:req.users,
       });
 });
-router.post('/api/profile',function(req, res, next) {
+router.post('/api/profile',User.middleware.loadOfLog,function(req, res, next) {
 
       // res.render('home', {
       //   user:req.users,
@@ -36,6 +36,7 @@ router.post('/api/profile',function(req, res, next) {
       }
       if(req.user.profile){
         res.json({
+          success:true,
           name: req.user.profile.name,
           skills: req.user.profile.skills,
           resume: req.user.profile.resume,
@@ -111,10 +112,10 @@ router.post('/api/create_account', User.middleware.loadAll,function(req, res, ne
             console.log(error1)
             return
           }
-          console.log(req.session)
           // console.log(req.session)
           req.session.user=user
           console.log(req.session)
+
           res.json({
             success:"success",
             user:user
@@ -226,7 +227,7 @@ router.post('/api/create_profile', function(req, res, next) {
             })
             return
           }
-          req.session.user=user
+          // req.session.user=user
           res.json({
             success:"success",
             user:user

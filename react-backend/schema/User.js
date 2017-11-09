@@ -65,15 +65,13 @@ module.exports = {
     });
   },
     loadOfLog: function(req, res, next){
-      console.log("dwqdqwqwd")
-      Model.find({credential:(req.session.user?req.session.user.credential.id:"")}).populate([{
+      Model.find({credential:(req.session.user?req.session.user.credential:"")}).populate([{
         path:'profile',
         model:'Profile'
       },{
         path:'credential',
         model:'Credential'
       }]).exec(function (error, one) {
-        console.log("error"+error)
       req.user = one?one[0]:"";
       next();
     });
