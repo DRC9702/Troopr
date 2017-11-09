@@ -9,9 +9,8 @@ import Main from './Components/Main';
 class App extends Component {
   render() {
     return (
-      <Nav />
-      <div className="App">
-        <MainViewer loggedIn={false}/>
+        <div className="App">
+        <Main />
       </div>
     );
   }
