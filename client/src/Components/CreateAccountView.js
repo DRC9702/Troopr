@@ -66,37 +66,42 @@ class CreateAccountView extends Component {
         );
     }
     create_account= (e) =>{
-    var self
+        var self
 
-    e.preventDefault()
-    self = this
+        e.preventDefault()
+        self = this
 
-    console.log(this.state);
+        console.log(this.state);
 
-    var data = {
-      email: this.state.email,
-      username: this.state.username,
-      password: this.state.password
+        var data = {
+          email: this.state.email,
+          username: this.state.username,
+          password: this.state.password
+        }
+
+        // Submit form via jQuery/AJAX
+        console.log(data)
+        axios.post('/api/create_account', {
+          email: this.state.email,
+          username: this.state.username,
+          password: this.state.password
+        })
+          .then(function (response) {
+            console.log(response);
+            console.log(response.data.success);
+            console.log(response.data.user);
+
+            if(response.data.success) {
+                window.location = '/create_profile';
+            } else {
+                alert("Account already exists");
+            }
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
     }
-
-    // Submit form via jQuery/AJAX
-    console.log(data)
-    axios.post('/api/create_account', {
-      email: this.state.email,
-      username: this.state.username,
-      password: this.state.password
-    })
-      .then(function (response) {
-        console.log(response);
-        console.log(response.data.success);
-        console.log(response.data.user);
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-
-  }
 }
 
 const styles = {
