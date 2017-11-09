@@ -6,7 +6,7 @@ var ProfileSchema = new Schema({
   resume: String,
   bio: String,
   links: [String]
-  // user: {type: momgoose.Schema.Types.ObjectId, ref: 'User'}
+  // user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 }, {collection: 'Profile'})
 
 var Model = mongoose.model("Profile", ProfileSchema);
