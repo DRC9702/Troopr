@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Switch, Route } from 'react-router-dom'
+    import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import ProfileView from './ProfileView'
 import HeaderView from './HeaderView'
 import HomeView from './HomeView'
@@ -66,6 +66,7 @@ class Main extends Component {
 
   render () {
     return (
+      <BrowserRouter>
       <div className="Main">
       <HeaderView
         loggedIn={this.state.loggedIn}
@@ -141,6 +142,7 @@ class Main extends Component {
       />
     </Switch>
     </div>
+    </BrowserRouter>
 	    )
 	  }
 }
