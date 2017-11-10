@@ -3,9 +3,6 @@ node_js:
   - "iojs"
   - "lts/*"
 
-before_install:
-  - npm install
-
 env:
   - TEST_DIR=client
   - TEST_DIR=react-backend
