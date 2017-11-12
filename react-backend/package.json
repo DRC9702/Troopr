@@ -29,5 +29,8 @@
     "eslint": "^4.8.0",
     "eslint-plugin-react": "^7.4.0",
     "jasmine": "^2.8.0"
+  },
+  "scripts": {
+    "start": "PORT=3001 ./bin/www"
   }
 }
