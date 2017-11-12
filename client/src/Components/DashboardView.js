@@ -15,11 +15,11 @@ class DashboardView extends Component {
           <h1>Dashboard</h1>
           <h2>Hello! {this.props.username}</h2>
           <div className="well" style={wellStyles}>
-            <Button bsStyle="primary" bsSize="large" block>
-              <Link to='/profile'>
+            <Link to='/profile'>
+              <Button bsStyle="primary" bsSize="large" block>
                 View Profile
-              </Link>
-            </Button>
+              </Button>
+            </Link>
             <Button bsStyle="primary" bsSize="large" block>View Event</Button>
             <Button bsStyle="primary" bsSize="large" block>Create Event</Button>
           </div>
