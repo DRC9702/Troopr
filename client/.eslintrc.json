@@ -3,5 +3,8 @@
     "globals": {
         "window": true,
         "console": true
-      }
+    },
+    "rules": {
+        "react/prefer-stateless-function": "off"
+    }
 }
