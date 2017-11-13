@@ -8,7 +8,7 @@ env:
 
 before_install: cd $TEST_DIR
 
-install: npm instal
+install: npm install
 
 script:
   - npm test
