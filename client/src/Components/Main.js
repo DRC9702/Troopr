@@ -6,8 +6,7 @@ import HomeView from './HomeView'
 import DashboardView from './DashboardView'
 import CreateAccountView from './CreateAccountView'
 import CreateProfileView from './CreateProfileView'
-import MainPage from './MainPage'
-
+import EventsView from './EventsView'
 
 class Main extends Component {
   constructor(props){
@@ -122,6 +121,14 @@ class Main extends Component {
             {
               (props) => (
                 <ProfileView />
+              )
+            }
+        />
+        <Route exact path='/events'
+          render=
+            {
+              (props) => (
+                <EventsView />
               )
             }
         />
