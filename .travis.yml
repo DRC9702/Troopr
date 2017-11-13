@@ -1,4 +1,16 @@
 language: node_js
 node_js:
-  - "iojs"
   - "lts/*"
+
+env:
+  - TEST_DIR=client
+  - TEST_DIR=react-backend
+
+before_install: cd $TEST_DIR
+
+install: npm install
+
+script:
+  - npm test
+  - npm run lint
+

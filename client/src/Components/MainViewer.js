@@ -3,7 +3,7 @@ import HeaderView from './HeaderView';
 import SideView from './SideView';
 import ContentView from './ContentView';
 import HomeView from './HomeView';
-import Main_Page from './Main_Page'
+import MainPage from './MainPage';
 
 class MainViewer extends Component {
   constructor(props){
@@ -53,7 +53,7 @@ class MainViewer extends Component {
 
   render() {
     if(this.state.loggedIn)
-      return <Main_Page/>
+      return <MainPage/>
       // return this.renderMain();
     else
       return this.renderLogin();

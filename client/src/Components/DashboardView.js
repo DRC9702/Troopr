@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import ColumnView from './ColumnView';
-import { Button, ButtonGroup } from 'react-bootstrap';
+// import ColumnView from './ColumnView';
+import { Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 
 class DashboardView extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
   render() {
     return (
@@ -15,11 +15,11 @@ class DashboardView extends Component {
           <h1>Dashboard</h1>
           <h2>Hello! {this.props.username}</h2>
           <div className="well" style={wellStyles}>
-            <Button bsStyle="primary" bsSize="large" block>
-              <Link to='/profile'>
+            <Link to='/profile'>
+              <Button bsStyle="primary" bsSize="large" block>
                 View Profile
-              </Link>
-            </Button>
+              </Button>
+            </Link>
             <Button bsStyle="primary" bsSize="large" block>View Event</Button>
             <Button bsStyle="primary" bsSize="large" block>Create Event</Button>
           </div>

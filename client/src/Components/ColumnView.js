@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 
 class ColumnView extends Component {
 
+    //TODO: viewHandler
   constructor(props){
     super(props);
-    if (this.props.viewName == 'profile')
+    if (this.props.viewName === 'profile')
       this.viewHandler = this.props.toProfileHandler;
     else
       this.viewHandler = this.props.toProfileHandler;

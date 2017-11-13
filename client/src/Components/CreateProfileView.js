@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Checkbox, Radio, ControlLabel, FormControl, Button, FormGroup, HelpBlock} from 'react-bootstrap';
+import {ControlLabel, FormControl, Button, FormGroup, HelpBlock} from 'react-bootstrap';
 import axios from 'axios';
 
 class CreateProfileView extends Component {
@@ -82,10 +82,10 @@ class CreateProfileView extends Component {
     }
 
     create_profile= (e) =>{
-        var self
+        // var self
 
         e.preventDefault()
-        self = this
+        // self = this
 
         console.log(this.state);
 

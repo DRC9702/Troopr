@@ -1,14 +1,12 @@
 import React, {Component} from 'react'
-import { Switch, Route } from 'react-router-dom'
-import Main_Page from './Main_Page'
-import MainViewer from './MainViewer'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import ProfileView from './ProfileView'
 import HeaderView from './HeaderView'
 import HomeView from './HomeView'
 import DashboardView from './DashboardView'
 import CreateAccountView from './CreateAccountView'
 import CreateProfileView from './CreateProfileView'
-
+import EventsView from './EventsView'
 
 class Main extends Component {
   constructor(props){
@@ -67,6 +65,7 @@ class Main extends Component {
 
   render () {
     return (
+      <BrowserRouter>
       <div className="Main">
       <HeaderView
         loggedIn={this.state.loggedIn}
@@ -75,75 +74,69 @@ class Main extends Component {
         depromptLoginHandler = {this.depromptLogin}
         show={this.state.showLoginModal}/>
       <Switch>
-      <Route exact path='/'
-        render =
-          {
-            (props) => (
-	            <HomeView/>
-            )
-          }
-      />
-      <Route exact path='/profile'
-        render=
-	  {
-	    (props) => (
-              <ProfileView
-	      loggedIn={this.state.loggedIn}
-              />
-	     )
-	  }
-      />
-      <Route exact path='/dashboard'
-        render=
-	  {
-	  (props) => (
-        <DashboardView/>
-        )
-    }
-      />
-
-      <Route exact path='/Main_Page' component={Main_Page}/>
-
-
-      <Route exact path='/create_account'
-         render=
-             {
-                 (props) => (
-                     <CreateAccountView />
-                 )
-             }
-      />
-
-      <Route exact path='/create_profile'
-         render=
-             {
-                 (props) => (
-                     <CreateProfileView />
-                 )
-             }
-      />
-
-      <Route exact path='/profile'
-         render=
-             {
-                 (props) => (
-                     <ProfileView />
-                 )
-             }
-      />
-
-      <Route exact path='/dashboard'
-         render=
-             {
-                 (props) => (
-                     <DashboardView />
-                 )
-             }
-      />
-    </Switch>
-    </div>
-	    )
-	  }
+        <Route exact path='/'
+          render =
+            {
+              (props) => (
+	              <HomeView/>
+              )
+            }
+        />
+        <Route exact path='/profile'
+          render=
+	          {
+	            (props) => (
+                <ProfileView
+	                loggedIn={this.state.loggedIn}
+                />
+	            )
+	          }
+        />
+        <Route exact path='/dashboard'
+          render=
+            {
+              (props) => (
+                <DashboardView/>
+              )
+            }
+        />
+        <Route exact path='/create_account'
+          render=
+            {
+              (props) => (
+                <CreateAccountView />
+              )
+            }
+        />
+        <Route exact path='/create_profile'
+          render=
+            {
+              (props) => (
+                <CreateProfileView />
+              )
+            }
+        />
+        <Route exact path='/profile'
+          render=
+            {
+              (props) => (
+                <ProfileView />
+              )
+            }
+        />
+        <Route exact path='/events'
+          render=
+            {
+              (props) => (
+                <EventsView />
+              )
+            }
+        />
+      </Switch>
+      </div>
+      </BrowserRouter>
+	  )
+	}
 }
 
 export default Main

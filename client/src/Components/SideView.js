@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Image, Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 class SideView extends Component {
 
