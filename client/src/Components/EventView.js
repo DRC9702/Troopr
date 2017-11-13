@@ -8,7 +8,7 @@ class EventView extends Component {
     render() {
         return (
             <div className="EventView">
-                list of events
+              <h1>Event Detail</h1>
             </div>
         );
     }

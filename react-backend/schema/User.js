@@ -38,12 +38,29 @@ module.exports = {
       callback(error, some);
     });
   },
+  findById: function(id, callback) {
+    Model.findOne({ _id : id }).
+    exec(function (error, one) {
+      callback(error, one);
+    });
+  },
+  findByIdWithEvent: function(id, callback) {
+    Model.findOne({ _id : id }).populate([{
+			path:'eventsHosted',
+			model:'Event'
+		}]).exec(function (error, one) {
+      callback(error, one);
+    });
+  },
   middleware: {
 
 		loadAll: function(req, res, next){
       Model.find({}).populate([{
         path:'profile',
         model:'Profile'
+      },{
+        path:'eventsHosted',
+        model:'Event'
       },{
         path:'credential',
         model:'Credential'

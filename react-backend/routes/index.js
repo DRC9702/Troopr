@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../schema/User');
+var Event = require('../schema/Event');
 var Profile = require('../schema/Profile');
 var credential = require('../schema/Credential');
 var React = require('react');
@@ -122,6 +123,155 @@ router.post('/api/create_account', User.middleware.loadAll,function(req, res, ne
           })
         })
       })
+});
+
+router.post('/api/create_event',function(req, res, next) {
+    if(!req.session.user){
+      res.json({
+        success:false,
+        login:false,
+        message:"need login",
+        error:"need login"
+      })
+      return
+    }
+      var host= req.session.user
+      // var host= "5a0424d60cb1fa08d9aeaad8"
+      var event_name = req.body.event_name
+      var start_date_para = req.body.start_date.split("-");
+      var start_date = new Date(parseInt(start_date_para[0]),parseInt(start_date_para[1])-1, parseInt(start_date_para[2]), 0, 0, 0);
+      var end_date_para = req.body.end_date.split("-");
+      var end_date = new Date(parseInt(end_date_para[0]), parseInt(end_date_para[1])-1, parseInt(end_date_para[2]), 0, 0, 0);
+      var registration_deadline_para = req.body.registration_deadline.split("-");
+      var registration_deadline = new Date(parseInt(registration_deadline_para[0]), parseInt(registration_deadline_para[1])-1, parseInt(registration_deadline_para[2]), 0, 0, 0);
+      var description = req.body.description
+      var max = req.body.max
+      var min = req.body.min
+
+      if(!(host&&event_name&&start_date&&end_date&&description&&max&&min&&registration_deadline)){
+        res.json({
+          success:false,
+          message:"infomation not completed"
+        })
+        return
+      }
+      var fields = {
+        host:host,
+        name:event_name,
+        start_date:start_date,
+        end_date:end_date,
+        registration_deadline:registration_deadline,
+        description:description,
+        max:max,
+        min:min
+      }
+      console.log(fields)
+      Event.add(fields,function(error,event){
+        if(error){
+          res.json({
+            success:"fail at creating event",
+            error:error
+          })
+          return
+        }
+        User.findById(req.session.user._id,function(error1,user){
+          // User.findById("5a0424d60cb1fa08d9aeaad8",function(error1,user){
+          if(error){
+            res.json({
+              success:false,
+              message:"No such user",
+              error:error1
+            })
+            return
+          }
+          var event_list=user.eventsHosted?user.eventsHosted:[]
+          event_list.push(event)
+          User.update(user._id,{
+            eventsHosted:event_list,
+          }, function(error,user2){
+            if(error){
+              res.json({
+                success:"fail at user"
+              })
+              return
+            }
+            // req.session.user=user
+            res.json({
+              success:"success",
+              user:user
+            })
+            return
+          })
+
+        })
+
+      })
+});
+
+router.post('/api/show_event',function(req, res, next) {
+    if(!req.session.user){
+      res.json({
+        success:false,
+        login:false,
+        message:"need login",
+        error:"need login"
+      })
+      return
+    }
+
+    // User.findByIdWithEvent("5a0424d60cb1fa08d9aeaad8",function(error1,user){
+    User.findByIdWithEvent(req.session.user._id,function(error1,user){
+        if(error1){
+          res.json({
+            success:false,
+            message:"No such user",
+            error:error1
+          })
+          return
+        }
+        var event_list=user.eventsHosted?user.eventsHosted:[]
+        res.json({
+          success:"success",
+          events:event_list
+        })
+        return
+    })
+});
+function strContains(p,obj){
+  if(typeof obj != 'string'||typeof p != 'string'){
+    return false
+  }
+  var a = obj.toLowerCase();
+  var b = p.toLowerCase()
+
+
+  if (a.indexOf(b) !== -1|| b.indexOf(a) !== -1){
+
+    return true
+  }
+  return false;
+}
+
+router.post('/api/search_event', Event.middleware.loadAll,function(req, res, next) {
+    if(!req.body.query){
+      if(req.events){
+        res.json({
+          success:"success",
+          events:req.events
+        })
+        return
+      }
+    }
+    if(req.events){
+        var event_list=req.events.filter(function(p){
+          return strContains(p.host,req.body.query)||strContains(p.name,req.body.query)
+        })
+        res.json({
+          success:"success",
+          events:event_list
+        })
+        return
+    }
 });
 
 router.post('/api/sign_in', credential.middleware.loadOfEmail,User.middleware.loadOfCre,function(req, res, next) {
