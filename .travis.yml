@@ -5,4 +5,12 @@ node_js:
 env:
   - TEST_DIR=client
   - TEST_DIR=react-backend
-script: cd $TEST_DIR && npm install && npm test
+
+before_install: cd $TEST_DIR
+
+install: npm instal
+
+script:
+  - npm test
+  - npm run lint
+
