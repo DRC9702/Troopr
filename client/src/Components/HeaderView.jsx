@@ -10,8 +10,6 @@ require('../styles/HeaderView.css');
 class HeaderView extends Component {
   constructor(props) {
     super(props);
-    this.hideModal = this.hideModal.bind(this);
-    this.showModal = this.showModal.bind(this);
     this.state = {
       // loggedIn: props.loggedIn,
       show: props.show,
@@ -19,6 +17,7 @@ class HeaderView extends Component {
       username: '',
       password: '',
     };
+
     this.signIn = this.signIn.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -53,6 +52,10 @@ class HeaderView extends Component {
     this.setState({
       show: false,
     });
+  }
+
+  createAcct() {
+      window.location = '/create_account';
   }
 
   signIn(e) {
@@ -136,10 +139,10 @@ class HeaderView extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="link" onClick={this.props.depromptLoginHandler}>
-              <Link to="/create_account" href="/create_account">
+            <Button bsStyle="link" onClick={this.createAcct}>
+              {/*<Link to="/create_account" href="/create_account">*/}
                 Create Account
-              </Link>
+              {/*</Link>*/}
             </Button>
             <Button bsStyle="success" type="submit" value="Login" onClick={this.signIn}>
               Sign in
@@ -157,6 +160,7 @@ HeaderView.propTypes = {
   show: PropTypes.bool.isRequired,
   promptLoginHandler: PropTypes.func.isRequired,
   depromptLoginHandler: PropTypes.func.isRequired,
+
 };
 
 // const styles = {

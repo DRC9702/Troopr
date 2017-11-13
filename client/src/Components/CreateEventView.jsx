@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
-import {ControlLabel, FormControl, Button, FormGroup, HelpBlock, Col} from 'react-bootstrap';
+import {ControlLabel, FormControl, Button, FormGroup, HelpBlock, Col, Glyphicon} from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
+import axios from 'axios';
 
 class CreateEventView extends Component {
 
-
     constructor(props) {
         super(props);
-        // this.state = {
-        //     date: "1990-06-05",
-        //     format: "YYYY-MM-DD",
-        //     inputFormat: "DD/MM/YYYY",
-        //     mode: "date"
-        // };
-        var value = new Date().toISOString();
+        const value = new Date().toISOString();
         this.state = {
             startDate: value,
             deadline: value,
-            endDate: value
-        }
+            endDate: value,
+            formattedStartValue: "",
+            formattedDeadline: "",
+            formattedEndValue: "",
+            eventName: "",
+            minSize: "",
+            maxSize: "",
+            eventBio: "",
+        };
+
+        this.createEvent = this.createEvent.bind(this);
     };
+
+    handleEventNameChange = function(e) {
+        this.setState({ eventName: e.target.value });
+    }.bind(this);
+
+    handleMinSizeChange = function(e) {
+        this.setState({ minSize: e.target.value });
+    }.bind(this);
+
+    handleMaxSizeChange = function(e) {
+        this.setState({ maxSize: e.target.value });
+    }.bind(this);
+
+    handleEventBioChange = function(e) {
+        this.setState({ eventBio: e.target.value });
+    }.bind(this);
 
     handleStartChange = function(value, formattedValue) {
         this.setState({
@@ -42,58 +61,89 @@ class CreateEventView extends Component {
         });
     }.bind(this);
 
-    // handleChange =(e) =>{
-    //     console.log(e);
-    //     var  k = "startDate"
-    //     this.setState({k: e
-    //     });
-    // }
+    createEvent = function(e) {
+
+        e.preventDefault();
+
+        //console.log(this.state);
+        const data = {
+            evenName: this.state.eventName,
+            startDate: this.state.formattedStartValue,
+            deadline: this.state.formattedDeadline,
+            endDate: this.state.formattedEndValue,
+            minSize: this.state.minSize,
+            maxSize: this.state.maxSize,
+            eventBio: this.state.eventBio,
+        };
+
+        // Submit form via jQuery/AJAX
+        console.log(data);
+        axios.post('/api/create_event', {
+            evenName: this.state.eventName,
+            startDate: this.state.formattedStartValue,
+            deadline: this.state.formattedDeadline,
+            endDate: this.state.formattedEndValue,
+            minSize: this.state.minSize,
+            maxSize: this.state.maxSize,
+            eventBio: this.state.eventBio,
+        })
+        .then((response) => {
+            console.log(response);
+            console.log(response.data.success);
+            console.log(response.data.user);
+
+            if (response.data.success) {
+                window.location = '/create_event';
+            } else {
+                alert('event created failed');
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
 
     render() {
         return (
             <div className="CreateEventView" style={styles}>
                 <br/><br/><br/><br/>
-                {/*<form>*/}
-                    {/*<br/><br/><br/><br/>*/}
                     <FieldGroup
                         id="formControlsText"
-                        type="text"
                         label="Event Name"
-
-                        placeholder="Event Name"
-                    />
-
-                    <FieldGroup
-                        id="formControlText"
-                        label="Starting Date"
                         type="text"
-                        placeholder="Event Starting Date"
+                        placeholder="Event Name"
+                        value={this.state.eventName}
+                        onChange={this.handleEventNameChange}
                     />
 
                     <Col sm={3}>
                         <FormGroup validationState="success">
                             <ControlLabel>Starting Date</ControlLabel>
-                            <DatePicker id="startDate" value={this.state.startDate} onChange={this.handleStartChange} Styles="Success"/>
+                            <DatePicker id="startDate" value={this.state.startDate} onChange={this.handleStartChange}
+                                        Styles="Success" clearButtonElement={<Glyphicon glyph="star" />}/>
                         </FormGroup>
                     </Col>
 
                     <Col sm={3}>
                         <FormGroup validationState="success">
                             <ControlLabel>Closing Date</ControlLabel>
-                            <DatePicker id="endDate" value={this.state.deadline} onChange={this.handleDeadlineChange} Styles="Success"/>
+                            <DatePicker id="endDate" value={this.state.deadline} onChange={this.handleDeadlineChange}
+                                        Styles="Success" clearButtonElement={<Glyphicon glyph="star" />}/>
                         </FormGroup>
                     </Col>
 
                     <Col sm={3}>
                         <FormGroup validationState="success">
                             <ControlLabel>Registration Deadline</ControlLabel>
-                            <DatePicker id="deadline" value={this.state.endDate} onChange={this.handleEndChange}  Styles="Success"/>
+                            <DatePicker id="deadline" value={this.state.endDate} onChange={this.handleEndChange}
+                                        Styles="Success" clearButtonElement={<Glyphicon glyph="star" />}/>
                         </FormGroup>
                     </Col>
 
                     <FormGroup controlId="formControlsSelect">
                         <ControlLabel>Min Team Size</ControlLabel>
-                        <FormControl componentClass="select" placeholder="select">
+                        <FormControl componentClass="select" placeholder="select" value={this.state.minSize}
+                                     onChange={this.handleMinSizeChange}>
                             <option value="select">select</option>
                             <option value="other">2</option>
                             <option value="other">3</option>
@@ -109,7 +159,8 @@ class CreateEventView extends Component {
 
                     <FormGroup controlId="formControlsSelect">
                         <ControlLabel>Max Team Size</ControlLabel>
-                        <FormControl componentClass="select" placeholder="select">
+                        <FormControl componentClass="select" placeholder="select" value={this.state.maxSize}
+                                     onChange={this.handleMaxSizeChange}>
                             <option value="select">select</option>
                             <option value="other">2</option>
                             <option value="other">3</option>
@@ -125,51 +176,12 @@ class CreateEventView extends Component {
 
                     <FormGroup controlId="formControlsTextarea">
                         <ControlLabel >Event Description</ControlLabel>
-                        <FormControl componentClass="textarea" placeholder="textarea" bsSize="large"/>
+                        <FormControl componentClass="textarea" placeholder="textarea" bsSize="large"
+                                     value={this.state.eventBio} onChange={this.handleEventBioChange}/>
                     </FormGroup>
 
-                    {/*<Button type="submit" bsStyle='primary'>*/}
-                        {/*Create*/}
-                    {/*</Button>*/}
-                {/*</form>*/}
-                {/*<FieldGroup*/}
-                    {/*id="formControlsText"*/}
-                    {/*type="text"*/}
-                    {/*value={this.state.name}*/}
-                    {/*label="Name"*/}
-                    {/*onChange={this.handleNameChange}*/}
-                    {/*placeholder="Enter Name"*/}
-                {/*/>*/}
-
-                {/*<FieldGroup*/}
-                    {/*id="formControlsSkills"*/}
-                    {/*type="text"*/}
-                    {/*value={this.state.skills}*/}
-                    {/*label="Skills"*/}
-                    {/*onChange={this.handleSkillsChange}*/}
-                    {/*placeholder="Enter skills"*/}
-                {/*/>*/}
-
-                {/*<FieldGroup*/}
-                    {/*id="formControlsFile"*/}
-                    {/*type="text"*/}
-                    {/*value={this.state.resume}*/}
-                    {/*label="Resume"*/}
-                    {/*onChange={this.handleResumeChange}*/}
-                    {/*placeholder="Enter Resume"*/}
-                {/*/>*/}
-
-                {/*<FormGroup controlId="formControlsTextarea">*/}
-                    {/*<ControlLabel>Bio</ControlLabel>*/}
-                    {/*<FormControl componentClass="textarea"*/}
-                                 {/*value={this.state.bio}*/}
-                                 {/*onChange={this.handleBioChange}*/}
-
-                                 {/*placeholder="textarea" />*/}
-                {/*</FormGroup>*/}
-
-                <Button type="submit" onClick={this.create_profile}>
-                    Submit
+                <Button bsStyle="success" type="submit" onClick={this.createEvent}>
+                    Create
                 </Button>
             </div>
         );

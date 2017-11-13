@@ -21,20 +21,23 @@ class CreateProfileView extends Component {
       resume: '',
       bio: '',
     };
+    this.createProfile = this.createProfile.bind(this);
   }
-  handleNameChange(e) {
+  handleNameChange = function(e) {
     this.setState({ name: e.target.value });
-  }
-  handleSkillsChange(e) {
-    this.setState({ skills: e.target.value });
-  }
+  }.bind(this)
 
-  handleResumeChange(e) {
+  handleSkillsChange = function(e) {
+    this.setState({ skills: e.target.value });
+  }.bind(this)
+
+  handleResumeChange = function(e) {
     this.setState({ resume: e.target.value });
-  }
-  handleBioChange(e) {
+  }.bind(this)
+
+  handleBioChange = function(e) {
     this.setState({ bio: e.target.value });
-  }
+  }.bind(this)
 
   createProfile(e) {
     // var self
@@ -42,8 +45,7 @@ class CreateProfileView extends Component {
     e.preventDefault();
     // self = this
 
-    console.log(this.state);
-
+    //console.log(this.state);
     const data = {
       name: this.state.name,
       skills: this.state.skills,
@@ -124,7 +126,7 @@ class CreateProfileView extends Component {
           </FormGroup>
 
           <Button type="submit" onClick={this.createProfile}>
-                        Submit
+              Create
           </Button>
         </form>
       </div>

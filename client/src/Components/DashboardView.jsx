@@ -9,19 +9,34 @@ class DashboardView extends Component {
   //     super(props);
   // }
 
+  constructor(props) {
+      super(props);
+      this.state = {
+          savedProfile: ""
+      };
+  }
+
+  handleViewProfile = function() {
+      window.location = "/profile";
+  }.bind(this);
+
+  handleViewEvent = function() {
+      window.location = "/event";
+  }.bind(this);
+
+  handleCreateEvent = function() {
+      window.location = "/create_event";
+  }.bind(this);
+
   render() {
     return (
       <div className="DashboardView" style={styles}>
         <h1>Dashboard</h1>
         <h2>Hello! {this.props.username}</h2>
         <div className="well" style={wellStyles}>
-          <Link to="/profile">
-            <Button bsStyle="primary" bsSize="large" block>
-                View Profile
-            </Button>
-          </Link>
-          <Button bsStyle="primary" bsSize="large" block>View Event</Button>
-          <Button bsStyle="primary" bsSize="large" block>Create Event</Button>
+          <Button bsStyle="primary" bsSize="large" onClick={this.handleViewProfile} block>View Profile</Button>
+          <Button bsStyle="primary" bsSize="large" onClick={this.handleViewEvent} block>View Event</Button>
+          <Button bsStyle="primary" bsSize="large" onClick={this.handleCreateEvent} block>Create Event</Button>
         </div>
       </div>
     );
