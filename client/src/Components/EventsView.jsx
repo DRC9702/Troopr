@@ -34,18 +34,19 @@ class EventsView extends Component {
         // console.log(response.data);
         console.log(response.data.success);
         if (response.data.success) {
-          let newState = response.data.events;
-          for (let i=0; i < newState.length; i++ ) {
+          const newState = response.data.events;
+          for (let i = 0; i < newState.length; i++) {
+            // reformatting dates
             let tokens = newState[i].start_date.split('T')[0].split('-');
-            let formattedDate = tokens[1] + "/" + tokens[2] + "/" + tokens[0];
+            let formattedDate = `${tokens[1]  }/${  tokens[2]  }/${  tokens[0]}`;
             newState[i].start_date = formattedDate;
 
             tokens = newState[i].end_date.split('T')[0].split('-');
-            formattedDate = tokens[1] + "/" + tokens[2] + "/" + tokens[0];
+            formattedDate = `${tokens[1]  }/${  tokens[2]  }/${  tokens[0]}`;
             newState[i].end_date = formattedDate;
 
             tokens = newState[i].registration_deadline.split('T')[0].split('-');
-            formattedDate = tokens[1] + "/" + tokens[2] + "/" + tokens[0];
+            formattedDate = `${tokens[1]  }/${  tokens[2]  }/${  tokens[0]}`;
             newState[i].registration_deadline = formattedDate;
           }
           _this.setState({ events: newState });
@@ -61,8 +62,8 @@ class EventsView extends Component {
   render() {
     return (
       <div className="EventsView" style={styles}>
-            <Table striped bordered condensed hover>
-                <thead>
+        <Table striped bordered condensed hover>
+              <thead>
                   <tr>
                     <th>Event Name</th>
                     <th>Event Start Date</th>
@@ -70,10 +71,10 @@ class EventsView extends Component {
                     <th>Registraion Close Date</th>
                   </tr>
                 </thead>
-                <EventsList events={this.state.events}/>
-              </Table>
-          </div>
-    ); 
+              <EventsList events={this.state.events} />
+            </Table>
+      </div>
+    );
   }
 }
 
