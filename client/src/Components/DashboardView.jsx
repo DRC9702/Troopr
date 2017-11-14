@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 // import ColumnView from './ColumnView';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 
 class DashboardView extends Component {
-  // constructor(props) {
-  //     super(props);
-  // }
 
   constructor(props) {
       super(props);
@@ -21,7 +17,7 @@ class DashboardView extends Component {
   }.bind(this);
 
   handleViewEvent = function() {
-      window.location = "/event";
+      window.location = "/events";
   }.bind(this);
 
   handleCreateEvent = function() {

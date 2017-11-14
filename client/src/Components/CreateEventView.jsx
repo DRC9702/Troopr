@@ -66,36 +66,40 @@ class CreateEventView extends Component {
         e.preventDefault();
 
         //console.log(this.state);
-        const data = {
-            evenName: this.state.eventName,
-            startDate: this.state.formattedStartValue,
-            deadline: this.state.formattedDeadline,
-            endDate: this.state.formattedEndValue,
-            minSize: this.state.minSize,
-            maxSize: this.state.maxSize,
-            eventBio: this.state.eventBio,
-        };
+        // const data = {
+        //     evenName: this.state.eventName,
+        //     startDate: this.state.formattedStartValue,
+        //     deadline: this.state.formattedDeadline,
+        //     endDate: this.state.formattedEndValue,
+        //     minSize: this.state.minSize,
+        //     maxSize: this.state.maxSize,
+        //     eventBio: this.state.eventBio,
+        // };
 
         // Submit form via jQuery/AJAX
-        console.log(data);
+        //console.log(data);
         axios.post('/api/create_event', {
-            evenName: this.state.eventName,
-            startDate: this.state.formattedStartValue,
-            deadline: this.state.formattedDeadline,
-            endDate: this.state.formattedEndValue,
-            minSize: this.state.minSize,
-            maxSize: this.state.maxSize,
-            eventBio: this.state.eventBio,
+            event_name: this.state.eventName,
+            start_date: this.state.formattedStartValue,
+            registration_deadline: this.state.formattedDeadline,
+            end_date: this.state.formattedEndValue,
+            min: this.state.minSize,
+            max: this.state.maxSize,
+            description: this.state.eventBio,
         })
         .then((response) => {
             console.log(response);
             console.log(response.data.success);
-            console.log(response.data.user);
+            // console.log(response.data.user);
 
             if (response.data.success) {
-                window.location = '/create_event';
+                window.location = '/events';
             } else {
-                alert('event created failed');
+                if(response.data.message){
+                    alert(response.data.message);
+                }else{
+                    alert('event created failed');
+                }
             }
         })
         .catch((error) => {
@@ -127,7 +131,7 @@ class CreateEventView extends Component {
                     <Col sm={3}>
                         <FormGroup validationState="success">
                             <ControlLabel>Closing Date</ControlLabel>
-                            <DatePicker id="endDate" value={this.state.deadline} onChange={this.handleDeadlineChange}
+                            <DatePicker id="endDate" value={this.state.deadline} onChange={this.handleEndChange}
                                         Styles="Success" clearButtonElement={<Glyphicon glyph="star" />}/>
                         </FormGroup>
                     </Col>
@@ -135,7 +139,7 @@ class CreateEventView extends Component {
                     <Col sm={3}>
                         <FormGroup validationState="success">
                             <ControlLabel>Registration Deadline</ControlLabel>
-                            <DatePicker id="deadline" value={this.state.endDate} onChange={this.handleEndChange}
+                            <DatePicker id="deadline" value={this.state.endDate} onChange={this.handleDeadlineChange}
                                         Styles="Success" clearButtonElement={<Glyphicon glyph="star" />}/>
                         </FormGroup>
                     </Col>
@@ -145,15 +149,15 @@ class CreateEventView extends Component {
                         <FormControl componentClass="select" placeholder="select" value={this.state.minSize}
                                      onChange={this.handleMinSizeChange}>
                             <option value="select">select</option>
-                            <option value="other">2</option>
-                            <option value="other">3</option>
-                            <option value="other">4</option>
-                            <option value="other">5</option>
-                            <option value="other">6</option>
-                            <option value="other">7</option>
-                            <option value="other">8</option>
-                            <option value="other">9</option>
-                            <option value="other">10</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
                         </FormControl>
                     </FormGroup>
 
@@ -162,15 +166,15 @@ class CreateEventView extends Component {
                         <FormControl componentClass="select" placeholder="select" value={this.state.maxSize}
                                      onChange={this.handleMaxSizeChange}>
                             <option value="select">select</option>
-                            <option value="other">2</option>
-                            <option value="other">3</option>
-                            <option value="other">4</option>
-                            <option value="other">5</option>
-                            <option value="other">6</option>
-                            <option value="other">7</option>
-                            <option value="other">8</option>
-                            <option value="other">9</option>
-                            <option value="other">10</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
                         </FormControl>
                     </FormGroup>
 

@@ -8,7 +8,7 @@ class EventsView extends Component {
 
     render() {
         return (
-            <div className="EventsView">
+            <div className="EventsView" style={styles}>
               <Table striped bordered condensed hover>
                 <thead>
                   <tr>
@@ -30,6 +30,16 @@ class EventsView extends Component {
             </div>
         );
     }
+};
+
+const styles = {
+    backgroundColor: 'orange',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    flexGrow: 1,
 };
 
 export default EventsView;

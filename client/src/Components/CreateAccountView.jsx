@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, Jumbotron, Col, Row} from 'react-bootstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const styles = {
   backgroundColor: 'orange',
