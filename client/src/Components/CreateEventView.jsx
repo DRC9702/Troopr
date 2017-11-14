@@ -7,14 +7,16 @@ class CreateEventView extends Component {
 
     constructor(props) {
         super(props);
-        const value = new Date().toISOString();
+        const curDate = new Date().toISOString();
+        var tokens = curDate.split("/")[0].split("-");
+        const formattedDate = tokens[1] + "/" + tokens[2] + "/" + tokens[0];
         this.state = {
-            startDate: value,
-            deadline: value,
-            endDate: value,
-            formattedStartValue: "",
-            formattedDeadline: "",
-            formattedEndValue: "",
+            startDate: curDate,
+            deadline: curDate,
+            endDate: curDate,
+            formattedStartValue: formattedDate,
+            formattedDeadline: formattedDate,
+            formattedEndValue: formattedDate,
             eventName: "",
             minSize: "",
             maxSize: "",
