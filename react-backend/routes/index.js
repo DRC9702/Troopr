@@ -135,19 +135,30 @@ router.post('/api/create_event',function(req, res, next) {
       })
       return
     }
+    console.log(req.body)
       var host= req.session.user
       // var host= "5a0424d60cb1fa08d9aeaad8"
       var event_name = req.body.event_name
-      var start_date_para = req.body.start_date.split("-");
-      var start_date = new Date(parseInt(start_date_para[0]),parseInt(start_date_para[1])-1, parseInt(start_date_para[2]), 0, 0, 0);
-      var end_date_para = req.body.end_date.split("-");
-      var end_date = new Date(parseInt(end_date_para[0]), parseInt(end_date_para[1])-1, parseInt(end_date_para[2]), 0, 0, 0);
-      var registration_deadline_para = req.body.registration_deadline.split("-");
-      var registration_deadline = new Date(parseInt(registration_deadline_para[0]), parseInt(registration_deadline_para[1])-1, parseInt(registration_deadline_para[2]), 0, 0, 0);
+      var start_date_para = req.body.start_date.split("/");
+      var start_date = new Date(parseInt(start_date_para[2]),parseInt(start_date_para[0])-1, parseInt(start_date_para[1]), 0, 0, 0);
+      var end_date_para = req.body.end_date.split("/");
+      var end_date = new Date(parseInt(end_date_para[2]), parseInt(end_date_para[0])-1, parseInt(end_date_para[1]), 0, 0, 0);
+      var registration_deadline_para = req.body.registration_deadline.split("/");
+      var registration_deadline = new Date(parseInt(registration_deadline_para[2]), parseInt(registration_deadline_para[0])-1, parseInt(registration_deadline_para[1]), 0, 0, 0);
       var description = req.body.description
-      var max = req.body.max
-      var min = req.body.min
-
+      var max = parseInt(req.body.max)
+      var min = parseInt(req.body.min)
+    var fields = {
+        host:host,
+        name:event_name,
+        start_date:start_date,
+        end_date:end_date,
+        registration_deadline:registration_deadline,
+        description:description,
+        max:max,
+        min:min
+    }
+    console.log(fields)
       if(!(host&&event_name&&start_date&&end_date&&description&&max&&min&&registration_deadline)){
         res.json({
           success:false,

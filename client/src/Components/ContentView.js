@@ -10,11 +10,11 @@ class ContentView extends Component {
     this.toProfileHandler = this.toProfileHandler.bind(this);
   }
 
-  toProfileHandler(e) {
+  toProfileHandler = function(e) {
     this.setState({
       viewProfile: true,
     })
-  }
+  }.bind(this)
 
   render() {
     if(this.state.viewProfile)

@@ -5,10 +5,10 @@
   "dependencies": {
     "@okta/okta-signin-widget": "^2.3.0",
     "axios": "^0.17.0",
+    "create-react-class": "^15.6.2",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
-    "react-bootstrap-sidebar": "0.0.1",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.15"
