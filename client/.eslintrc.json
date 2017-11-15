@@ -2,6 +2,7 @@
     "extends": "airbnb",
     "globals": {
         "window": true,
+        "document": true,
         "console": true
     },
     "rules": {
