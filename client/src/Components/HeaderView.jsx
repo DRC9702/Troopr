@@ -95,7 +95,7 @@ class HeaderView extends Component {
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/">Brand</a>
+              <a href="/dashboard">Brand</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>

@@ -135,7 +135,7 @@ class CreateAccountView extends Component {
                 </FormGroup>
             </Col>
             </Row>
-            <Button bsStyle="submit" onClick={this.createAccount}>
+            <Button bsStyle="primary" onClick={this.createAccount}>
                 Create
             </Button>
           </form>

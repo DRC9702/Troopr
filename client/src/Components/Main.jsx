@@ -140,7 +140,6 @@ class Main extends Component {
             }
             />
             <Route
-              exact
               path="/events"
               render={
               props => (
