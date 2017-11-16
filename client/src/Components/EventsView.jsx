@@ -24,11 +24,15 @@ class EventsView extends Component {
   }
   componentDidMount() {
     const _this = this;
-
+    console.log(this.props);
+    let key = '';
+    if (this.props.match.params.searchKey != '$all') {
+      key = this.props.match.params.searchKey;
+    }
     // Submit form via jQuery/AJAX
     // console.log(data);
     axios.post('/api/search_event', {
-      query: '',
+      query: key,
     })
       .then((response) => {
         // console.log(response.data);

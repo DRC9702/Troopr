@@ -139,7 +139,7 @@ class Main extends Component {
               )
             }
             />
-            <Route
+            {/* <Route
               exact
               path="/events"
               render={
@@ -147,6 +147,10 @@ class Main extends Component {
                 <EventsView />
               )
             }
+            /> */}
+            <Route
+              path="/events/:searchKey"
+              component={EventsView}
             />
           </Switch>
         </div>
