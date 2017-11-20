@@ -67,17 +67,6 @@ class CreateEventView extends Component {
 
         e.preventDefault();
 
-        //console.log(this.state);
-        // const data = {
-        //     evenName: this.state.eventName,
-        //     startDate: this.state.formattedStartValue,
-        //     deadline: this.state.formattedDeadline,
-        //     endDate: this.state.formattedEndValue,
-        //     minSize: this.state.minSize,
-        //     maxSize: this.state.maxSize,
-        //     eventBio: this.state.eventBio,
-        // };
-
         // Submit form via jQuery/AJAX
         //console.log(data);
         axios.post('/api/create_event', {
@@ -133,7 +122,7 @@ class CreateEventView extends Component {
                     <Col sm={3}>
                         <FormGroup validationState="success">
                             <ControlLabel>Closing Date</ControlLabel>
-                            <DatePicker id="endDate" value={this.state.deadline} onChange={this.handleEndChange}
+                            <DatePicker id="endDate" value={this.state.endDate} onChange={this.handleEndChange}
                                         Styles="Success" clearButtonElement={<Glyphicon glyph="star" />}/>
                         </FormGroup>
                     </Col>
@@ -141,7 +130,7 @@ class CreateEventView extends Component {
                     <Col sm={3}>
                         <FormGroup validationState="success">
                             <ControlLabel>Registration Deadline</ControlLabel>
-                            <DatePicker id="deadline" value={this.state.endDate} onChange={this.handleDeadlineChange}
+                            <DatePicker id="deadline" value={this.state.deadline} onChange={this.handleDeadlineChange}
                                         Styles="Success" clearButtonElement={<Glyphicon glyph="star" />}/>
                         </FormGroup>
                     </Col>

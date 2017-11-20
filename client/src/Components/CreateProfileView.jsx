@@ -84,9 +84,9 @@ class CreateProfileView extends Component {
         {/* <SkillsList /> */}
         {/* <p>Bio</p> */}
         {/* <p>Links</p> */}
-        <br /><br /><br /><br />
-        <form>
-          <br /><br /><br /><br />
+        <br /><br />
+          <h1>Create Profile</h1>
+          <form>
           <FieldGroup
             id="formControlsText"
             type="text"
@@ -125,9 +125,10 @@ class CreateProfileView extends Component {
             />
           </FormGroup>
 
-          <Button type="submit" onClick={this.createProfile}>
+          <Button bsStyle="primary" type="submit" onClick={this.createProfile}>
               Create
           </Button>
+          <br/><br/>
         </form>
       </div>
     );
