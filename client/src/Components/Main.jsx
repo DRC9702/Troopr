@@ -140,12 +140,8 @@ class Main extends Component {
             }
             />
             <Route
-              path="/events"
-              render={
-              props => (
-                <EventsView />
-              )
-            }
+              path="/events/:searchKey"
+              component={EventsView}
             />
           </Switch>
         </div>
