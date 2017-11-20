@@ -16,9 +16,12 @@ class HeaderView extends Component {
       email: '',
       username: '',
       password: '',
+      searchKey: '',
     };
 
     this.signIn = this.signIn.bind(this);
+    this.doSearch = this.doSearch.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.showModal = this.showModal.bind(this);
@@ -34,6 +37,14 @@ class HeaderView extends Component {
       return `Log out: ${this.state.email}:${this.state.username}`;
     }
     return 'Log in';
+  }
+
+  handleSearchChange(e) {
+    this.setState({ searchKey: e.target.value });
+  }
+
+  doSearch(e) {
+    window.location = `/events/${this.state.searchKey}`;
   }
 
   handleEmailChange(e) {
@@ -55,7 +66,7 @@ class HeaderView extends Component {
   }
 
   createAcct() {
-      window.location = '/create_account';
+    window.location = '/create_account';
   }
 
   signIn(e) {
@@ -82,7 +93,7 @@ class HeaderView extends Component {
         window.location = '/dashboard';
       } else {
         console.log('No');
-        alert("Wrong email or password!");
+        alert('Wrong email or password!');
       }
     }).catch((error) => {
       console.log(error);
@@ -102,10 +113,10 @@ class HeaderView extends Component {
           <Navbar.Collapse>
             <Navbar.Form pullLeft>
               <FormGroup>
-                <FormControl type="text" placeholder="Search" />
+                <FormControl type="text" placeholder="Search" onChange={this.handleSearchChange} />
               </FormGroup>
               {' '}
-              <Button type="submit">Submit</Button>
+              <Button type="submit" onClick={this.doSearch}>Submit</Button>
             </Navbar.Form>
             <Navbar.Form pullRight>
               <Button type="button" onClick={this.props.promptLoginHandler}>
@@ -140,9 +151,9 @@ class HeaderView extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button bsStyle="link" onClick={this.createAcct}>
-              {/*<Link to="/create_account" href="/create_account">*/}
+              {/* <Link to="/create_account" href="/create_account"> */}
                 Create Account
-              {/*</Link>*/}
+              {/* </Link> */}
             </Button>
             <Button bsStyle="success" type="submit" value="Login" onClick={this.signIn}>
               Sign in

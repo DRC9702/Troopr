@@ -17,7 +17,7 @@ class DashboardView extends Component {
   }.bind(this);
 
   handleViewEvent = function() {
-      window.location = "/events";
+      window.location = "/events/$all";
   }.bind(this);
 
   handleCreateEvent = function() {
