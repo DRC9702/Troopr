@@ -442,6 +442,60 @@ router.get('/addProfile', function(req, res, next) {
   })
   // res.send('respond with a resource');
 });
+router.get('/logout', function(req, res, next) {
+  if (req.session.account){
+    console.log("in the logout route!!!\n")
+    req.session.account = null;
+    res.redirect('/')
+  }
+
+})
+router.post('/joinEvent', function(req, res, next) {
+  if(req.session.user)
+  var fields = {
+    skill:"ooo",
+      resume: "dwqd",
+      bio: "Dwqwqdqwd",
+      links: "dwqdqwdqw",
+  }
+  var fields2 = {
+    username:"David",
+    email:"123456@gmail.com",
+    password:"123456"
+  }
+  var fi
+  Profile.add(fields,function(error,pro){
+    if(error){
+      res.json({
+        success:"fail at pro"
+      })
+    }
+    credential.add(fields2,function(error,cre){
+      if(error){
+        res.json({
+          success:"fail at cre"
+        })
+      }
+      User.add({
+        profile:pro.id,
+        credential:cre.id
+      }, function(error,user){
+        if(error){
+          res.json({
+            success:"fail at user"
+          })
+        }
+        res.json({
+          success:"success",
+          user:user
+        })
+
+      })
+    })
+
+  })
+  // res.send('respond with a resource');
+});
 
 // router.get('/random', function(req, res) {
 //   var num = Math.random();
