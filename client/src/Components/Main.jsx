@@ -139,15 +139,6 @@ class Main extends Component {
               )
             }
             />
-            {/* <Route
-              exact
-              path="/events"
-              render={
-              props => (
-                <EventsView />
-              )
-            }
-            /> */}
             <Route
               path="/events/:searchKey"
               component={EventsView}
