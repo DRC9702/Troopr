@@ -84,7 +84,7 @@ class CreateEventView extends Component {
             // console.log(response.data.user);
 
             if (response.data.success) {
-                window.location = '/events';
+                window.location = '/events/$all';
             } else {
                 if(response.data.message){
                     alert(response.data.message);
