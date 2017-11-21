@@ -410,7 +410,6 @@ router.get('/addProfile', function(req, res, next) {
     email:"123456@gmail.com",
     password:"123456"
   }
-  var fi
   Profile.add(fields,function(error,pro){
     if(error){
       res.json({
@@ -448,6 +447,19 @@ router.get('/logout', function(req, res, next) {
     console.log("in the logout route!!!\n")
     req.session.user = null;
     res.redirect('/')
+  }
+})
+router.post('/username', function(req, res, next) {
+  if (req.session.account){
+    res.json({
+      success:"success",
+      user:req.session.account
+    })
+  }else{
+    res.json({
+      success:false,
+      user:null
+    })
   }
 })
 router.post('/joinEvent', Event.middleware.loadOfId,function(req, res, next) {
