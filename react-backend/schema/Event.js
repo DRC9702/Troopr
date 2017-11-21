@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EventSchema = new Schema({
-  id: String,
   host: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   name: String,
   teams: [{type: mongoose.Schema.Types.ObjectId, ref: 'Team'}],
@@ -53,22 +52,43 @@ module.exports = {
   middleware: {
 
 		loadAll: function(req, res, next){
-      Model.find({}).populate([{
-        path:'host',
-        model:'User',
-        populate: [{
-          path:'profile',
-          model:'Profile'
-        },{
-          path:'credential',
-          model:'Credential'
-        }]
-      }]).exec(function (error, all) {
-      req.events = all || [];
-      next();
-    });
-  }
-
-
+        Model.find({}).populate([{
+          path:'host',
+          model:'User',
+          populate: [{
+            path:'profile',
+            model:'Profile'
+          },{
+            path:'credential',
+            model:'Credential'
+          }]
+        }]).exec(function (error, all) {
+        req.events = all || [];
+        next();
+      });
+    },
+    loadOfId: function(req, res, next){
+      if(req.body.event_id){
+        Model.findOne({id:req.body.event_id}).populate([{
+          path:'host',
+          model:'User',
+          populate: [{
+            path:'profile',
+            model:'Profile'
+          },{
+            path:'credential',
+            model:'Credential'
+          }]
+        }]).exec(function (error, the_event) {
+            req.event =  the_event;
+            next();
+        });
+      }else{
+        res.json({
+          success:false,
+          message:"Need pass the event_id"
+        })
+      }
+    }
   }
 }
