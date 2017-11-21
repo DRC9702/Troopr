@@ -65,18 +65,18 @@ class EventsView extends Component {
 
   render() {
     return (
-      <div className="EventsView" style={styles}>
+      <div className="EventsView" >
         <Table striped bordered condensed hover>
-              <thead>
-                  <tr>
-                    <th>Event Name</th>
-                    <th>Event Start Date</th>
-                    <th>Event End Date</th>
-                    <th>Registraion Close Date</th>
-                  </tr>
-                </thead>
-              <EventsList events={this.state.events} />
-            </Table>
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Event Start Date</th>
+              <th>Event End Date</th>
+              <th>Registraion Close Date</th>
+            </tr>
+          </thead>
+          <EventsList events={this.state.events} />
+        </Table>
       </div>
     );
   }
