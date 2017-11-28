@@ -462,7 +462,9 @@ router.post('/username', function(req, res, next) {
     })
   }
 })
-router.post('/joinEvent', Event.middleware.loadOfId,function(req, res, next) {
+router.post('/api/join_event', Event.middleware.loadOfId,function(req, res, next) {
+  console.log("calling api")
+
   if(!req.session.user){
     res.json({
       success:false,
@@ -478,7 +480,7 @@ router.post('/joinEvent', Event.middleware.loadOfId,function(req, res, next) {
     })
   }
   var field = {
-    members:[req.user.id],
+    members:[req.session.user.id],
     event:req.event
   }
   Team.add(field,function(error,Tea){
