@@ -1,4 +1,7 @@
-.navbar { margin-bottom: 0 }
+.navbar { 
+    margin-bottom: 0;
+    flex: 0 1 auto;
+}
 
 .modal {
     /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
