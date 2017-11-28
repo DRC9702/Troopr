@@ -24,6 +24,7 @@ class Main extends Component {
     this.loginToggleHandler = this.loginToggleHandler.bind(this);
     this.promptLogin = this.promptLogin.bind(this);
     this.depromptLogin = this.depromptLogin.bind(this);
+    this.resize = this.resize.bind(this);
   }
 
   loginHandler(e) {
@@ -63,7 +64,9 @@ class Main extends Component {
     this.setState(prevState => ({ loggedIn: !prevState.loggedIn }));
   }
 
-  resize = () => this.forceUpdate()
+  resize () {
+    this.forceUpdate()
+  }
   
   componentDidMount() {
     window.addEventListener('resize', this.resize)
