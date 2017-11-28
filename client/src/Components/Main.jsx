@@ -8,6 +8,7 @@ import CreateAccountView from './CreateAccountView';
 import CreateProfileView from './CreateProfileView';
 import CreateEventView from './CreateEventView';
 import EventsView from './EventsView';
+import Matching from './Matching';
 
 class Main extends Component {
   constructor(props) {
@@ -142,6 +143,10 @@ class Main extends Component {
             <Route
               path="/events/:searchKey"
               component={EventsView}
+            />
+            <Route
+              path="/matches/:event"
+              component={Matching}
             />
           </Switch>
         </div>
