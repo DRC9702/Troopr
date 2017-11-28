@@ -26,6 +26,18 @@ class Main extends Component {
     this.depromptLogin = this.depromptLogin.bind(this);
     this.resize = this.resize.bind(this);
   }
+  
+  componentDidMount() {
+    window.addEventListener('resize', this.resize)
+  }
+  
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize)
+  }
+
+  resize() {
+    this.forceUpdate();
+  }
 
   loginHandler(e) {
     e.preventDefault();
@@ -62,18 +74,6 @@ class Main extends Component {
     console.log('Hi!');
     e.preventDefault();
     this.setState(prevState => ({ loggedIn: !prevState.loggedIn }));
-  }
-
-  resize () {
-    this.forceUpdate()
-  }
-  
-  componentDidMount() {
-    window.addEventListener('resize', this.resize)
-  }
-  
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resize)
   }
 
   render() {
