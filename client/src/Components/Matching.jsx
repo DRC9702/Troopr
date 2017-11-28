@@ -19,51 +19,19 @@ class Matching extends Component {
     console.log(this.props);
     let key = '';
     key = this.props.match.params.event;
-
     // Submit form via jQuery/AJAX
-    // console.log(data);
-    axios.post('/api/search_event', {
-      query: key,
-    })
-      .then((response) => {
-        // console.log(response.data);
-        console.log(response.data.success);
-        if (response.data.success) {
-          const newState = response.data.events;
-          for (let i = 0; i < newState.length; i++) {
-            // reformatting dates
-            let tokens = newState[i].start_date.split('T')[0].split('-');
-            let formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
-            newState[i].start_date = formattedDate;
-
-            tokens = newState[i].end_date.split('T')[0].split('-');
-            formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
-            newState[i].end_date = formattedDate;
-
-            tokens = newState[i].registration_deadline.split('T')[0].split('-');
-            formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
-            newState[i].registration_deadline = formattedDate;
-          }
-          _this.setState({ events: newState });
-        } else {
-          console.log('team query failed');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
 
   reject(e) {
     alert(`Team ${  this.state.team  } rejected`);
-    // get new team from axios; reject
+    // get new team from jQuery/AJAX; reject
     this.setState({ team: 'Better' });
   }
 
   accept(e) {
     alert(`Team ${  this.state.team  } <3`);
     this.setState({ team: 'Another option' });
-    // tell axios team is formed; accept
+    // tell jQuery/AJAX team is formed; accept
   }
 
   render() {
