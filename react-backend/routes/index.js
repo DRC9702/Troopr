@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../schema/User');
 var Event = require('../schema/Event');
+var Team = require('../schema/Team')
 var Profile = require('../schema/Profile');
 var credential = require('../schema/Credential');
 var React = require('react');
@@ -409,7 +410,6 @@ router.get('/addProfile', function(req, res, next) {
     email:"123456@gmail.com",
     password:"123456"
   }
-  var fi
   Profile.add(fields,function(error,pro){
     if(error){
       res.json({
@@ -445,54 +445,58 @@ router.get('/addProfile', function(req, res, next) {
 router.get('/logout', function(req, res, next) {
   if (req.session.account){
     console.log("in the logout route!!!\n")
-    req.session.account = null;
+    req.session.user = null;
     res.redirect('/')
   }
-
 })
-router.post('/joinEvent', function(req, res, next) {
-  if(req.session.user)
-  var fields = {
-    skill:"ooo",
-      resume: "dwqd",
-      bio: "Dwqwqdqwd",
-      links: "dwqdqwdqw",
+router.post('/username', function(req, res, next) {
+  if (req.session.account){
+    res.json({
+      success:"success",
+      user:req.session.account
+    })
+  }else{
+    res.json({
+      success:false,
+      user:null
+    })
   }
-  var fields2 = {
-    username:"David",
-    email:"123456@gmail.com",
-    password:"123456"
+})
+router.post('/joinEvent', Event.middleware.loadOfId,function(req, res, next) {
+  if(!req.session.user){
+    res.json({
+      success:false,
+      login:false,
+      message:"Need login first."
+    })
   }
-  var fi
-  Profile.add(fields,function(error,pro){
+
+  if(!req.event){
+    res.json({
+      success:false,
+      message:"Cannot find that event"
+    })
+  }
+  var field = {
+    members:[req.user.id],
+    event:req.event
+  }
+  Team.add(field,function(error,Tea){
     if(error){
       res.json({
-        success:"fail at pro"
+        success:false,
+        message:"team added fail"
       })
-    }
-    credential.add(fields2,function(error,cre){
-      if(error){
-        res.json({
-          success:"fail at cre"
-        })
-      }
-      User.add({
-        profile:pro.id,
-        credential:cre.id
-      }, function(error,user){
-        if(error){
-          res.json({
-            success:"fail at user"
-          })
-        }
+    }else{
+      var teams = req.event.teams?req.event.teams:[]
+      Event.update(req.event.id,{
+        teams:teams
+      },function(error, one){
         res.json({
           success:"success",
-          user:user
         })
-
       })
-    })
-
+    }
   })
   // res.send('respond with a resource');
 });
