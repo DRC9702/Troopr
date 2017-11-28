@@ -8,6 +8,7 @@ import CreateAccountView from './CreateAccountView';
 import CreateProfileView from './CreateProfileView';
 import CreateEventView from './CreateEventView';
 import EventsView from './EventsView';
+require('../styles/Main.css');
 
 class Main extends Component {
   constructor(props) {
@@ -62,92 +63,105 @@ class Main extends Component {
     this.setState(prevState => ({ loggedIn: !prevState.loggedIn }));
   }
 
+  resize = () => this.forceUpdate()
+  
+  componentDidMount() {
+    window.addEventListener('resize', this.resize)
+  }
+  
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize)
+  }
+
   render() {
     return (
-      <BrowserRouter>
-        <div className="Main">
-          <HeaderView
-            loggedIn={this.state.loggedIn}
-            loginHandler={this.loginHandler}
-            promptLoginHandler={this.promptLogin}
-            depromptLoginHandler={this.depromptLogin}
-            show={this.state.showLoginModal}
-          />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={
-              props => (
-                <HomeView />
-              )
-            }
+      <div className="Main" style={{ height: window.innerHeight, width: window.innerWidth }} >
+        <BrowserRouter>
+          <div id="BrowserRouterInnerDiv">
+            <HeaderView
+              loggedIn={this.state.loggedIn}
+              loginHandler={this.loginHandler}
+              promptLoginHandler={this.promptLogin}
+              depromptLoginHandler={this.depromptLogin}
+              show={this.state.showLoginModal}
             />
-            <Route
-              exact
-              path="/profile"
-              render={
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={
                 props => (
-                  <ProfileView
-                    loggedIn={this.state.loggedIn}
-                  />
-                 )
-                }
-            />
-            <Route
-              exact
-              path="/dashboard"
-              render={
-              props => (
-                <DashboardView />
-              )
-            }
-            />
-            <Route
-              exact
-              path="/create_account"
-              render={
-              props => (
-                <CreateAccountView />
-              )
-            }
-            />
-            <Route
-              exact
-              path="/create_profile"
-              render={
-              props => (
-                <CreateProfileView />
-              )
-            }
-            />
-            <Route
-              exact
-              path="/create_event"
-              render={
-              props => (
-                <CreateEventView />
-              )
-            }
-            />
-            <Route
-              exact
-              path="/profile"
-              render={
-              props => (
-                <ProfileView />
-              )
-            }
-            />
-            <Route
-              path="/events/:searchKey"
-              component={EventsView}
-            />
-          </Switch>
-        </div>
-      </BrowserRouter>
+                  <HomeView />
+                )
+              }
+              />
+              <Route
+                exact
+                path="/profile"
+                render={
+                  props => (
+                    <ProfileView
+                      loggedIn={this.state.loggedIn}
+                    />
+                  )
+                  }
+              />
+              <Route
+                exact
+                path="/dashboard"
+                render={
+                props => (
+                  <DashboardView />
+                )
+              }
+              />
+              <Route
+                exact
+                path="/create_account"
+                render={
+                props => (
+                  <CreateAccountView />
+                )
+              }
+              />
+              <Route
+                exact
+                path="/create_profile"
+                render={
+                props => (
+                  <CreateProfileView />
+                )
+              }
+              />
+              <Route
+                exact
+                path="/create_event"
+                render={
+                props => (
+                  <CreateEventView />
+                )
+              }
+              />
+              <Route
+                exact
+                path="/profile"
+                render={
+                props => (
+                  <ProfileView />
+                )
+              }
+              />
+              <Route
+                path="/events/:searchKey"
+                component={EventsView}
+              />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </div>
     );
   }
 }
+
 
 export default Main;
