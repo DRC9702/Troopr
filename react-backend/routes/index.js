@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../schema/User');
 var Event = require('../schema/Event');
+var Team = require('../schema/Team')
 var Profile = require('../schema/Profile');
 var credential = require('../schema/Credential');
 var React = require('react');
@@ -135,19 +136,30 @@ router.post('/api/create_event',function(req, res, next) {
       })
       return
     }
+    console.log(req.body)
       var host= req.session.user
       // var host= "5a0424d60cb1fa08d9aeaad8"
       var event_name = req.body.event_name
-      var start_date_para = req.body.start_date.split("-");
-      var start_date = new Date(parseInt(start_date_para[0]),parseInt(start_date_para[1])-1, parseInt(start_date_para[2]), 0, 0, 0);
-      var end_date_para = req.body.end_date.split("-");
-      var end_date = new Date(parseInt(end_date_para[0]), parseInt(end_date_para[1])-1, parseInt(end_date_para[2]), 0, 0, 0);
-      var registration_deadline_para = req.body.registration_deadline.split("-");
-      var registration_deadline = new Date(parseInt(registration_deadline_para[0]), parseInt(registration_deadline_para[1])-1, parseInt(registration_deadline_para[2]), 0, 0, 0);
+      var start_date_para = req.body.start_date.split("/");
+      var start_date = new Date(parseInt(start_date_para[2]),parseInt(start_date_para[0])-1, parseInt(start_date_para[1]), 0, 0, 0);
+      var end_date_para = req.body.end_date.split("/");
+      var end_date = new Date(parseInt(end_date_para[2]), parseInt(end_date_para[0])-1, parseInt(end_date_para[1]), 0, 0, 0);
+      var registration_deadline_para = req.body.registration_deadline.split("/");
+      var registration_deadline = new Date(parseInt(registration_deadline_para[2]), parseInt(registration_deadline_para[0])-1, parseInt(registration_deadline_para[1]), 0, 0, 0);
       var description = req.body.description
-      var max = req.body.max
-      var min = req.body.min
-
+      var max = parseInt(req.body.max)
+      var min = parseInt(req.body.min)
+    var fields = {
+        host:host,
+        name:event_name,
+        start_date:start_date,
+        end_date:end_date,
+        registration_deadline:registration_deadline,
+        description:description,
+        max:max,
+        min:min
+    }
+    console.log(fields)
       if(!(host&&event_name&&start_date&&end_date&&description&&max&&min&&registration_deadline)){
         res.json({
           success:false,
@@ -398,7 +410,6 @@ router.get('/addProfile', function(req, res, next) {
     email:"123456@gmail.com",
     password:"123456"
   }
-  var fi
   Profile.add(fields,function(error,pro){
     if(error){
       res.json({
@@ -428,6 +439,64 @@ router.get('/addProfile', function(req, res, next) {
       })
     })
 
+  })
+  // res.send('respond with a resource');
+});
+router.get('/logout', function(req, res, next) {
+  if (req.session.account){
+    console.log("in the logout route!!!\n")
+    req.session.user = null;
+    res.redirect('/')
+  }
+})
+router.post('/username', function(req, res, next) {
+  if (req.session.account){
+    res.json({
+      success:"success",
+      user:req.session.account
+    })
+  }else{
+    res.json({
+      success:false,
+      user:null
+    })
+  }
+})
+router.post('/joinEvent', Event.middleware.loadOfId,function(req, res, next) {
+  if(!req.session.user){
+    res.json({
+      success:false,
+      login:false,
+      message:"Need login first."
+    })
+  }
+
+  if(!req.event){
+    res.json({
+      success:false,
+      message:"Cannot find that event"
+    })
+  }
+  var field = {
+    members:[req.user.id],
+    event:req.event
+  }
+  Team.add(field,function(error,Tea){
+    if(error){
+      res.json({
+        success:false,
+        message:"team added fail"
+      })
+    }else{
+      var teams = req.event.teams?req.event.teams:[]
+      Event.update(req.event.id,{
+        teams:teams
+      },function(error, one){
+        res.json({
+          success:"success",
+        })
+      })
+    }
   })
   // res.send('respond with a resource');
 });

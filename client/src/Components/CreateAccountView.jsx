@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { ControlLabel, FormControl, Button, HelpBlock, Jumbotron } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, Jumbotron, Col, Row} from 'react-bootstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const styles = {
   backgroundColor: 'orange',
@@ -13,6 +12,17 @@ const styles = {
   flexGrow: 1,
 };
 
+const jumbotronstyle = {
+    backgroundColor: 'orange',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    flexGrow: 1,
+    width: '100vh',
+}
+
 class CreateAccountView extends Component {
   constructor(props) {
     super(props);
@@ -21,19 +31,24 @@ class CreateAccountView extends Component {
       username: '',
       password: '',
     };
+    this.createAccount = this.createAccount.bind(this);
   }
-  handleEmailChange(e) {
+
+
+
+  handleEmailChange = function(e) {
     this.setState({ email: e.target.value });
-  }
-  handleUserChange(e) {
+  }.bind(this)
+
+  handleUserChange = function(e) {
     this.setState({ username: e.target.value });
-  }
+  }.bind(this)
 
-  handlePasswordChange(e) {
+  handlePasswordChange = function(e) {
     this.setState({ password: e.target.value });
-  }
+  }.bind(this)
 
-  createAccount(e) {
+  createAccount = function(e) {
     // var self
     const data = {
       email: this.state.email,
@@ -71,42 +86,57 @@ class CreateAccountView extends Component {
   render() {
     return (
       <div className="CreateAccountView" style={styles}>
-        <Jumbotron style={{ width: '100vh' }}>
+        <Jumbotron style={jumbotronstyle}>
           <h1>Create Account</h1>
           {/* <p><Button bsStyle="primary">Learn more</Button></p> */}
           <form>
-            <ControlLabel>Email Address</ControlLabel>
-            <FormControl
-              type="text"
-              value={this.state.email}
-              placeholder="troop@troopr.edu"
-              onChange={this.handleEmailChange}
-            />
-            <FormControl.Feedback />
-            <HelpBlock>Please enter a valid email address.</HelpBlock>
-            <ControlLabel>Username</ControlLabel>
-            <FormControl
-              type="text"
-              value={this.state.username}
-              placeholder="Username"
-              onChange={this.handleUserChange}
-            />
-            <FormControl.Feedback />
-            <HelpBlock>Please enter a username.</HelpBlock>
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              type="password"
-              value={this.state.password}
-              placeholder="Password"
-              onChange={this.handlePasswordChange}
-            />
-            <FormControl.Feedback />
-
-            <HelpBlock>Please confirm your password.</HelpBlock>
-            <Button onClick={this.createAccount}>
-              <Link to="/home">
-                    Create Account
-              </Link>
+            <Row>
+            <Col sm={16}>
+                <FormGroup>
+                <ControlLabel>Email Address</ControlLabel>
+                <FormControl
+                    type="text"
+                    value={this.state.email}
+                    placeholder="troop@troopr.edu"
+                    onChange={this.handleEmailChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Please enter a valid email address.</HelpBlock>
+                </FormGroup>
+            </Col>
+            </Row>
+            <Row>
+            <Col sm={16}>
+                <FormGroup>
+                <ControlLabel>Username</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.username}
+                  placeholder="Username"
+                  onChange={this.handleUserChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Please enter a username.</HelpBlock>
+                </FormGroup>
+            </Col>
+            </Row>
+            <Row>
+            <Col sm={16}>
+                <FormGroup>
+                <ControlLabel>Password</ControlLabel>
+                <FormControl
+                  type="password"
+                  value={this.state.password}
+                  placeholder="Password"
+                  onChange={this.handlePasswordChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Please confirm your password.</HelpBlock>
+                </FormGroup>
+            </Col>
+            </Row>
+            <Button bsStyle="primary" onClick={this.createAccount}>
+                Create
             </Button>
           </form>
         </Jumbotron>

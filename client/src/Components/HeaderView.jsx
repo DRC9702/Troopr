@@ -10,16 +10,18 @@ require('../styles/HeaderView.css');
 class HeaderView extends Component {
   constructor(props) {
     super(props);
-    this.hideModal = this.hideModal.bind(this);
-    this.showModal = this.showModal.bind(this);
     this.state = {
       // loggedIn: props.loggedIn,
       show: props.show,
       email: '',
       username: '',
       password: '',
+      searchKey: '',
     };
+
     this.signIn = this.signIn.bind(this);
+    this.doSearch = this.doSearch.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.showModal = this.showModal.bind(this);
@@ -35,6 +37,14 @@ class HeaderView extends Component {
       return `Log out: ${this.state.email}:${this.state.username}`;
     }
     return 'Log in';
+  }
+
+  handleSearchChange(e) {
+    this.setState({ searchKey: e.target.value });
+  }
+
+  doSearch(e) {
+    window.location = `/events/${this.state.searchKey}`;
   }
 
   handleEmailChange(e) {
@@ -53,6 +63,10 @@ class HeaderView extends Component {
     this.setState({
       show: false,
     });
+  }
+
+  createAcct() {
+    window.location = '/create_account';
   }
 
   signIn(e) {
@@ -79,7 +93,7 @@ class HeaderView extends Component {
         window.location = '/dashboard';
       } else {
         console.log('No');
-        alert("Wrong email or password!");
+        alert('Wrong email or password!');
       }
     }).catch((error) => {
       console.log(error);
@@ -92,17 +106,17 @@ class HeaderView extends Component {
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/">Brand</a>
+              <a href="/dashboard">Brand</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Navbar.Form pullLeft>
               <FormGroup>
-                <FormControl type="text" placeholder="Search" />
+                <FormControl type="text" placeholder="Search" onChange={this.handleSearchChange} />
               </FormGroup>
               {' '}
-              <Button type="submit">Submit</Button>
+              <Button type="submit" onClick={this.doSearch}>Submit</Button>
             </Navbar.Form>
             <Navbar.Form pullRight>
               <Button type="button" onClick={this.props.promptLoginHandler}>
@@ -136,10 +150,10 @@ class HeaderView extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="link" onClick={this.props.depromptLoginHandler}>
-              <Link to="/create_account" href="/create_account">
+            <Button bsStyle="link" onClick={this.createAcct}>
+              {/* <Link to="/create_account" href="/create_account"> */}
                 Create Account
-              </Link>
+              {/* </Link> */}
             </Button>
             <Button bsStyle="success" type="submit" value="Login" onClick={this.signIn}>
               Sign in
@@ -157,6 +171,7 @@ HeaderView.propTypes = {
   show: PropTypes.bool.isRequired,
   promptLoginHandler: PropTypes.func.isRequired,
   depromptLoginHandler: PropTypes.func.isRequired,
+
 };
 
 // const styles = {

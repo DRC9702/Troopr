@@ -6,6 +6,7 @@ import HomeView from './HomeView';
 import DashboardView from './DashboardView';
 import CreateAccountView from './CreateAccountView';
 import CreateProfileView from './CreateProfileView';
+import CreateEventView from './CreateEventView';
 import EventsView from './EventsView';
 
 class Main extends Component {
@@ -122,6 +123,15 @@ class Main extends Component {
             />
             <Route
               exact
+              path="/create_event"
+              render={
+              props => (
+                <CreateEventView />
+              )
+            }
+            />
+            <Route
+              exact
               path="/profile"
               render={
               props => (
@@ -130,13 +140,8 @@ class Main extends Component {
             }
             />
             <Route
-              exact
-              path="/events"
-              render={
-              props => (
-                <EventsView />
-              )
-            }
+              path="/events/:searchKey"
+              component={EventsView}
             />
           </Switch>
         </div>
