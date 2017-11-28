@@ -62,6 +62,9 @@ module.exports = {
             path:'credential',
             model:'Credential'
           }]
+        },{
+          path:'teams',
+          model:'Team',
         }]).exec(function (error, all) {
         req.events = all || [];
         next();

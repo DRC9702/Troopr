@@ -42,6 +42,17 @@ module.exports = {
       callback(error, one);
     });
   },
+  remove: function(id, callback) {
+    Model.findOne({
+      _id: id
+    }).exec(function(error, one) {
+      if (error) {
+        callback(error);
+      } else {
+        one.remove(callback);
+      }
+    });
+  },
   middleware: {
 
 		loadAll: function(req, res, next){
