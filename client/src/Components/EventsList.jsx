@@ -46,7 +46,7 @@ class EventsList extends Component {
         if (response.data.success) {
           this.props.history.push("/dashboard");
         } else {
-          alert('join event failed');
+          alert(response.data.message);
         }
       })
       .catch((error) => {
