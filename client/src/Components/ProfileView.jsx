@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import ContentView from './ContentView';
 // import SkillsList from './SkillsList';
-// import {ControlLabel, FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
+import { Panel, Label } from 'react-bootstrap';
 import axios from 'axios';
 
 class ProfileView extends Component {
@@ -25,10 +25,10 @@ class ProfileView extends Component {
             resume: response.data.resume,
             bio: response.data.bio,
           });
-          console.log(response.data.name);
-          console.log(response.data.skills);
-          console.log(response.data.resume);
-          console.log(response.data.bio);
+          console.log(this.state.data.name);
+          console.log(this.state.data.skills);
+          console.log(this.state.data.resume);
+          console.log(this.state.data.bio);
         } else {
           console.log('failed2');
         }
@@ -40,12 +40,27 @@ class ProfileView extends Component {
   }
 
   render() {
+    const bap = ['bap', 'boop', 'bep', 'booperino', 'bap', 'boop', 'bep', 'booperino', 'bap', 'boop', 'bep', 'booperino'];
+    // replace bap with this.state.skills which should be in the form of a list
     return (
       <div className="ProfileView">
-        <p>Name: {this.state.name}</p>
-        <p>SkillsList: {this.state.skills}</p>
-        <p>Bio: {this.state.bio}</p>
-        <p>Resume: {this.state.resume}</p>
+        <h1>{this.state.name}</h1>
+        <Panel header="Skills" bsStyle="primary" style={{ margin: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {bap.map(listValue =>
+              <h4><Label style={{ margin: '5px' }}>{listValue}</Label></h4>)}
+          </div>
+        </Panel>
+        <Panel header="Bio" bsStyle="primary" style={{ margin: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <p>{this.state.bio}</p>
+          </div>
+        </Panel>
+        <Panel header="Resume" bsStyle="primary" style={{ margin: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <p>{this.state.resume}</p>
+          </div>
+        </Panel>
       </div>
     );
   }
