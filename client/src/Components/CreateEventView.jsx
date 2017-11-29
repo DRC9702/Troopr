@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import {ControlLabel, FormControl, Button, FormGroup, HelpBlock, Col, Glyphicon} from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import axios from 'axios';
@@ -84,7 +85,7 @@ class CreateEventView extends Component {
             // console.log(response.data.user);
 
             if (response.data.success) {
-                window.location = '/events/$all';
+                this.props.history.push('/events/$all');
             } else {
                 if(response.data.message){
                     alert(response.data.message);
@@ -204,6 +205,6 @@ function FieldGroup({ id, label, help, ...props }) {
     );
 }
 
-export default CreateEventView;
+export default withRouter(CreateEventView);
 
 

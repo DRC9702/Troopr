@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {withRouter} from "react-router-dom";
+
 // import ColumnView from './ColumnView';
 import { Button } from 'react-bootstrap';
 
@@ -13,15 +15,15 @@ class DashboardView extends Component {
   }
 
   handleViewProfile = function() {
-      window.location = "/profile";
+    this.props.history.push("/profile");
   }.bind(this);
 
   handleViewEvent = function() {
-      window.location = "/events/$all";
+      this.props.history.push("/events/$all");
   }.bind(this);
 
   handleCreateEvent = function() {
-      window.location = "/create_event";
+    this.props.history.push("/create_event");
   }.bind(this);
 
   render() {
@@ -52,4 +54,4 @@ const styles = {
 const wellStyles = { width: 400, margin: '0 auto 10px' };
 
 
-export default DashboardView;
+export default withRouter(DashboardView);

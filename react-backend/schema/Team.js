@@ -70,7 +70,7 @@ module.exports = {
         path:'event',
         model:'Event',
       }]).exec(function (error, all) {
-      req.events = all || [];
+      req.teams = all || [];
       next();
     });
   }

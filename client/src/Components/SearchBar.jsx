@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import { ControlLabel, FormControl, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 
 
@@ -23,7 +24,7 @@ class SearchBar extends Component {
                 // console.log(response.data.user);
 
                 if (response.data.success) {
-                    window.location = '/events/' +  this.state.query;
+                  this.props.history.push("/events/" +  this.state.query);
                 }
                 // } else {
                 //     if(response.data.message){
@@ -70,4 +71,4 @@ const styles = {
     alignItems: 'center',
 };
 
-export default SearchBar;
+export default withRouter(SearchBar);
