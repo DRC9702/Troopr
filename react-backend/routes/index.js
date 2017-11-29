@@ -510,9 +510,33 @@ router.post('/api/join_event', Event1.middleware.loadOfId,Team.middleware.loadAl
             message:"event updated fail"
           })
         }else{
-          res.json({
-            success:"success",
+          User.findById(req.session.user.id,function(error1,account){
+            if(error1){
+              res.json({
+                success:false,
+                message:"user not found"
+              })
+            }else{
+              var joinEvents = account.eventJoined?account.eventJoined:[]
+              joinEvents.push(req.event._id)
+              User.update(req.session.user.id,{
+                eventJoined:joinEvents
+              },
+                function(error1){
+                if(error1){
+                  res.json({
+                    success:false,
+                    message:"user update failed"
+                  })
+                }else{
+                  res.json({
+                    success:"success",
+                  })
+                }
+              })
+            }
           })
+
         }
       })
     }
