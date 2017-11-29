@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 // import ContentView from './ContentView';
 // import SkillsList from './SkillsList';
-// import {ControlLabel, FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
 class ProfileView extends Component {
-
-  constructor(props){
-      super(props);
-      this.state = {
-          name: '',
-          skills:'',
-          resume:'',
-          bio:''
-      };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      skills: '',
+      resume: '',
+      bio: '',
+    };
+    this.handleEdit = this.handleEdit.bind(this);
   }
   componentDidMount() {
-    var _this = this;
+    let _this = this;
     axios.post('/api/profile', {
     })
-      .then(function (response) {
+      .then((response) => {
         if(response.data.success){
           _this.setState({name:response.data.name});
           _this.setState({skills:response.data.skills});
@@ -36,10 +36,14 @@ class ProfileView extends Component {
         }
 
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
         console.log("failed1")
-      })
+      });
+  }
+
+  handleEdit(e) {
+    window.location = '/edit_profile';
   }
 
   render() {
@@ -49,19 +53,20 @@ class ProfileView extends Component {
         <p>SkillsList: {this.state.skills}</p>
         <p>Bio: {this.state.bio}</p>
         <p>Resume: {this.state.resume}</p>
+        <Button onClick={this.handleEdit}>Edit</Button>
       </div>
     );
   }
 }
 
 const styles = {
-    backgroundColor: 'orange',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    flexGrow: 1,
+  backgroundColor: 'orange',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  flexGrow: 1,
 };
 
 // function FieldGroup({ id, label, help, ...props }) {
