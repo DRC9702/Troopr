@@ -65,7 +65,7 @@ class DashboardView extends Component {
 }
 
 DashboardView.propTypes = {
-  history: PropTypes.shape.isRequired,
+  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default withRouter(DashboardView);
