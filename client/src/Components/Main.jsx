@@ -8,6 +8,8 @@ import CreateAccountView from './CreateAccountView';
 import CreateProfileView from './CreateProfileView';
 import CreateEventView from './CreateEventView';
 import EventsView from './EventsView';
+import Matching from './Matching';
+
 require('../styles/Main.css');
 
 class Main extends Component {
@@ -26,13 +28,13 @@ class Main extends Component {
     this.depromptLogin = this.depromptLogin.bind(this);
     this.resize = this.resize.bind(this);
   }
-  
+
   componentDidMount() {
-    window.addEventListener('resize', this.resize)
+    window.addEventListener('resize', this.resize);
   }
-  
+
   componentWillUnmount() {
-    window.removeEventListener('resize', this.resize)
+    window.removeEventListener('resize', this.resize);
   }
 
   resize() {
@@ -95,68 +97,61 @@ class Main extends Component {
                 render={
                 props => (
                   <HomeView />
-                )
-              }
-              />
-              <Route
-                exact
-                path="/profile"
-                render={
-                  props => (
-                    <ProfileView
-                      loggedIn={this.state.loggedIn}
-                    />
-                  )
-                  }
+                 )
+                }
               />
               <Route
                 exact
                 path="/dashboard"
                 render={
-                props => (
-                  <DashboardView />
-                )
-              }
+              props => (
+                <DashboardView />
+              )
+            }
               />
               <Route
                 exact
                 path="/create_account"
                 render={
-                props => (
-                  <CreateAccountView />
-                )
-              }
+              props => (
+                <CreateAccountView />
+              )
+            }
               />
               <Route
                 exact
                 path="/create_profile"
                 render={
-                props => (
-                  <CreateProfileView />
-                )
-              }
+              props => (
+                <CreateProfileView />
+              )
+            }
               />
               <Route
                 exact
                 path="/create_event"
                 render={
-                props => (
-                  <CreateEventView />
-                )
-              }
+              props => (
+                <CreateEventView />
+              )
+            }
               />
               <Route
                 exact
                 path="/profile"
                 render={
-                props => (
-                  <ProfileView />
-                )
-              }
+              props => (
+                <ProfileView />
+              )
+            }
               />
               <Route
                 path="/events/:searchKey"
                 component={EventsView}
+              />
+              <Route
+                path="/matches/:event"
+                component={Matching}
               />
             </Switch>
           </div>

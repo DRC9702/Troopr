@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, Jumbotron, Col, Row} from 'react-bootstrap';
 import axios from 'axios';
 
@@ -73,7 +74,7 @@ class CreateAccountView extends Component {
         console.log(response.data.user);
 
         if (response.data.success) {
-          window.location = '/create_profile';
+          this.props.history.push('/create_profile');
         } else {
           alert('Account already exists');
         }
@@ -155,4 +156,4 @@ class CreateAccountView extends Component {
 //     );
 // }
 
-export default CreateAccountView;
+export default withRouter(CreateAccountView);

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Navbar, Button, FormGroup, FormControl, Modal, Form } from 'react-bootstrap';
-// import SearchBar from './SearchBar';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
