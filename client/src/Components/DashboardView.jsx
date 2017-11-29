@@ -1,57 +1,71 @@
 import React, { Component } from 'react';
-import {withRouter} from "react-router-dom";
+import { withRouter } from 'react-router-dom';
+import { Grid, Row, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import SideView from './SideView';
+import BoxView from './BoxView';
 
-// import ColumnView from './ColumnView';
-import { Button } from 'react-bootstrap';
-
+require('../styles/DashboardView.css');
 
 class DashboardView extends Component {
-
   constructor(props) {
-      super(props);
-      this.state = {
-          savedProfile: ""
-      };
+    super(props);
+    this.state = {
+      savedProfile: ""
+    };
+    this.handleViewProfile = this.handleViewProfile.bind(this);
+    this.handleViewEvent = this.handleViewEvent.bind(this);
+    this.handleCreateEvent = this.handleCreateEvent.bind(this);
   }
 
-  handleViewProfile = function() {
-    this.props.history.push("/profile");
-  }.bind(this);
+  handleViewProfile() {
+    this.props.history.push('/profile');
+  }
 
-  handleViewEvent = function() {
-      this.props.history.push("/events/$all");
-  }.bind(this);
+  handleViewEvent() {
+    this.props.history.push('/events/$all');
+  }
 
-  handleCreateEvent = function() {
-    this.props.history.push("/create_event");
-  }.bind(this);
+  handleCreateEvent() {
+    this.props.history.push('/create_event');
+  }
 
   render() {
     return (
-      <div className="DashboardView" style={styles}>
-        <h1>Dashboard</h1>
-        <h2>Hello! {this.props.username}</h2>
-        <div className="well" style={wellStyles}>
-          <Button bsStyle="primary" bsSize="large" onClick={this.handleViewProfile} block>View Profile</Button>
-          <Button bsStyle="primary" bsSize="large" onClick={this.handleViewEvent} block>View Event</Button>
-          <Button bsStyle="primary" bsSize="large" onClick={this.handleCreateEvent} block>Create Event</Button>
+      <div className="DashboardView">
+        
+        <SideView handleViewProfile={this.handleViewProfile} handleViewEvent={this.handleViewEvent} handleCreateEvent={this.handleCreateEvent} />
+        <div id="Content">
+
+          {<h1>Dashboard</h1>}
+          
+          <Grid fluid style={{ width: '100%' }} >
+            <Row className="show-grid" style={{ width: '100%' }}>
+              <Col md={12} lg={6}>
+                <BoxView title="Teams" />
+              </Col>
+              <Col md={12} lg={6}>
+                <BoxView title="Events" />
+              </Col>
+            </Row>
+            <Row className="show-grid" style={{ width: '100%' }}>
+              <Col md={12} lg={6}>
+                <BoxView title="NewsFeed" />
+              </Col>
+              <Col md={12} lg={6}>
+                <BoxView title="Collaborators" />
+              </Col>
+            </Row>
+          </Grid>
+
         </div>
       </div>
     );
   }
 }
 
-const styles = {
-  backgroundColor: 'orange',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'flex-start',
-  flexWrap: 'wrap',
-  flexGrow: 1,
+DashboardView.propTypes = {
+  history: PropTypes.shape.isRequired,
 };
-
-const wellStyles = { width: 400, margin: '0 auto 10px' };
-
 
 export default withRouter(DashboardView);
