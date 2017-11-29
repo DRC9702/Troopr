@@ -1,55 +1,62 @@
 import React, { Component } from 'react';
-// import ColumnView from './ColumnView';
-import { Button } from 'react-bootstrap';
+import { Button, Grid, Row, Col, Clearfix } from 'react-bootstrap';
+import SideView from './SideView';
+import BoxView from './BoxView';
 
+require('../styles/DashboardView.css');
+
+const handleViewProfile = () => {
+  window.location = '/profile';
+};
+
+const handleViewEvent = () => {
+  window.location = '/events/$all';
+};
+
+const handleCreateEvent = () => {
+  window.location = '/create_event';
+};
 
 class DashboardView extends Component {
-
   constructor(props) {
-      super(props);
-      this.state = {
-          savedProfile: ""
-      };
+    super(props);
+    this.state = {
+      savedProfile: ""
+    };
   }
-
-  handleViewProfile = function() {
-      window.location = "/profile";
-  }.bind(this);
-
-  handleViewEvent = function() {
-      window.location = "/events/$all";
-  }.bind(this);
-
-  handleCreateEvent = function() {
-      window.location = "/create_event";
-  }.bind(this);
 
   render() {
     return (
-      <div className="DashboardView" style={styles}>
-        <h1>Dashboard</h1>
-        <h2>Hello! {this.props.username}</h2>
-        <div className="well" style={wellStyles}>
-          <Button bsStyle="primary" bsSize="large" onClick={this.handleViewProfile} block>View Profile</Button>
-          <Button bsStyle="primary" bsSize="large" onClick={this.handleViewEvent} block>View Event</Button>
-          <Button bsStyle="primary" bsSize="large" onClick={this.handleCreateEvent} block>Create Event</Button>
+      <div className="DashboardView">
+        
+        <SideView handleViewProfile={handleViewProfile} handleViewEvent={handleViewEvent} handleCreateEvent={handleCreateEvent} />
+        <div id="Content">
+
+          {<h1>Dashboard</h1>}
+          
+          <Grid fluid style={{ width: '100%' }} >
+            <Row className="show-grid" style={{ width: '100%' }}>
+              <Col md={12} lg={6}>
+                <BoxView title="Teams" >
+                </BoxView>
+              </Col>
+              <Col md={12} lg={6}>
+                <BoxView title="Events" />
+              </Col>
+            </Row>
+            <Row className="show-grid" style={{ width: '100%' }}>
+              <Col md={12} lg={6}>
+                <BoxView title="NewsFeed" />
+              </Col>
+              <Col md={12} lg={6}>
+                <BoxView title="Collaborators" />
+              </Col>
+            </Row>
+          </Grid>
+
         </div>
       </div>
     );
   }
 }
-
-const styles = {
-  backgroundColor: 'orange',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'flex-start',
-  flexWrap: 'wrap',
-  flexGrow: 1,
-};
-
-const wellStyles = { width: 400, margin: '0 auto 10px' };
-
-
 export default DashboardView;
