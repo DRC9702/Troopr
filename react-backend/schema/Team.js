@@ -58,7 +58,6 @@ module.exports = {
       path:'event',
       model:'Event',
     }]).exec(function (error, one) {
-      console.log("eqweqw")
       callback(error, one);
     });
   },
@@ -119,7 +118,7 @@ module.exports = {
     });
   },
   loadOfEvent: function(req, res, next){
-    Model.find({event:req.params.event_id}).populate([{
+    Model.find({event:req.body.event_id}).populate([{
       path:'members',
       model:'User',
       populate: [{

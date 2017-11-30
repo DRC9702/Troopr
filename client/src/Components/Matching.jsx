@@ -24,6 +24,7 @@ class Matching extends Component {
       skillsWanted: ['node.js'],
       members: ['Dave', 'Victor'],
       show: false,
+      given_team:{}
 
     };
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -47,43 +48,95 @@ class Matching extends Component {
         if (response.data.success) {
           console.log(response.data.team._id);
           this.setState({ team_id: response.data.team._id });
+          axios.post('/api/give_team', {
+            event_id: key,
+            team_id: this.state.team_id
+          })
+            .then((response2) => {
+              if (response2.data.success) {
+                var memName = []
+                response2.data.target_team.members.forEach(function(mem){
+                  memName.push(mem.profile.name)
+                })
+                console.log(response2.data)
+                console.log(memName)
+                this.setState({ team: response2.data.target_team._id });
+                this.setState({ skillsOffered: response2.data.target_team.skillsOwned });
+                this.setState({ skillsWanted: response2.data.target_team.skillsRequired });
+                this.setState({ members: memName});
+                this.setState({ given_team:response2.data.target_team});
+              } else {
+                if(response2.data.allFound){
+                  this.showModal();
+                }
+                console.log(response2.data);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              console.log('failed1');
+            });
         } else {
-          console.log('failed2');
+          alert(response.data.message);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  reject() {
+    alert(`Team ${this.state.team} rejected`);
+    // get new team from jQuery/AJAX; reject
+    let key = '';
+    key = this.props.match.params.event;
+    axios.post('/api/reject_team', {
+      event_id: key,
+      team_id: this.state.team_id,
+      reject_team_id:this.state.given_team._id
+    })
+      .then((response) => {
+        if (response.data.success) {
+          window.location.reload()
+        } else {
+          console.log(response.data);
         }
       })
       .catch((error) => {
         console.log(error);
         console.log('failed1');
       });
-
-    //     axios.post('/api/give_team', {
-    //       event_id: key,
-    //       team_id: this.state.team_id,
-    //     })
-    //       .then((response) => {
-    //         if (response.data.success) {
-    //           console.log(response.data);
-    //         } else {
-    //           console.log('failed2');
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //         console.log('failed1');
-    //       });
-  }
-
-  reject() {
-    alert(`Team ${this.state.team} rejected`);
-    // get new team from jQuery/AJAX; reject
-    this.setState({ team: 'Better' });
-    this.showModal();
   }
 
   accept() {
-    alert(`Team ${this.state.team} <3`);
-    this.setState({ team: 'Another option' });
+    // alert(`Team ${this.state.team} <3`);
+    axios.post('/api/team_matched', {
+      event_id: this.props.match.params.event,
+      team1: this.state.team_id,
+      team2:this.state.given_team._id
+    })
+      .then((response) => {
+        console.log(response.data)
+        if (response.data.success) {
+          alert(`Teammate found!!!Check your teammate in the team setting or keep looking for other teams`);
+
+        } else {
+          if(response.data.refresh){
+            alert(`Team added successfully <3`);
+            window.location.reload()
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log('failed1');
+      });
+    // this.setState({ team: 'Another option' });
     // tell jQuery/AJAX team is formed; accept
+  }
+
+  refresh() {
+    window.location.reload()
   }
 
   showModal() {
@@ -126,9 +179,9 @@ class Matching extends Component {
             <h1>Oops! No matching teams are available.</h1>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="success">
-              Leave Group
-            </Button>
+          <Button bsStyle="success" onClick={this.refresh}>
+            Go Search Again
+          </Button>
           </Modal.Footer>
         </Modal>
       </div>

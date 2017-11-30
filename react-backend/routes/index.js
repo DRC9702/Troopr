@@ -17,6 +17,14 @@ router.get('/api', User.middleware.loadAll,function(req, res, next) {
       });
 });
 
+router.get('/apiT', Team.middleware.loadAll,function(req, res, next) {
+
+      res.json({
+        user:req.teams,
+        length:req.teams.length
+      });
+});
+
 router.post('/api/profile',User.middleware.loadOfLog,function(req, res, next) {
 
       console.log(req.session.user)
@@ -281,7 +289,7 @@ function filterContains(obj,p) {
   var i = p.length;
   while (i--) {
       if(typeof p[i] == 'string'){
-        if (strContains(p[i].toLowerCase(),obj.toLowerCase())) {
+        if (strContains(p[i].toLowerCase(),JSON.stringify(obj).toLowerCase())) {
             return true;
         }
       }else{
@@ -485,6 +493,8 @@ router.get('/logout', function(req, res, next) {
     res.redirect('/')
   }
 })
+
+
 router.post('/username', function(req, res, next) {
   if (req.session.user){
     res.json({
@@ -503,7 +513,7 @@ router.post('/api/view_team', function(req, res, next) {
   if (!req.session.user){
     res.json({
       success:false,
-      message:"login first"
+      message:"Need login first."
     })
     return
   }
@@ -512,7 +522,6 @@ router.post('/api/view_team', function(req, res, next) {
       success:false,
       message:"Need event id."
     })
-    return
   }
   Team.findByEventIdAndUseId(req.body.event_id,req.session.user._id,function(error,team){
     if(error||!team){
@@ -521,7 +530,6 @@ router.post('/api/view_team', function(req, res, next) {
         message:"No team found."
       })
     }else{
-      
       res.json({
         success:"success",
         team:team
@@ -531,10 +539,12 @@ router.post('/api/view_team', function(req, res, next) {
 })
 
 router.post('/api/user_teams', function(req, res, next) {
-  if (req.session.user){
-    console.log("in the logout route!!!\n")
-    req.session.user = null;
-    res.redirect('/')
+  if (!req.session.user){
+    res.json({
+      success:false,
+      message:"Need login first."
+    })
+    return
   }
   Team.findByUserId(req.session.user._id,function(error,teams){
     if(error||!team){
@@ -552,12 +562,14 @@ router.post('/api/user_teams', function(req, res, next) {
 })
 
 router.post('/api/edit_team', function(req, res, next) {
-  if (req.session.user){
-    console.log("in the logout route!!!\n")
-    req.session.user = null;
-    res.redirect('/')
+  if (!req.session.user){
+    res.json({
+      success:false,
+      message:"Need login first."
+    })
+    return
   }
-  if (req.body.event_id){
+  if (!req.body.event_id){
     res.json({
       success:false,
       message:"Need event id."
@@ -698,7 +710,8 @@ router.post('/api/join_event', Event1.middleware.loadOfId,Team.middleware.loadAl
   // res.send('respond with a resource');
 });
 
-router.post('/give_team/:event_id',Team.middleware.loadOfEvent,function(req,res,next){
+router.post('/api/give_team',Team.middleware.loadOfEvent,function(req,res,next){
+  console.log(req.body)
   Team.findById(req.body.team_id,function(error,team){
     if(error||!team){
       res.json({
@@ -707,11 +720,12 @@ router.post('/give_team/:event_id',Team.middleware.loadOfEvent,function(req,res,
       })
       return
     }else{
-      console.log(req.teams);
-      var teamPool=team.teamMatchingPool?team.teamMatchingPool:[JSON.stringify(req.body.team_id)]
+      var teamPool=team.teamMatchingPool?((team.teamMatchingPool.length==0)?[req.body.team_id]:team.teamMatchingPool):[req.body.team_id]
       var teams = req.teams
+      var accepted=team.teamAccepted
       var target = []
       var required = team.skillsRequired
+      console.log(teamPool)
       teams.forEach(function(ttt){
         var good = true;
         required.forEach(function(skill){
@@ -719,7 +733,7 @@ router.post('/give_team/:event_id',Team.middleware.loadOfEvent,function(req,res,
             good =false
           }
         })
-        if(!filterContains(ttt._id,teamPool)&&good){
+        if(!filterContains(ttt._id,teamPool)&&!filterContains(ttt._id,accepted)&&good&&(req.body.team_id!=ttt._id)){
           target.push(ttt)
         }
       })
@@ -730,7 +744,9 @@ router.post('/give_team/:event_id',Team.middleware.loadOfEvent,function(req,res,
         })
         return
       }
-      if(teamPool==[JSON.stringify(req.body.team_id)]){
+      console.log('no more teams')
+      if(teamPool==[req.body.team_id]){
+        console.log('no more teams2')
         res.json({
           success:false,
           message:"No teams satisfy your requirement"
@@ -747,8 +763,10 @@ router.post('/give_team/:event_id',Team.middleware.loadOfEvent,function(req,res,
           })
           return
         }else{
+          console.log('refresh')
           res.json({
             success:false,
+            allFound:true,
             message:"All team searched, refresh to check from start"
           })
         }
@@ -757,13 +775,51 @@ router.post('/give_team/:event_id',Team.middleware.loadOfEvent,function(req,res,
   })
 })
 
-router.post('/team_matched', Event1.middleware.loadOfId,function(req, res, next) {
+
+router.post('/api/reject_team',Team.middleware.loadOfEvent,function(req,res,next){
+  console.log("in the /api/reject_team")
+  Team.findById(req.body.team_id,function(error,team){
+    if(error||!team){
+      res.json({
+        success:false,
+        message:"Your team has changed,refresh the page and check your team setting"
+      })
+      return
+    }else{
+      // console.log(req.teams);
+      var teamPool=team.teamMatchingPool?team.teamMatchingPool:[req.body.team_id]
+      teamPool.push(req.body.reject_team_id)
+      console.log(teamPool)
+      Team.update(req.body.team_id,{
+        teamMatchingPool:teamPool
+      },function(error){
+        if(error){
+          res.json({
+            success:false,
+            message:"team updated fail"
+          })
+        }else{
+          Team.findById(req.body.team_id,function(error,team23){
+            console.log(team23)
+            res.json({
+              success:true,
+            })
+          })
+          // res.redirect('/'+)
+        }
+      })
+    }
+  })
+})
+
+router.post('/api/team_matched', Event1.middleware.loadOfId,function(req, res, next) {
   if(!req.session.user){
     res.json({
       success:false,
       login:false,
       message:"Need login first."
     })
+    return
   }
 
   if(!req.event){
@@ -771,147 +827,179 @@ router.post('/team_matched', Event1.middleware.loadOfId,function(req, res, next)
       success:false,
       message:"Cannot find that event"
     })
+    return
   }
-  Team.findById(req.body.team1,function(error,team){
-    if(error){
+  Team.findById(req.body.team1,function(error,team1){
+    if(error||!team1){
       res.json({
         success:false,
-        message:" This match failed. You team just updated, check it!"
+        message:" This match failed. Your team just updated, check it!"
       })
+      return
     }else{
       Team.findById(req.body.team2,function(error,team2){
-        if(error){
+        if(error||!team2){
           res.json({
             success:false,
-            message:" This match failed. You team just updated, check it!"
+            message:" This match failed. The matching team just updated, check it!"
           })
+          return
         }else{
           var matched = false;
-          var accepted1 = team.teamAccepted?team.teamAccepted:[]
-          var accepted2 = team2.teamAccepted?team2.teamAccepted:[]
-          if(filterContains(team._id,accepted2)||filterContains(team2._id,accepted1)){
+          var accepted1 = team1.teamAccepted?team1.teamAccepted:['N/A']
+          var accepted2 = team2.teamAccepted?team2.teamAccepted:['N/A']
+          if(!filterContains(team2._id,accepted1)){
+            accepted1.push(team2._id)
+          }
+          if(filterContains(team1._id,accepted2)&&filterContains(team2._id,accepted1)){
             matched=true
           }
+          console.log(matched)
           if(!matched){
 
-          }
-          var members = team1.members
-          team2.members.forEach(function(one){
-            members.push(one)
-          })
-          var newSkillsOwned = team1.skillsOwned?team1.skillsOwned:[]
-          if(team2.skillsOwned){
-            team2.skillsOwned.forEach(function(skill){
-              if(!filterContains(skill,newSkillsOwned)){
-                newSkillsOwned.push(skill)
+            Team.update(team1._id,{
+              teamAccepted:accepted1
+            },function(error){
+              if(error){
+                res.json({
+                  success:false,
+                  message:"team updated fail"
+                })
+                return
+              }else{
+                res.json({
+                  success:false,
+                  refresh:true
+                })
+                return
               }
             })
-          }
-          var newSkillsPrefered = team1.skillsPrefered?team1.skillsPrefered:[]
-          if(team2.skillsPrefered){
-            team2.skillsPrefered.forEach(function(skill){
-              if(!filterContains(skill,newskillsPrefered)){
-                newSkillsPrefered.push(skill)
-              }
+          }else{
+            console.log("why still here")
+            var members = team1.members
+            team2.members.forEach(function(one){
+              members.push(one)
             })
-          }
-          var newSkillsRequired = team1.skillsRequired?team1.skillsRequired:[]
-          if(team2.skillsRequired){
-            team2.skillsRequired.forEach(function(skill){
-              if(!filterContains(skill,newSkillsRequired)){
-                newSkillsRequired.push(skill)
-              }
-            })
-          }
-          var projectName = "N/A"
-          if(team1.projectName){
-            projectName = team1.projectName
-          }
-          if(team2.projectName){
-            projectName = team2.projectName
-          }
-
-          var projectPlan = "N/A"
-          if(team1.projectPlan){
-            projectPlan = team1.projectPlan
-          }
-          if(team2.projectPlan){
-            projectPlan = team2.projectPlan
-          }
-          var fields={
-            members:members,
-            event:team2.event,
-            skillsOwned:skillsOwned,
-            skillsPrefered:newSkillsPrefered,
-            skillsRequired:newSkillsRequired,
-            projectName:projectName,
-            projectPlan:projectPlan
-          }
-          Team.add(field,function(error,Tea){
-            if(error){
-              res.json({
-                success:false,
-                message:"team added fail"
-              })
-            }else{
-              Team.remove(team1.id,function(error){
-                if(error){
-                  res.json({
-                    success:false,
-                    message:"team1 removed fail"
-                  })
-                }else{
-                  Team.remove(team2.id,function(error){
-                    if(error){
-                      res.json({
-                        success:false,
-                        message:"team2 removed fail"
-                      })
-                    }else{
-                      var teams =req.event.teams
-                      teams = teams.filter(function(p){
-                          return (p!=team1&&p.id!=team1)&&(p!=team2||p.id!=team2)
-                      })
-                      teams.push(Tea)
-
-                      Event1.update(req.event.id,{
-                        teams:teams
-                      },function(error, one){
-                        res.json({
-                          success:"success",
-                        })
-                      })
-                    }
-                  })
+            var newSkillsOwned = team1.skillsOwned?team1.skillsOwned:[]
+            if(team2.skillsOwned){
+              team2.skillsOwned.forEach(function(skill){
+                if(!filterContains(skill,newSkillsOwned)){
+                  newSkillsOwned.push(skill)
                 }
               })
             }
-          })
+            var newSkillsPrefered = team1.skillsPrefered?team1.skillsPrefered:[]
+            if(team2.skillsPrefered){
+              team2.skillsPrefered.forEach(function(skill){
+                if(!filterContains(skill,newskillsPrefered)){
+                  newSkillsPrefered.push(skill)
+                }
+              })
+            }
+            var newSkillsRequired = team1.skillsRequired?team1.skillsRequired:[]
+            if(team2.skillsRequired){
+              team2.skillsRequired.forEach(function(skill){
+                if(!filterContains(skill,newSkillsRequired)){
+                  newSkillsRequired.push(skill)
+                }
+              })
+            }
+            var projectName = "N/A"
+            if(team1.projectName){
+              projectName = team1.projectName
+            }
+            if(team2.projectName){
+              projectName = team2.projectName
+            }
+
+            var projectPlan = "N/A"
+            if(team1.projectPlan){
+              projectPlan = team1.projectPlan
+            }
+            if(team2.projectPlan){
+              projectPlan = team2.projectPlan
+            }
+            var fields={
+              members:members,
+              event:team2.event,
+              skillsOwned:newSkillsOwned,
+              skillsPrefered:newSkillsPrefered,
+              skillsRequired:newSkillsRequired,
+              projectName:projectName,
+              projectPlan:projectPlan
+            }
+            Team.add(fields,function(error,Tea){
+              if(error){
+                res.json({
+                  success:false,
+                  message:"team added fail"
+                })
+                return
+              }else{
+                console.log(Tea)
+                Team.remove(team1.id,function(error){
+                  if(error){
+                    res.json({
+                      success:false,
+                      message:"team1 removed fail"
+                    })
+                    return
+                  }else{
+                    Team.remove(team2.id,function(error){
+                      if(error){
+                        res.json({
+                          success:false,
+                          message:"team2 removed fail"
+                        })
+                        return
+
+                      }else{
+                        var teams =req.event.teams
+                        teams = teams.filter(function(p){
+                            return (p!=team1&&p.id!=team1)&&(p!=team2||p.id!=team2)
+                        })
+                        teams.push(Tea)
+
+                        Event1.update(req.event.id,{
+                          teams:teams
+                        },function(error, one){
+                          res.json({
+                            success:"success",
+                          })
+                          return
+                        })
+                      }
+                    })
+                  }
+                })
+              }
+            })
+          }
         }
       })
     }
   })
-  var field = {
-    members:[req.user.id],
-    event:req.event
-  }
-  Team.add(field,function(error,Tea){
-    if(error){
-      res.json({
-        success:false,
-        message:"team added fail"
-      })
-    }else{
-      var teams = req.event.teams?req.event.teams:[]
-      Event1.update(req.event.id,{
-        teams:teams
-      },function(error, one){
-        res.json({
-          success:"success",
-        })
-      })
-    }
-  })
+  // var field = {
+  //   members:[req.user.id],
+  //   event:req.event
+  // }
+  // Team.add(field,function(error,Tea){
+  //   if(error){
+  //     res.json({
+  //       success:false,
+  //       message:"team added fail"
+  //     })
+  //   }else{
+  //     var teams = req.event.teams?req.event.teams:[]
+  //     Event1.update(req.event.id,{
+  //       teams:teams
+  //     },function(error, one){
+  //       res.json({
+  //         success:"success",
+  //       })
+  //     })
+  //   }
+  // })
   // res.send('respond with a resource');
 });
 
