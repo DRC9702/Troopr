@@ -1,28 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, Jumbotron, Col, Row} from 'react-bootstrap';
+import { Panel, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
-const styles = {
-  backgroundColor: 'orange',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  flexGrow: 1,
-};
-
-const jumbotronstyle = {
-    backgroundColor: 'orange',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    flexGrow: 1,
-    width: '100vh',
-}
+require('../styles/CreateAccountView.css');
 
 class CreateAccountView extends Component {
   constructor(props) {
@@ -33,23 +15,26 @@ class CreateAccountView extends Component {
       password: '',
     };
     this.createAccount = this.createAccount.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleUserChange = this.handleUserChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.createAccount = this.createAccount.bind(this);
   }
 
 
-
-  handleEmailChange = function(e) {
+  handleEmailChange(e) {
     this.setState({ email: e.target.value });
-  }.bind(this)
+  }
 
-  handleUserChange = function(e) {
+  handleUserChange(e) {
     this.setState({ username: e.target.value });
-  }.bind(this)
+  }
 
-  handlePasswordChange = function(e) {
+  handlePasswordChange(e) {
     this.setState({ password: e.target.value });
-  }.bind(this)
+  }
 
-  createAccount = function(e) {
+  createAccount(e) {
     // var self
     const data = {
       email: this.state.email,
@@ -86,74 +71,58 @@ class CreateAccountView extends Component {
 
   render() {
     return (
-      <div className="CreateAccountView" style={styles}>
-        <Jumbotron style={jumbotronstyle}>
-          <h1>Create Account</h1>
-          {/* <p><Button bsStyle="primary">Learn more</Button></p> */}
+      <div className="CreateAccountView">
+        <h1>Create Account</h1>
+        <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
           <form>
-            <Row>
-            <Col sm={16}>
-                <FormGroup>
-                <ControlLabel>Email Address</ControlLabel>
-                <FormControl
-                    type="text"
-                    value={this.state.email}
-                    placeholder="troop@troopr.edu"
-                    onChange={this.handleEmailChange}
-                />
-                <FormControl.Feedback />
-                <HelpBlock>Please enter a valid email address.</HelpBlock>
-                </FormGroup>
-            </Col>
-            </Row>
-            <Row>
-            <Col sm={16}>
-                <FormGroup>
-                <ControlLabel>Username</ControlLabel>
-                <FormControl
-                  type="text"
-                  value={this.state.username}
-                  placeholder="Username"
-                  onChange={this.handleUserChange}
-                />
-                <FormControl.Feedback />
-                <HelpBlock>Please enter a username.</HelpBlock>
-                </FormGroup>
-            </Col>
-            </Row>
-            <Row>
-            <Col sm={16}>
-                <FormGroup>
-                <ControlLabel>Password</ControlLabel>
-                <FormControl
-                  type="password"
-                  value={this.state.password}
-                  placeholder="Password"
-                  onChange={this.handlePasswordChange}
-                />
-                <FormControl.Feedback />
-                <HelpBlock>Please confirm your password.</HelpBlock>
-                </FormGroup>
-            </Col>
-            </Row>
+            <FormGroup>
+              <ControlLabel>Email Address</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.email}
+                placeholder="troop@troopr.edu"
+                onChange={this.handleEmailChange}
+              />
+              <FormControl.Feedback />
+              <HelpBlock>Please enter a valid email address.</HelpBlock>
+            </FormGroup>
+
+            <FormGroup>
+              <ControlLabel>Username</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.username}
+                placeholder="Username"
+                onChange={this.handleUserChange}
+              />
+              <FormControl.Feedback />
+              <HelpBlock>Please enter a username.</HelpBlock>
+            </FormGroup>
+
+            <FormGroup>
+              <ControlLabel>Password</ControlLabel>
+              <FormControl
+                type="password"
+                value={this.state.password}
+                placeholder="Password"
+                onChange={this.handlePasswordChange}
+              />
+              <FormControl.Feedback />
+              <HelpBlock>Please enter your password.</HelpBlock>
+            </FormGroup>
+
             <Button bsStyle="primary" onClick={this.createAccount}>
                 Create
             </Button>
           </form>
-        </Jumbotron>
+        </Panel>
       </div>
     );
   }
 }
 
-// function FieldGroup({ id, label, help, ...props }) {
-//     return (
-//         <FormGroup controlId={id}>
-//             <ControlLabel>{label}</ControlLabel>
-//             <FormControl {...props} />
-//             {help && <HelpBlock>{help}</HelpBlock>}
-//         </FormGroup>
-//     );
-// }
+CreateAccountView.propTypes = {
+  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
 
 export default withRouter(CreateAccountView);
