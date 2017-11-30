@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import ContentView from './ContentView';
-// import SkillsList from './SkillsList';
 import { Panel, Label, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 require('../styles/ProfileView.css');
 
@@ -15,6 +15,7 @@ class ProfileView extends Component {
       resume: '',
       bio: '',
     };
+    this.editProfile = this.editProfile.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +43,10 @@ class ProfileView extends Component {
       });
   }
 
+  editProfile() {
+    this.props.history.push('/edit_profile');
+  }
+
   render() {
     const bap = ['bap', 'boop', 'bep', 'booperino', 'bap', 'boop', 'bep', 'booperino', 'bap', 'boop', 'bep', 'booperino'];
     // replace bap with this.state.skills which should be in the form of a list
@@ -64,10 +69,16 @@ class ProfileView extends Component {
             <pre>{this.state.resume}</pre>
           </div>
         </Panel>
-        <Button>Edit</Button>
+        <Button bsStyle="primary" onClick={this.editProfile}>
+          Edit
+        </Button>
       </div>
     );
   }
 }
 
-export default ProfileView;
+ProfileView.propTypes = {
+  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
+
+export default withRouter(ProfileView);
