@@ -1,77 +1,69 @@
 import React, { Component } from 'react';
 // import ContentView from './ContentView';
 // import SkillsList from './SkillsList';
-// import {ControlLabel, FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
+import { Panel, Label } from 'react-bootstrap';
 import axios from 'axios';
 
 class ProfileView extends Component {
-
-  constructor(props){
-      super(props);
-      this.state = {
-          name: '',
-          skills:'',
-          resume:'',
-          bio:''
-      };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      skills: '',
+      resume: '',
+      bio: '',
+    };
   }
   componentDidMount() {
-    var _this = this;
     axios.post('/api/profile', {
     })
-      .then(function (response) {
-        if(response.data.success){
-          _this.setState({name:response.data.name});
-          _this.setState({skills:response.data.skills});
-          _this.setState({resume:response.data.resume});
-          _this.setState({bio:response.data.bio});
-          console.log(response.data.name)
-          console.log(response.data.skills)
-          console.log(response.data.resume)
-          console.log(response.data.bio)
-
-        }else{
-          console.log("failed2")
-
+      .then((response) => {
+        if (response.data.success) {
+          this.setState({
+            name: response.data.name,
+            skills: response.data.skills,
+            resume: response.data.resume,
+            bio: response.data.bio,
+          });
+          console.log(this.state.data.name);
+          console.log(this.state.data.skills);
+          console.log(this.state.data.resume);
+          console.log(this.state.data.bio);
+        } else {
+          console.log('failed2');
         }
-
       })
       .catch(function (error) {
         console.log(error)
         console.log("failed1")
-      })
+      });
   }
 
   render() {
+    const bap = ['bap', 'boop', 'bep', 'booperino', 'bap', 'boop', 'bep', 'booperino', 'bap', 'boop', 'bep', 'booperino'];
+    // replace bap with this.state.skills which should be in the form of a list
     return (
-      <div className="ProfileView" style={styles}>
-        <p>Name: {this.state.name}</p>
-        <p>SkillsList: {this.state.skills}</p>
-        <p>Bio: {this.state.bio}</p>
-        <p>Resume: {this.state.resume}</p>
+      <div className="ProfileView">
+        <h1>{this.state.name}</h1>
+        <Panel header="Skills" bsStyle="primary" style={{ margin: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {bap.map(listValue =>
+              <h4><Label style={{ margin: '5px' }}>{listValue}</Label></h4>)}
+          </div>
+        </Panel>
+        <Panel header="Bio" bsStyle="primary" style={{ margin: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <p>{this.state.bio}</p>
+          </div>
+        </Panel>
+        <Panel header="Resume" bsStyle="primary" style={{ margin: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <p>{this.state.resume}</p>
+          </div>
+        </Panel>
       </div>
     );
   }
 }
-
-const styles = {
-    backgroundColor: 'orange',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    flexGrow: 1,
-};
-
-// function FieldGroup({ id, label, help, ...props }) {
-//     return (
-//         <FormGroup controlId={id}>
-//             <ControlLabel>{label}</ControlLabel>
-//             <FormControl {...props} />
-//             {help && <HelpBlock>{help}</HelpBlock>}
-//         </FormGroup>
-//     );
-// }
 
 export default ProfileView;
