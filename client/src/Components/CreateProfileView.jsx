@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { ControlLabel, FormControl, Button, FormGroup, HelpBlock } from 'react-bootstrap';
+import { Panel, ControlLabel, FormControl, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
-
-const styles = {
-  backgroundColor: 'orange',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  flexGrow: 1,
-};
 
 class CreateProfileView extends Component {
   constructor(props) {
@@ -80,57 +70,60 @@ class CreateProfileView extends Component {
 
   render() {
     return (
-      <div className="CreateProfileView" style={styles}>
+      <div className="CreateProfileView">
         {/* <p>Name</p> */}
         {/* <SkillsList /> */}
         {/* <p>Bio</p> */}
         {/* <p>Links</p> */}
         <br /><br />
           <h1>Create Profile</h1>
-          <form>
-          <FieldGroup
-            id="formControlsText"
-            type="text"
-            value={this.state.name}
-            label="Name"
-            onChange={this.handleNameChange}
-            placeholder="Enter Name"
-          />
-
-          <FieldGroup
-            id="formControlsSkills"
-            type="text"
-            value={this.state.skills}
-            label="Skills"
-            onChange={this.handleSkillsChange}
-            placeholder="Enter skills"
-          />
-
-          <FieldGroup
-            id="formControlsFile"
-            type="text"
-            value={this.state.resume}
-            label="Resume"
-            onChange={this.handleResumeChange}
-            placeholder="Enter Resume"
-          />
-
-          <FormGroup controlId="formControlsTextarea">
-            <ControlLabel>Bio</ControlLabel>
-            <FormControl
-              componentClass="textarea"
-              value={this.state.bio}
-              onChange={this.handleBioChange}
-
-              placeholder="textarea"
+          <Panel header="Info" bsStyle="primary" style={{ margin: '20px' }}>
+            <form>
+            <FieldGroup
+              id="formControlsText"
+              type="text"
+              value={this.state.name}
+              label="Name"
+              onChange={this.handleNameChange}
+              placeholder="Enter Name"
             />
-          </FormGroup>
 
-          <Button bsStyle="primary" type="submit" onClick={this.createProfile}>
-              Create
-          </Button>
-          <br/><br/>
-        </form>
+            <FormGroup controlId="formControlsSkills">
+              <ControlLabel>Skills</ControlLabel>
+              <FormControl
+                componentClass="textarea"
+                value={this.state.skills}
+                onChange={this.handleSkillsChange}
+                placeholder="Enter Skills Separated By Newlines"
+              />
+            </FormGroup>
+
+            <FormGroup controlId="formControlsFile">
+              <ControlLabel>Resume</ControlLabel>
+              <FormControl
+                componentClass="textarea"
+                value={this.state.resume}
+                onChange={this.handleResumeChange}
+                placeholder="Enter Resume"
+              />
+            </FormGroup>
+
+            <FormGroup controlId="formControlsTextarea">
+              <ControlLabel>Bio</ControlLabel>
+              <FormControl
+                componentClass="textarea"
+                value={this.state.bio}
+                onChange={this.handleBioChange}
+                placeholder="textarea"
+              />
+            </FormGroup>
+
+            <Button bsStyle="primary" type="submit" onClick={this.createProfile}>
+                Create
+            </Button>
+            <br/><br/>
+          </form>
+        </Panel>
       </div>
     );
   }

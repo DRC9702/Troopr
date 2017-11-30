@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import ContentView from './ContentView';
-// import SkillsList from './SkillsList';
 import { Panel, Label } from 'react-bootstrap';
 import axios from 'axios';
+
+require('../styles/ProfileView.css');
 
 class ProfileView extends Component {
   constructor(props) {
@@ -52,13 +52,13 @@ class ProfileView extends Component {
           </div>
         </Panel>
         <Panel header="Bio" bsStyle="primary" style={{ margin: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <p>{this.state.bio}</p>
+          <div id="bioContent">
+            <pre>{this.state.bio}</pre>
           </div>
         </Panel>
         <Panel header="Resume" bsStyle="primary" style={{ margin: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <p>{this.state.resume}</p>
+          <div id="resumeContent">
+            <pre>{this.state.resume}</pre>
           </div>
         </Panel>
       </div>

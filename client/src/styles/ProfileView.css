@@ -1,0 +1,28 @@
+.ProfileView {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden !important;
+}
+
+#bioContent {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#resumeContent {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+pre {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 0px;
+    margin: 20px;
+    text-align: left;
+    white-space: pre-wrap !important;
+    word-break: normal !important;
+    word-wrap: normal !important;
+    width: 100%;
+}
