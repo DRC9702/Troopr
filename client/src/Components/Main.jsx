@@ -165,7 +165,7 @@ class Main extends Component {
                 component={Matching}
               />
               <Route
-                path="/team"
+                path="/team/:teamid"
                 component={TeamView}
               />
             </Switch>

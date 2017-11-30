@@ -25,6 +25,13 @@ class TeamView extends Component {
     this.handlePlanChange = this.handlePlanChange.bind(this);
   }
 
+  componentDidMount() {
+    axios.post('/api/view_team', {
+      query: key,
+    })
+      .then((response) => {
+  }
+
   changeCheckbox(e, title) {
     //console.log(e);
     if (e.target.checked === true) {
@@ -80,7 +87,25 @@ class TeamView extends Component {
   editTeam(e) {
     e.preventDefault()
 
+    axios.post('/api/edit_team', {
+      email: this.state.email,
+      username: this.state.username,
+      password: this.state.password,
+    })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.success);
+        console.log(response.data.user);
 
+        if (response.data.success) {
+          this.props.history.push('/create_profile');
+        } else {
+          alert('Account already exists');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {

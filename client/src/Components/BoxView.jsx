@@ -5,6 +5,9 @@ import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 // require('../styles/SideView.css');
 
 class BoxView extends Component {
+
+
+
   render() {
     return (
       <div className="BoxView">
