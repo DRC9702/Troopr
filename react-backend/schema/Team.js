@@ -8,7 +8,8 @@ var TeamSchema = new Schema({
   skillsPrefered:[String],
   skillsRequired:[String],
   projectPlan:{ type: String, default: 'N/A' },
-  projectName:{ type: String, default: 'N/A' }
+  projectName:{ type: String, default: 'N/A' },
+  teamMatchingPool:[String]
 }, {collection: 'Team'})
 
 var Model = mongoose.model("Team",TeamSchema);
@@ -96,7 +97,26 @@ module.exports = {
       req.teams = all || [];
       next();
     });
-  }
+  },
+  loadOfEvent: function(req, res, next){
+    Model.find({event:req.body.event_id}).populate([{
+      path:'members',
+      model:'User',
+      populate: [{
+        path:'profile',
+        model:'Profile'
+      },{
+        path:'credential',
+        model:'Credential'
+      }]
+    },{
+      path:'event',
+      model:'Event',
+    }]).exec(function (error, all) {
+    req.teams = all || [];
+    next();
+  });
+}
 
 
   }
