@@ -89,6 +89,7 @@ module.exports = {
             next();
         });
       }else{
+        console.log("dqwdqdqwdwq")
         res.json({
           success:false,
           message:"Need pass the event_id"
