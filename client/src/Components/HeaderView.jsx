@@ -174,13 +174,4 @@ HeaderView.propTypes = {
 
 };
 
-// const styles = {
-//     backgroundColor: 'red',
-//     display: 'flex',
-//     flex: 1,
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     alignContent: 'center',
-// };
-
 export default HeaderView;
