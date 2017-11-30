@@ -501,6 +501,7 @@ router.post('/username', function(req, res, next) {
 
 router.post('/api/view_team', function(req, res, next) {
   if (!req.session.user){
+
     res.json({
       success:false,
       message:"login first"
@@ -531,13 +532,15 @@ router.post('/api/view_team', function(req, res, next) {
 })
 
 router.post('/api/user_teams', function(req, res, next) {
-  if (req.session.user){
-    console.log("in the logout route!!!\n")
-    req.session.user = null;
-    res.redirect('/')
+  if (!req.session.user){
+    res.json({
+      success:false,
+      message:"No team found."
+    })
+    return
   }
   Team.findByUserId(req.session.user._id,function(error,teams){
-    if(error||!team){
+    if(error||!teams){
       res.json({
         success:false,
         message:"No team found."
@@ -552,12 +555,15 @@ router.post('/api/user_teams', function(req, res, next) {
 })
 
 router.post('/api/edit_team', function(req, res, next) {
-  if (req.session.user){
+  if (!req.session.user){
     console.log("in the logout route!!!\n")
-    req.session.user = null;
-    res.redirect('/')
+    res.json({
+      success:false,
+      message:"Not logged in."
+    })
+    return
   }
-  if (req.body.event_id){
+  if (!req.body.event_id){
     res.json({
       success:false,
       message:"Need event id."
@@ -570,18 +576,20 @@ router.post('/api/edit_team', function(req, res, next) {
         message:"No team found."
       })
     }else{
-      var skillsOwnedNew = req.body.skillsOwned?req.body.skillsOwned:(team.skillsOwned?team.skillsOwned:[])
-      var skillsPreferedNew = req.body.skillsPrefered?req.body.skillsPrefered:(team.skillsPrefered?team.skillsPrefered:[])
-      var skillsRequiredNew = req.body.skillsRequired?req.body.skillsRequired:(team.skillsRequired?team.skillsRequired:[])
-      var projectName = req.body.projectName?req.body.projectName:(team.projectName?team.projectName:[])
-      var projectPlan = req.body.projectPlan?req.body.projectPlan:(team.projectPlan?team.projectPlan:[])
-      var fields={
+      let skillsOwnedNew = req.body.skillsOwned?req.body.skillsOwned:(team.skillsOwned?team.skillsOwned:[]);
+      let skillsPreferedNew = req.body.skillsPrefered?req.body.skillsPrefered:(team.skillsPrefered?team.skillsPrefered:[]);
+      let skillsRequiredNew = req.body.skillsRequired?req.body.skillsRequired:(team.skillsRequired?team.skillsRequired:[]);
+      let projectName = req.body.projectName?req.body.projectName:(team.projectName?team.projectName:'N/A');
+      let projectPlan = req.body.projectPlan?req.body.projectPlan:(team.projectPlan?team.projectPlan:'N/A');
+      const fields={
         skillsOwned : skillsOwnedNew,
         skillsPrefered : skillsPreferedNew,
         skillsRequired : skillsRequiredNew,
         projectName : projectName,
         projectPlan : projectPlan,
       }
+
+      console.log(fields);
       Team.update(team._id,fields,function(error){
         if(error){
           res.json({
