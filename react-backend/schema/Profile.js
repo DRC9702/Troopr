@@ -25,6 +25,19 @@ module.exports ={
       }
     });
   },
+  update: function(id, fields, callback) {
+    Model.findOne({
+      _id: id
+    }).exec(function(error, one) {
+      console.log("in the update event")
+      console.log(one)
+      if (error) {
+        callback(error,null);
+      } else {
+        one.update(fields,callback);
+      }
+    });
+  },
 
   find: function(criteria,callback){
     Model.find(criteria).exec(function (error, some) {

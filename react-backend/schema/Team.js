@@ -3,7 +3,12 @@ var Schema = mongoose.Schema;
 
 var TeamSchema = new Schema({
   members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-  event: {type: mongoose.Schema.Types.ObjectId, ref: 'Event'}
+  event: {type: mongoose.Schema.Types.ObjectId, ref: 'Event'},
+  skillsOwned:[String],
+  skillsPrefered:[String],
+  skillsRequired:[String],
+  projectPlan:{ type: String, default: 'N/A' },
+  projectName:{ type: String, default: 'N/A' }
 }, {collection: 'Team'})
 
 var Model = mongoose.model("Team",TeamSchema);
@@ -34,6 +39,24 @@ module.exports = {
   find: function(criteria,callback){
     Model.find(criteria).exec(function (error, some) {
       callback(error, some);
+    });
+  },
+  findByEventIdAndUseId: function(event_id,user_id, callback) {
+    Model.findOne({ event : event_id, members:user_id }).populate([{
+      path:'members',
+      model:'User',
+      populate: [{
+        path:'profile',
+        model:'Profile'
+      },{
+        path:'credential',
+        model:'Credential'
+      }]
+    },{
+      path:'event',
+      model:'Event',
+    }]).exec(function (error, one) {
+      callback(error, one);
     });
   },
   findById: function(id, callback) {
