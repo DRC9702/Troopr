@@ -9,14 +9,22 @@ class BoxView extends Component {
 
 
   render() {
+    let list;
+
+    if (this.props.title === "Teams") {
+      list = this.props.teams.map((team) => (
+        <ListGroup key={team._id}>
+          <ListGroupItem href={'/team/' + team.event._id}>{team.members.map((member) => (
+            <p key={member._id}>{member.profile.name}</p>
+          ))}</ListGroupItem>
+        </ListGroup>
+      ));
+    }
+
     return (
       <div className="BoxView">
         <Panel header={this.props.title} bsStyle="primary">
-        <ListGroup>
-          <ListGroupItem href="#">Link 1</ListGroupItem>
-          <ListGroupItem href="#">Link 2</ListGroupItem>
-          <ListGroupItem href="#">Link 3</ListGroupItem>
-        </ListGroup>
+          {list}
         </Panel>
       </div>
     );

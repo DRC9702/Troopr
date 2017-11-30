@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {withRouter} from "react-router-dom";
 import { Col, Row, Grid, Button, Panel, Checkbox, FormGroup, ControlLabel, Modal, ListGroup, Form, FormControl, ListGroupItem, ButtonToolbar } from 'react-bootstrap';
 import axios from 'axios';
 import SelectSkills from './SelectSkills';
@@ -8,11 +9,13 @@ class TeamView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeKey: 1,
+      event_id: '',
+      team_id: '',
       owned: [],
       required: [],
       preferred: [],
       projectName: '',
+      members: [],
       plan: '',
       display: false,
       selectedEvent: '',
@@ -23,13 +26,40 @@ class TeamView extends Component {
     this.changeCheckbox = this.changeCheckbox.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
     this.handlePlanChange = this.handlePlanChange.bind(this);
+    this.editTeam = this.editTeam.bind(this);
   }
 
   componentDidMount() {
+    const _this = this;
+    console.log(this.props.match.params.event);
+    console.log(typeof(this.props.match.params.event));
+
+    let event_id = this.props.match.params.event;
+
     axios.post('/api/view_team', {
-      query: key,
+      event_id: event_id,
     })
       .then((response) => {
+        console.log(response.data.success);
+        if (response.data.success) {
+          console.log(response.data.team);
+          const team = response.data.team;
+          this.setState({team_id: team._id});
+          this.setState({event_id: team.event});
+          this.setState({owned: team.skillsOwned});
+          this.setState({required: team.skillsRequired});
+          this.setState({preferred: team.skillsPrefered});
+          this.setState({projectName: team.projectName});
+          this.setState({plan: team.projectPlan});
+          this.setState({members: team.members});
+        } else {
+          console.log('events query failed');
+          alert(response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   changeCheckbox(e, title) {
@@ -88,19 +118,17 @@ class TeamView extends Component {
     e.preventDefault()
 
     axios.post('/api/edit_team', {
-      email: this.state.email,
-      username: this.state.username,
-      password: this.state.password,
+      event_id: this.state.event_id,
     })
       .then((response) => {
         console.log(response);
         console.log(response.data.success);
-        console.log(response.data.user);
 
         if (response.data.success) {
-          this.props.history.push('/create_profile');
+          this.props.history.push('/team/' + this.state.event_id);
+          this.hideModal();
         } else {
-          alert('Account already exists');
+          alert(response.data.message);
         }
       })
       .catch((error) => {
@@ -109,6 +137,12 @@ class TeamView extends Component {
   }
 
   render() {
+    const members = this.state.members.map((member) => (
+      <Row key={member._id}>
+        <p>{member.profile.name}</p>
+      </Row>
+    ));
+
     return (
     <div className="TeamView" >
       {<h1>Team Board</h1>}
@@ -118,18 +152,18 @@ class TeamView extends Component {
           <Row>
             <Panel collapsible defaultExpanded header="Skills" bsStyle="success" >
               <ListGroup fill>
-                <ListGroupItem>Filter</ListGroupItem>
-                <ListGroupItem>Required</ListGroupItem>
-                <ListGroupItem>Preferred</ListGroupItem>
+                <ListGroupItem>{JSON.stringify(this.state.owned)}</ListGroupItem>
+                <ListGroupItem>{JSON.stringify(this.state.required)}</ListGroupItem>
+                <ListGroupItem>{JSON.stringify(this.state.preferred)}</ListGroupItem>
               </ListGroup>
             </Panel>
             <Panel collapsible defaultExpanded header="Project Plan" bsStyle="success" eventKey="2">
               <ListGroup fill>
                 <ListGroupItem>
-                  Name
+                  {this.state.projectName}
                 </ListGroupItem>
                 <ListGroupItem>
-                  Description
+                  {this.state.plan}
                 </ListGroupItem>
               </ListGroup>
             </Panel>
@@ -139,7 +173,7 @@ class TeamView extends Component {
           <Panel collapsible defaultExpanded header="Members" bsStyle="success">
             <ListGroup fill>
               <ListGroupItem>
-                <p>member list</p>
+                {members}
               </ListGroupItem>
               <ListGroupItem>
                 <ButtonToolbar>
@@ -200,4 +234,4 @@ class TeamView extends Component {
     );
   }
 }
-export default TeamView;
+export default withRouter(TeamView);
