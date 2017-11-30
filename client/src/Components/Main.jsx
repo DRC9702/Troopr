@@ -6,6 +6,7 @@ import HomeView from './HomeView';
 import DashboardView from './DashboardView';
 import CreateAccountView from './CreateAccountView';
 import CreateProfileView from './CreateProfileView';
+import EditProfileView from './EditProfileView';
 import CreateEventView from './CreateEventView';
 import EventsView from './EventsView';
 import Matching from './Matching';
@@ -124,6 +125,15 @@ class Main extends Component {
                 render={
               props => (
                 <CreateProfileView />
+              )
+            }
+              />
+              <Route
+                exact
+                path="/edit_profile"
+                render={
+              props => (
+                <EditProfileView />
               )
             }
               />
