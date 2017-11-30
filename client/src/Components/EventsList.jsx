@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import {withRouter} from "react-router-dom";
 import axios from 'axios';
 require('../styles/EventList.css');
 
@@ -8,39 +9,44 @@ class EventsList extends Component {
     super(props);
 
     this.state = {
-      display: false,
+      display: null,
+      eventJoined:""
     };
 
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
 
-  showModal() {
+  showModal(e, index) {
     console.log('ShowModal is clicked');
-    this.setState({ display: true });
+    console.log(index);
+    this.setState({ display: index });
     // this.setState({ selectedEvent: eventId });
   }
 
   hideModal() {
     this.setState({
-      display: false,
+      display: null,
     });
   }
 
-  joinEvent(event, e) {
+  joinEvent = (e) => {
+    console.log("abc")
+
     if(e) e.preventDefault();
+    console.log(e.target.value)
 
     axios.post('/api/join_event', {
-      event: event,
+      event_id: e.target.value,
     })
       .then((response) => {
         console.log(response);
         console.log(response.data.success);
 
         if (response.data.success) {
-          window.location = '/dashboard';
+          this.props.history.push("/dashboard");
         } else {
-          alert('join event failed');
+          alert(response.data.message);
         }
       })
       .catch((error) => {
@@ -49,18 +55,18 @@ class EventsList extends Component {
   }
 
   render() {
-    const listItems = this.props.events.map(event => (
+    const listItems = this.props.events.map((event, index) => (
 
         <tr key={event._id}>
           <th>
-            <Button type="button" bsStyle="link" onClick={this.showModal}>
+            <Button type="button" bsStyle="link" onClick={e => this.showModal(e, index)}>
               {event.name}
             </Button>
           </th>
           <th>{event.start_date}</th>
           <th>{event.end_date}</th>
           <th>{event.registration_deadline}</th>
-          <Modal show={this.state.display} onHide={this.hideModal}>
+          <Modal show={this.state.display === index} onHide={this.hideModal}>
             <Modal.Header>
               <Modal.Title>Event Detail</Modal.Title>
             </Modal.Header>
@@ -83,7 +89,7 @@ class EventsList extends Component {
               {JSON.stringify(this.props.events) ? (<p>{event.min}</p>) : (<p></p>)}
             </Modal.Body>
             <Modal.Footer>
-              <Button bsStyle="success" type="submit" value="Login" onClick={(event) => this.joinEvent()}>
+              <Button bsStyle="success" type="submit" value={event._id} onClick={this.joinEvent}>
                 Join
               </Button>
             </Modal.Footer>
@@ -101,4 +107,4 @@ EventsList.propTypes = {
   // showModal: PropTypes.func.isRequired,
 };
 
-export default EventsList;
+export default withRouter(EventsList);

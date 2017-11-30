@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { Label } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 class SkillsList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const listItems = this.props.skills.map(skill => (
-      <Label bsStyle="info" bsSize="large">{skill}</Label>
+      <Label bsStyle="info" style={{ margin: '3px' }}>{skill}</Label>
     ));
 
     return (
-      <div className="SkillsList" >
-        <label>{this.props.title} </label>
+      <div className="SkillsList">
+        {this.props.title}
         {listItems}
       </div>
     );
@@ -21,7 +18,8 @@ class SkillsList extends Component {
 }
 
 SkillsList.propTypes = {
-  // showModal: PropTypes.func.isRequired,
+  skills: PropTypes.arrayOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default SkillsList;

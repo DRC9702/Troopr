@@ -31,10 +31,12 @@ module.exports = {
     Model.findOne({
       _id: id
     }).exec(function(error, one) {
+      console.log("in the update event")
+      console.log(one)
       if (error) {
-        callback(error);
+        callback(error,null);
       } else {
-        one.update(fields, callback);
+        one.update(fields,callback);
       }
     });
   },
@@ -72,7 +74,7 @@ module.exports = {
     },
     loadOfId: function(req, res, next){
       if(req.body.event_id){
-        Model.findOne({id:req.body.event_id}).populate([{
+        Model.findOne({_id:req.body.event_id}).populate([{
           path:'host',
           model:'User',
           populate: [{
@@ -91,6 +93,7 @@ module.exports = {
           success:false,
           message:"Need pass the event_id"
         })
+        return
       }
     }
   }

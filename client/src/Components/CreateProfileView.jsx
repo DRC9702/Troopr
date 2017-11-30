@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { ControlLabel, FormControl, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -67,7 +68,7 @@ class CreateProfileView extends Component {
         console.log(response.data.user);
 
         if (response.data.success) {
-          window.location = '/profile';
+          this.props.history.push('/profile');
         } else {
           alert('profile created failed');
         }
@@ -147,4 +148,4 @@ function FieldGroup({
   );
 }
 
-export default CreateProfileView;
+export default withRouter(CreateProfileView);

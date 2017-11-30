@@ -1,0 +1,6 @@
+.SideView { 
+    margin-bottom: 0;
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+}

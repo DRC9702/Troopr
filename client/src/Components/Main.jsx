@@ -9,7 +9,6 @@ import CreateProfileView from './CreateProfileView';
 import CreateEventView from './CreateEventView';
 import EventsView from './EventsView';
 import Matching from './Matching';
-import EditProfile from './EditProfile';
 
 require('../styles/Main.css');
 
@@ -153,15 +152,6 @@ class Main extends Component {
               <Route
                 path="/matches/:event"
                 component={Matching}
-              />
-              <Route
-                exact
-                path="/edit_profile"
-                render={
-              props => (
-                <EditProfile />
-                )
-              }
               />
             </Switch>
           </div>

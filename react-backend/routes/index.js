@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../schema/User');
-var Event = require('../schema/Event');
+var Event1 = require('../schema/Event');
 var Team = require('../schema/Team')
 var Profile = require('../schema/Profile');
 var credential = require('../schema/Credential');
@@ -178,7 +178,7 @@ router.post('/api/create_event',function(req, res, next) {
         min:min
       }
       console.log(fields)
-      Event.add(fields,function(error,event){
+      Event1.add(fields,function(error,event){
         if(error){
           res.json({
             success:"fail at creating event",
@@ -264,7 +264,7 @@ function strContains(p,obj){
   return false;
 }
 
-router.post('/api/search_event', Event.middleware.loadAll,function(req, res, next) {
+router.post('/api/search_event', Event1.middleware.loadAll,function(req, res, next) {
     if(!req.body.query){
       if(req.events){
         res.json({
@@ -443,17 +443,17 @@ router.get('/addProfile', function(req, res, next) {
   // res.send('respond with a resource');
 });
 router.get('/logout', function(req, res, next) {
-  if (req.session.account){
+  if (req.session.user){
     console.log("in the logout route!!!\n")
     req.session.user = null;
     res.redirect('/')
   }
 })
 router.post('/username', function(req, res, next) {
-  if (req.session.account){
+  if (req.session.user){
     res.json({
       success:"success",
-      user:req.session.account
+      user:req.session.user
     })
   }else{
     res.json({
@@ -462,49 +462,106 @@ router.post('/username', function(req, res, next) {
     })
   }
 })
-router.post('/api/join_event', Event.middleware.loadOfId,function(req, res, next) {
+router.post('/api/join_event', Event1.middleware.loadOfId,Team.middleware.loadAll,function(req, res, next) {
   console.log("calling api")
-
+  // console.log(req.session.user)
+  // console.log(req.teams)
   if(!req.session.user){
     res.json({
       success:false,
       login:false,
       message:"Need login first."
     })
+    return
   }
-
   if(!req.event){
     res.json({
       success:false,
       message:"Cannot find that event"
     })
+    return
   }
-  var field = {
-    members:[req.session.user.id],
-    event:req.event
-  }
-  Team.add(field,function(error,Tea){
-    if(error){
+  User.findById(req.session.user,function(error1,account){
+    if(error1){
       res.json({
         success:false,
-        message:"team added fail"
+        message:"user not found"
       })
     }else{
-      var teams = req.event.teams?req.event.teams:[]
-      teams.push(Tea)
-      Event.update(req.event.id,{
-        teams:teams
-      },function(error, one){
-        res.json({
-          success:"success",
+      console.log(account)
+      var check = false
+      if(account.eventsJoined){
+        account.eventsJoined.forEach(function (eve) {
+          console.log(eve)
+          console.log(req.event._id)
+          console.log(eve==req.event._id)
+          if(JSON.stringify(eve)==JSON.stringify(req.event._id)){
+           check=true;
+          }
         })
+      }
+      if(check){
+        res.json({
+          success:false,
+          message:"already in that event"
+        })
+        return
+      }
+      var field = {
+        members:[req.session.user._id],
+        event:req.event
+      }
+      Team.add(field,function(error,Tea){
+        if(error){
+          res.json({
+            success:false,
+            message:"team added fail"
+          })
+        }else{
+          console.log(Tea)
+
+          var newTeams = req.event.teams?req.event.teams:[]
+          newTeams.push(Tea._id)
+          console.log("new teams")
+          console.log(newTeams)
+          var fields = {
+            teams:newTeams
+          }
+          Event1.update(req.event._id, fields, function(error){
+            if(error){
+              console.log("failed")
+              res.json({
+                success:false,
+                message:"event updated fail"
+              })
+            }else{
+              var joinEvents = account.eventsJoined?account.eventsJoined:[]
+              joinEvents.push(req.event._id)
+              User.update(req.session.user,{
+                  eventsJoined:joinEvents
+                },
+                function(error1){
+                  if(error1){
+                    res.json({
+                      success:false,
+                      message:"user update failed"
+                    })
+                  }else{
+                    res.json({
+                      success:"success",
+                    })
+                  }
+                })
+            }
+          })
+        }
       })
     }
   })
   // res.send('respond with a resource');
 });
 
-router.post('/team_matched', Event.middleware.loadOfId,function(req, res, next) {
+router.post('/team_matched', Event1.middleware.loadOfId,function(req, res, next) {
   if(!req.session.user){
     res.json({
       success:false,
@@ -568,7 +625,7 @@ router.post('/team_matched', Event.middleware.loadOfId,function(req, res, next) 
                       })
                       teams.push(Tea)
 
-                      Event.update(req.event.id,{
+                      Event1.update(req.event.id,{
                         teams:teams
                       },function(error, one){
                         res.json({
@@ -597,7 +654,7 @@ router.post('/team_matched', Event.middleware.loadOfId,function(req, res, next) 
       })
     }else{
       var teams = req.event.teams?req.event.teams:[]
-      Event.update(req.event.id,{
+      Event1.update(req.event.id,{
         teams:teams
       },function(error, one){
         res.json({

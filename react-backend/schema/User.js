@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
   profile: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},
   credential: {type: mongoose.Schema.Types.ObjectId, ref: 'Credential'},
-  eventsHosted: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
+  eventsHosted: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}],
+  eventsJoined:[{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 }, {collection: 'User'});
 
 var Model = mongoose.model("User",UserSchema);
