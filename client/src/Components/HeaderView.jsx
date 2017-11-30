@@ -42,7 +42,9 @@ class HeaderView extends Component {
   }
 
   doSearch(e) {
-    window.location = `/events/${this.state.searchKey}`;
+    e.preventDefault();
+    const actualKey = (this.state.searchKey) ? this.state.searchKey : '$all';
+    window.location = `/events/${actualKey}`;
   }
 
   handleEmailChange(e) {
@@ -63,7 +65,7 @@ class HeaderView extends Component {
     });
   }
 
-  createAcct() {
+  createAcct() { // eslint-disable-line class-methods-use-this
     window.location = '/create_account';
   }
 
@@ -171,14 +173,5 @@ HeaderView.propTypes = {
   depromptLoginHandler: PropTypes.func.isRequired,
 
 };
-
-// const styles = {
-//     backgroundColor: 'red',
-//     display: 'flex',
-//     flex: 1,
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     alignContent: 'center',
-// };
 
 export default HeaderView;

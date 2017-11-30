@@ -58,6 +58,7 @@ module.exports = {
       path:'event',
       model:'Event',
     }]).exec(function (error, one) {
+      console.log("eqweqw")
       callback(error, one);
     });
   },

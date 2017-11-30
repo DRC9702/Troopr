@@ -39,17 +39,49 @@ class Matching extends Component {
     let key = '';
     key = this.props.match.params.event;
     // Submit form via jQuery/AJAX
+    // retrieve my team's id
+    axios.post('/api/view_team', {
+      event_id: key,
+    })
+      .then((response) => {
+        if (response.data.success) {
+          console.log(response.data.team._id);
+          this.setState({ team_id: response.data.team._id });
+        } else {
+          console.log('failed2');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log('failed1');
+      });
+
+    //     axios.post('/api/give_team', {
+    //       event_id: key,
+    //       team_id: this.state.team_id,
+    //     })
+    //       .then((response) => {
+    //         if (response.data.success) {
+    //           console.log(response.data);
+    //         } else {
+    //           console.log('failed2');
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //         console.log('failed1');
+    //       });
   }
 
   reject() {
-    alert(`Team ${  this.state.team  } rejected`);
+    alert(`Team ${this.state.team} rejected`);
     // get new team from jQuery/AJAX; reject
     this.setState({ team: 'Better' });
     this.showModal();
   }
 
   accept() {
-    alert(`Team ${  this.state.team  } <3`);
+    alert(`Team ${this.state.team} <3`);
     this.setState({ team: 'Another option' });
     // tell jQuery/AJAX team is formed; accept
   }
@@ -104,7 +136,7 @@ class Matching extends Component {
   }
 }
 
-Matching.propTypes = { 
+Matching.propTypes = {
   // match: PropTypes.object.isRequired,
 };
 
