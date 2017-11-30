@@ -42,7 +42,9 @@ class HeaderView extends Component {
   }
 
   doSearch(e) {
-    window.location = `/events/${this.state.searchKey}`;
+    e.preventDefault();
+    const actualKey = (this.state.searchKey) ? this.state.searchKey : '$all';
+    window.location = `/events/${actualKey}`;
   }
 
   handleEmailChange(e) {
@@ -63,7 +65,7 @@ class HeaderView extends Component {
     });
   }
 
-  createAcct() {
+  createAcct() { // eslint-disable-line class-methods-use-this
     window.location = '/create_account';
   }
 
