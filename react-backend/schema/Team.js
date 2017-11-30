@@ -9,7 +9,8 @@ var TeamSchema = new Schema({
   skillsRequired:[String],
   projectPlan:{ type: String, default: 'N/A' },
   projectName:{ type: String, default: 'N/A' },
-  teamMatchingPool:[String]
+  teamMatchingPool:[String],
+  teamAccepted:[String]
 }, {collection: 'Team'})
 
 var Model = mongoose.model("Team",TeamSchema);

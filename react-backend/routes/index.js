@@ -761,6 +761,15 @@ router.post('/team_matched', Event1.middleware.loadOfId,function(req, res, next)
             message:" This match failed. You team just updated, check it!"
           })
         }else{
+          var matched = false;
+          var accepted1 = team.teamAccepted?team.teamAccepted:[]
+          var accepted2 = team2.teamAccepted?team2.teamAccepted:[]
+          if(filterContains(team._id,accepted2)||filterContains(team2._id,accepted1)){
+            matched=true
+          }
+          if(!matched){
+            
+          }
           var members = team1.members
           team2.members.forEach(function(one){
             members.push(one)

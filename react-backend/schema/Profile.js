@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
   name:String,
-  skills: String,
+  skills: [String],
   resume: String,
   bio: String,
   links: [String]
