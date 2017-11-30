@@ -45,18 +45,18 @@ class ProfileView extends Component {
     return (
       <div className="ProfileView">
         <h1>{this.state.name}</h1>
-        <Panel header="Skills" bsStyle="primary" style={{ margin: '20px' }}>
+        <Panel header="Skills" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
             {bap.map(listValue =>
               <h4><Label style={{ margin: '5px' }}>{listValue}</Label></h4>)}
           </div>
         </Panel>
-        <Panel header="Bio" bsStyle="primary" style={{ margin: '20px' }}>
+        <Panel header="Bio" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
           <div id="bioContent">
             <pre>{this.state.bio}</pre>
           </div>
         </Panel>
-        <Panel header="Resume" bsStyle="primary" style={{ margin: '20px' }}>
+        <Panel header="Resume" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
           <div id="resumeContent">
             <pre>{this.state.resume}</pre>
           </div>

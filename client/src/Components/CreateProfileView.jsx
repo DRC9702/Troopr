@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { Panel, ControlLabel, FormControl, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
 
+require('../styles/CreateProfileView.css')
+
 class CreateProfileView extends Component {
   constructor(props) {
     super(props);
@@ -71,13 +73,9 @@ class CreateProfileView extends Component {
   render() {
     return (
       <div className="CreateProfileView">
-        {/* <p>Name</p> */}
-        {/* <SkillsList /> */}
-        {/* <p>Bio</p> */}
-        {/* <p>Links</p> */}
         <br /><br />
           <h1>Create Profile</h1>
-          <Panel header="Info" bsStyle="primary" style={{ margin: '20px' }}>
+          <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
             <form>
             <FieldGroup
               id="formControlsText"
