@@ -505,7 +505,7 @@ router.post('/api/view_team', function(req, res, next) {
     req.session.user = null;
     res.redirect('/')
   }
-  if (req.body.event_id){
+  if (!req.body.event_id){
     res.json({
       success:false,
       message:"Need event id."
@@ -521,6 +521,27 @@ router.post('/api/view_team', function(req, res, next) {
       res.json({
         success:"success",
         team:team
+      })
+    }
+  })
+})
+
+router.post('/api/user_teams', function(req, res, next) {
+  if (req.session.user){
+    console.log("in the logout route!!!\n")
+    req.session.user = null;
+    res.redirect('/')
+  }
+  Team.findByUserId(req.session.user._id,function(error,teams){
+    if(error||!team){
+      res.json({
+        success:false,
+        message:"No team found."
+      })
+    }else{
+      res.json({
+        success:"success",
+        teams:teams
       })
     }
   })
@@ -673,7 +694,7 @@ router.post('/api/join_event', Event1.middleware.loadOfId,Team.middleware.loadAl
   // res.send('respond with a resource');
 });
 
-router.post('/give_team',Team.middleware.loadOfEvent,function(req,res,next){
+router.post('/give_team/:event_id',Team.middleware.loadOfEvent,function(req,res,next){
   Team.findById(req.body.team_id,function(error,team){
     if(error||!team){
       res.json({
@@ -768,7 +789,7 @@ router.post('/team_matched', Event1.middleware.loadOfId,function(req, res, next)
             matched=true
           }
           if(!matched){
-            
+
           }
           var members = team1.members
           team2.members.forEach(function(one){
