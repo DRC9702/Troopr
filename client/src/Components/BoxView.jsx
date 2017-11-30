@@ -51,7 +51,7 @@ class BoxView extends Component {
         </ListGroup>
       ));
     }
-    else if (this.props.title === "Events") {
+    else if (this.props.title === "Events Hosted") {
       list = this.props.events.map((event, index) => (
         <ListGroup key={event._id}>
           <ListGroupItem>

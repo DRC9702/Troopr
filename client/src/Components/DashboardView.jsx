@@ -46,8 +46,6 @@ class DashboardView extends Component {
         if (response.data.success) {
           console.log(response.data.events);
           this.setState({userEvents: response.data.events});
-          //console.log("show_event successful");
-          console.log(this.state.userEvents[0].host);
         } else {
           alert(response.data.message);
         }
@@ -84,7 +82,7 @@ class DashboardView extends Component {
                 <BoxView title="Teams" teams={this.state.userTeams}/>
               </Col>
               <Col md={12} lg={6}>
-                <BoxView title="Events" events={this.state.userEvents}/>
+                <BoxView title="Events Hosted" events={this.state.userEvents}/>
               </Col>
             </Row>
             <Row className="show-grid" style={{ width: '100%' }}>
