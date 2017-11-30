@@ -5,7 +5,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 
-require('../styles/CreateProfileView.css')
+require('../styles/CreateProfileView.css');
 
 class CreateProfileView extends Component {
   constructor(props) {
