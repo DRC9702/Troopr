@@ -67,38 +67,41 @@ class CreateEventView extends Component {
     }.bind(this);
 
     createEvent = function(e) {
-
         e.preventDefault();
-
         // Submit form via jQuery/AJAX
         //console.log(data);
-        axios.post('/api/create_event', {
-            event_name: this.state.eventName,
-            start_date: this.state.formattedStartValue,
-            registration_deadline: this.state.formattedDeadline,
-            end_date: this.state.formattedEndValue,
-            min: this.state.minSize,
-            max: this.state.maxSize,
-            description: this.state.eventBio,
-        })
-        .then((response) => {
-            console.log(response);
-            console.log(response.data.success);
-            // console.log(response.data.user);
+        if(this.state.minSize > this.state.maxSize) {
+          alert("Minimum and Maximum Size Error");
+        }
+        else {
+          axios.post('/api/create_event', {
+              event_name: this.state.eventName,
+              start_date: this.state.formattedStartValue,
+              registration_deadline: this.state.formattedDeadline,
+              end_date: this.state.formattedEndValue,
+              min: this.state.minSize,
+              max: this.state.maxSize,
+              description: this.state.eventBio,
+          })
+          .then((response) => {
+              console.log(response);
+              console.log(response.data.success);
+              // console.log(response.data.user);
 
-            if (response.data.success) {
-                this.props.history.push('/events/$all');
-            } else {
-                if(response.data.message){
-                    alert(response.data.message);
-                }else{
-                    alert('event created failed');
-                }
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+              if (response.data.success) {
+                  this.props.history.push('/events/$all');
+              } else {
+                  if(response.data.message){
+                      alert(response.data.message);
+                  }else{
+                      alert('event created failed');
+                  }
+              }
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+        }
     }
 
     render() {
