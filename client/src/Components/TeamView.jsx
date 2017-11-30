@@ -67,35 +67,35 @@ class TeamView extends Component {
   changeCheckbox(e, title) {
     //console.log(e);
     if (e.target.checked === true) {
-      if (title === "Skills You Have") {
+      if (title === 'Skills You Have') {
         this.state.owned.push(e.target.value)
-      } else if (title === "Skills You Require") {
+      } else if (title === 'Skills You Require') {
         this.state.required.push(e.target.value)
-      } else if (title === "Skills You Prefer") {
+      } else if (title === 'Skills You Prefer') {
         this.state.preferred.push(e.target.value)
       }
     } else {
-      if (title === "Skills You Have") {
+      if (title === 'Skills You Have') {
         let index = this.state.owned.indexOf(e.target.value);
         if (index > -1) {
           this.state.owned.splice(index, 1);
         }
-      } else if (title === "Skills You Require") {
+      } else if (title === 'Skills You Require') {
         let index = this.state.required.indexOf(e.target.value);
         if (index > -1) {
           this.state.required.splice(index, 1);
         }
-      } else if (title === "Skills You Prefer") {
+      } else if (title === 'Skills You Prefer') {
         let index = this.state.preferred.indexOf(e.target.value);
         if (index > -1) {
           this.state.preferred.splice(index, 1);
         }
       }
     }
-    console.log(this.state.owned);
-    console.log(this.state.required);
-    console.log(this.state.preferred);
-
+    // console.log(this.state.owned);
+    // console.log(this.state.required);
+    // console.log(this.state.preferred);
+    this.forceUpdate();
   }
 
   handleProjectNameChange(e) {
@@ -204,13 +204,13 @@ class TeamView extends Component {
         </Modal.Header>
         <Modal.Body>
           <Form inline>
-            <SelectSkills title="Skills You Have" changeCheckbox={this.changeCheckbox}/>
+            <SelectSkills title="Skills You Have" changeCheckbox={this.changeCheckbox} list={this.state.owned} />
             <br />
             <br />
-            <SelectSkills title="Skills You Require" changeCheckbox={this.changeCheckbox}/>
+            <SelectSkills title="Skills You Require" changeCheckbox={this.changeCheckbox} list={this.state.required} />
             <br />
             <br />
-            <SelectSkills title="Skills You Prefer" changeCheckbox={this.changeCheckbox}/>
+            <SelectSkills title="Skills You Prefer" changeCheckbox={this.changeCheckbox} list={this.state.preferred} />
             <br />
             <br />
             <ControlLabel>Your Project Name</ControlLabel><br/>

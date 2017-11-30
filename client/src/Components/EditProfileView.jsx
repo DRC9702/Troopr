@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Panel, ControlLabel, FormControl, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
+import SelectSkills from './SelectSkills';
 
 require('../styles/CreateProfileView.css');
 
@@ -12,15 +12,15 @@ class EditProfileView extends Component {
     super(props);
     this.state = {
       name: '',
-      skills: '',
+      skills: [],
       resume: '',
       bio: '',
     };
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleSkillsChange = this.handleSkillsChange.bind(this);
     this.handleResumeChange = this.handleResumeChange.bind(this);
     this.handleBioChange = this.handleBioChange.bind(this);
     this.editProfile = this.editProfile.bind(this);
+    this.changeCheckbox = this.changeCheckbox.bind(this);
   }
 
   componentDidMount() {
@@ -50,10 +50,6 @@ class EditProfileView extends Component {
 
   handleNameChange(e) {
     this.setState({ name: e.target.value });
-  }
-
-  handleSkillsChange(e) {
-    this.setState({ skills: e.target.value });
   }
 
   handleResumeChange(e) {
@@ -102,6 +98,22 @@ class EditProfileView extends Component {
       });
   }
 
+  changeCheckbox(e, title) {
+    // console.log(`Before:${this.state.skills}`);
+    if (e.target.checked === true) {
+      if (title === 'Skills') {
+        this.state.skills.push(e.target.value);
+      }
+    } else if (title === 'Skills') {
+      const index = this.state.skills.indexOf(e.target.value);
+      if (index > -1) {
+        this.state.skills.splice(index, 1);
+      }
+    }
+    // console.log(`After:${this.state.skills}`);
+    this.forceUpdate();
+  }
+
   render() {
     return (
       <div className="CreateProfileView">
@@ -119,13 +131,7 @@ class EditProfileView extends Component {
             />
 
             <FormGroup controlId="formControlsSkills">
-              <ControlLabel>Skills</ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                value={this.state.skills}
-                onChange={this.handleSkillsChange}
-                placeholder="Enter Skills Separated By Newlines"
-              />
+              <SelectSkills title="Skills" changeCheckbox={this.changeCheckbox} list={this.state.skills} />
             </FormGroup>
 
             <FormGroup controlId="formControlsFile">

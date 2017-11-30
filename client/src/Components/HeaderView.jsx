@@ -9,7 +9,6 @@ class HeaderView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // loggedIn: props.loggedIn,
       show: props.show,
       email: '',
       username: '',
@@ -24,18 +23,19 @@ class HeaderView extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
     this.setState({ show: newProps.show });
   }
 
-  getText() {
-    if (this.props.loggedIn) {
-      return `Log out: ${this.state.email}:${this.state.username}`;
-    }
-    return 'Log in';
-  }
+  // getText() {
+  //   if (this.props.loggedIn) {
+  //     return `Log out: ${this.state.email}:${this.state.username}`;
+  //   }
+  //   return 'Log in';
+  // }
 
   handleSearchChange(e) {
     this.setState({ searchKey: e.target.value });
@@ -55,11 +55,21 @@ class HeaderView extends Component {
     this.setState({ password: e.target.value });
   }
 
+  toggleModal() {
+    if (this.state.show) {
+      this.hideModal();
+    } else {
+      this.showModal();
+    }
+  }
+
   showModal() {
+    console.log('Openning Modal');
     this.setState({ show: true });
   }
 
   hideModal() {
+    console.log('Closing Modal');
     this.setState({
       show: false,
     });
@@ -119,15 +129,15 @@ class HeaderView extends Component {
               <Button type="submit" onClick={this.doSearch}>Submit</Button>
             </Navbar.Form>
             <Navbar.Form pullRight>
-              <Button type="button" onClick={this.props.promptLoginHandler}>
-                {this.getText()}
+              <Button type="button" onClick={this.toggleModal}>
+                Login
               </Button>
             </Navbar.Form>
           </Navbar.Collapse>
         </Navbar>
 
         <Modal show={this.state.show} onHide={this.hideModal}>
-          <Modal.Header>
+          <Modal.Header closeButton>
             <Modal.Title>Troopr Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -167,11 +177,7 @@ class HeaderView extends Component {
 }
 
 HeaderView.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
-  promptLoginHandler: PropTypes.func.isRequired,
-  depromptLoginHandler: PropTypes.func.isRequired,
-
 };
 
 export default HeaderView;
