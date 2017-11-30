@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 require('../styles/CreateProfileView.css');
 
-class CreateProfileView extends Component {
+class EditProfileView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,8 +20,34 @@ class CreateProfileView extends Component {
     this.handleSkillsChange = this.handleSkillsChange.bind(this);
     this.handleResumeChange = this.handleResumeChange.bind(this);
     this.handleBioChange = this.handleBioChange.bind(this);
-    this.createProfile = this.createProfile.bind(this);
+    this.editProfile = this.editProfile.bind(this);
   }
+
+  componentDidMount() {
+    axios.post('/api/profile', {
+    })
+      .then((response) => {
+        if (response.data.success) {
+          this.setState({
+            name: response.data.name,
+            skills: response.data.skills,
+            resume: response.data.resume,
+            bio: response.data.bio,
+          });
+          console.log(this.state.data.name);
+          console.log(this.state.data.skills);
+          console.log(this.state.data.resume);
+          console.log(this.state.data.bio);
+        } else {
+          console.log('failed2');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log('failed1');
+      });
+  }
+
   handleNameChange(e) {
     this.setState({ name: e.target.value });
   }
@@ -38,7 +64,7 @@ class CreateProfileView extends Component {
     this.setState({ bio: e.target.value });
   }
 
-  createProfile(e) {
+  editProfile(e) {
     // var self
 
     e.preventDefault();
@@ -54,7 +80,7 @@ class CreateProfileView extends Component {
 
     // Submit form via jQuery/AJAX
     console.log(data);
-    axios.post('/api/create_profile', {
+    axios.post('/api/edit_profile', {
       name: this.state.name,
       skills: this.state.skills,
       resume: this.state.resume,
@@ -80,7 +106,7 @@ class CreateProfileView extends Component {
     return (
       <div className="CreateProfileView">
         <br /><br />
-        <h1>Create Profile</h1>
+        <h1>Edit Profile:{this.state.name}</h1>
         <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
           <form>
             <FieldGroup
@@ -122,8 +148,8 @@ class CreateProfileView extends Component {
               />
             </FormGroup>
 
-            <Button bsStyle="primary" type="submit" onClick={this.createProfile}>
-                Create
+            <Button bsStyle="primary" type="submit" onClick={this.editProfile}>
+                Finish Edit
             </Button>
             <br /><br />
           </form>
@@ -133,7 +159,7 @@ class CreateProfileView extends Component {
   }
 }
 
-CreateProfileView.propTypes = {
+EditProfileView.propTypes = {
   history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
@@ -149,4 +175,4 @@ function FieldGroup({
   );
 }
 
-export default withRouter(CreateProfileView);
+export default withRouter(EditProfileView);
