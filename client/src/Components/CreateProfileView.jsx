@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Panel, ControlLabel, FormControl, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+
 
 require('../styles/CreateProfileView.css')
 
@@ -14,23 +16,27 @@ class CreateProfileView extends Component {
       resume: '',
       bio: '',
     };
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleSkillsChange = this.handleSkillsChange.bind(this);
+    this.handleResumeChange = this.handleResumeChange.bind(this);
+    this.handleBioChange = this.handleBioChange.bind(this);
     this.createProfile = this.createProfile.bind(this);
   }
-  handleNameChange = function(e) {
+  handleNameChange(e) {
     this.setState({ name: e.target.value });
-  }.bind(this)
+  }
 
-  handleSkillsChange = function(e) {
+  handleSkillsChange(e) {
     this.setState({ skills: e.target.value });
-  }.bind(this)
+  }
 
-  handleResumeChange = function(e) {
+  handleResumeChange(e) {
     this.setState({ resume: e.target.value });
-  }.bind(this)
+  }
 
-  handleBioChange = function(e) {
+  handleBioChange(e) {
     this.setState({ bio: e.target.value });
-  }.bind(this)
+  }
 
   createProfile(e) {
     // var self
@@ -38,7 +44,7 @@ class CreateProfileView extends Component {
     e.preventDefault();
     // self = this
 
-    //console.log(this.state);
+    // console.log(this.state);
     const data = {
       name: this.state.name,
       skills: this.state.skills,
@@ -74,9 +80,9 @@ class CreateProfileView extends Component {
     return (
       <div className="CreateProfileView">
         <br /><br />
-          <h1>Create Profile</h1>
-          <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
-            <form>
+        <h1>Create Profile</h1>
+        <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
+          <form>
             <FieldGroup
               id="formControlsText"
               type="text"
@@ -119,13 +125,17 @@ class CreateProfileView extends Component {
             <Button bsStyle="primary" type="submit" onClick={this.createProfile}>
                 Create
             </Button>
-            <br/><br/>
+            <br /><br />
           </form>
         </Panel>
       </div>
     );
   }
 }
+
+CreateProfileView.propTypes = {
+  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
 
 function FieldGroup({
   id, label, help, ...props
