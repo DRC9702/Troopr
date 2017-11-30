@@ -895,7 +895,7 @@ router.post('/api/team_matched', Event1.middleware.loadOfId,function(req, res, n
             var newSkillsPrefered = team1.skillsPrefered?team1.skillsPrefered:[]
             if(team2.skillsPrefered){
               team2.skillsPrefered.forEach(function(skill){
-                if(!filterContains(skill,newskillsPrefered)){
+                if(!filterContains(skill,newSkillsPrefered)){
                   newSkillsPrefered.push(skill)
                 }
               })

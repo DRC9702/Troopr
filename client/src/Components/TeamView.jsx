@@ -27,6 +27,7 @@ class TeamView extends Component {
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
     this.handlePlanChange = this.handlePlanChange.bind(this);
     this.editTeam = this.editTeam.bind(this);
+    this.matchTeam = this.matchTeam.bind(this);
   }
 
   componentDidMount() {
@@ -45,7 +46,7 @@ class TeamView extends Component {
           console.log(response.data.team);
           const team = response.data.team;
           this.setState({team_id: team._id});
-          this.setState({event_id: team.event});
+          this.setState({event_id: team.event._id});
           this.setState({owned: team.skillsOwned});
           this.setState({required: team.skillsRequired});
           this.setState({preferred: team.skillsPrefered});
@@ -142,6 +143,10 @@ class TeamView extends Component {
       });
   }
 
+  matchTeam() {
+    this.props.history.push('/matches/' + this.state.event_id);
+  }
+
   render() {
     const members = this.state.members.map((member) => (
       <Row key={member._id}>
@@ -183,7 +188,7 @@ class TeamView extends Component {
               </ListGroupItem>
               <ListGroupItem>
                 <ButtonToolbar>
-                  <Button bsStyle="primary" bsSize="large" block>Find Match</Button>
+                  <Button bsStyle="primary" bsSize="large" block onClick={this.matchTeam}>Find Match</Button>
                   <Button bsStyle="info" bsSize="large" block onClick={this.showModal}>Edit</Button>
                   <Button bsStyle="danger" bsSize="large" block>Leave</Button>
                 </ButtonToolbar>

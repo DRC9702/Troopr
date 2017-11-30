@@ -14,7 +14,8 @@ class DashboardView extends Component {
     super(props);
     this.state = {
       savedProfile: "",
-      userTeams: []
+      userTeams: [],
+      userEvents: [],
     };
     this.handleViewProfile = this.handleViewProfile.bind(this);
     this.handleViewEvent = this.handleViewEvent.bind(this);
@@ -28,10 +29,25 @@ class DashboardView extends Component {
         // console.log(response.data);
         console.log(response.data.success);
         if (response.data.success) {
-          console.log(response.data.teams);
+          //console.log(response.data.teams);
           this.setState({userTeams: response.data.teams});
         } else {
-          console.log('teams query failed');
+          alert(response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios.post('/api/show_event', {
+    })
+      .then((response) => {
+        console.log("show_event successful");
+        if (response.data.success) {
+          console.log(response.data.events);
+          this.setState({userEvents: response.data.events});
+        } else {
+          alert(response.data.message);
         }
       })
       .catch((error) => {
@@ -66,7 +82,7 @@ class DashboardView extends Component {
                 <BoxView title="Teams" teams={this.state.userTeams}/>
               </Col>
               <Col md={12} lg={6}>
-                <BoxView title="Events" />
+                <BoxView title="Events Hosted" events={this.state.userEvents}/>
               </Col>
             </Row>
             <Row className="show-grid" style={{ width: '100%' }}>
