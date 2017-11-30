@@ -70,7 +70,7 @@ class EventsList extends Component {
         <th>{event.start_date}</th>
         <th>{event.end_date}</th>
         <th>{event.registration_deadline}</th>
-        <Modal show={this.state.display === index} onHide={this.hideModal}>
+        <Modal id="JoinEventModal" show={this.state.display === index} onHide={this.hideModal}>
           <Modal.Header>
             <Modal.Title>Event Detail</Modal.Title>
           </Modal.Header>
