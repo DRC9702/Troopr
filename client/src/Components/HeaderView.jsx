@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Button, FormGroup, FormControl, Modal, Form } from 'react-bootstrap';
+import { Navbar, Button, FormGroup, FormControl, Modal, Form, Glyphicon, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -110,7 +110,7 @@ class HeaderView extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Navbar.Form pullLeft>
-              <FormGroup>
+              <FormGroup >
                 <FormControl type="text" placeholder="Search" onChange={this.handleSearchChange} />
               </FormGroup>
               {' '}
