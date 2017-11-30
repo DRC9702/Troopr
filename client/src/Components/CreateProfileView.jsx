@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Panel, ControlLabel, FormControl, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import SelectSkills from './SelectSkills';
 
 
 require('../styles/CreateProfileView.css');
@@ -12,22 +13,18 @@ class CreateProfileView extends Component {
     super(props);
     this.state = {
       name: '',
-      skills: '',
+      skills: [],
       resume: '',
       bio: '',
     };
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleSkillsChange = this.handleSkillsChange.bind(this);
     this.handleResumeChange = this.handleResumeChange.bind(this);
     this.handleBioChange = this.handleBioChange.bind(this);
     this.createProfile = this.createProfile.bind(this);
+    this.changeCheckbox = this.changeCheckbox.bind(this);
   }
   handleNameChange(e) {
     this.setState({ name: e.target.value });
-  }
-
-  handleSkillsChange(e) {
-    this.setState({ skills: e.target.value });
   }
 
   handleResumeChange(e) {
@@ -36,6 +33,21 @@ class CreateProfileView extends Component {
 
   handleBioChange(e) {
     this.setState({ bio: e.target.value });
+  }
+
+  changeCheckbox(e, title) {
+    console.log(this.state.skills);
+    if (e.target.checked === true) {
+      if (title === 'Skills') {
+        this.state.skills.push(e.target.value);
+      }
+    } else if (title === 'Skills') {
+      const index = this.state.skills.indexOf(e.target.value);
+      if (index > -1) {
+        this.state.skills.splice(index, 1);
+      }
+    }
+    console.log(this.state.skills);
   }
 
   createProfile(e) {
@@ -93,13 +105,7 @@ class CreateProfileView extends Component {
             />
 
             <FormGroup controlId="formControlsSkills">
-              <ControlLabel>Skills</ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                value={this.state.skills}
-                onChange={this.handleSkillsChange}
-                placeholder="Enter Skills Separated By Newlines"
-              />
+              <SelectSkills title="Skills" changeCheckbox={this.changeCheckbox} />
             </FormGroup>
 
             <FormGroup controlId="formControlsFile">

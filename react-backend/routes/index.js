@@ -49,8 +49,9 @@ router.post('/api/profile',User.middleware.loadOfLog,function(req, res, next) {
 
 });
 
-// router.post('/api/edit_profile',User.middleware.loadOfLog,function(req, res, next) {
-  router.post('/api/edit_profile', function(req, res, next) {
+router.post('/api/edit_profile',User.middleware.loadOfLog,function(req, res, next) {
+  // router.post('/api/edit_profile', function(req, res, next) {
+      console.log(req.body);
       if(!req.session.user){
         res.json({
           success:false,
@@ -71,7 +72,7 @@ router.post('/api/profile',User.middleware.loadOfLog,function(req, res, next) {
             resume: newResume,
             bio: newBio
           }
-          Profile.update(req.session.user.profile._id,fields,function(error){
+          Profile.update(req.user.profile._id,fields,function(error){
             if(error){
               res.json({
                 success:false,

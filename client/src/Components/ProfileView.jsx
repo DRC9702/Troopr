@@ -11,7 +11,7 @@ class ProfileView extends Component {
     super(props);
     this.state = {
       name: '',
-      skills: '',
+      skills: [],
       resume: '',
       bio: '',
     };
@@ -48,14 +48,14 @@ class ProfileView extends Component {
   }
 
   render() {
-    const bap = ['bap', 'boop', 'bep', 'booperino', 'bap', 'boop', 'bep', 'booperino', 'bap', 'boop', 'bep', 'booperino'];
+    const skillList = this.state.skills;
     // replace bap with this.state.skills which should be in the form of a list
     return (
       <div className="ProfileView">
         <h1>{this.state.name}</h1>
         <Panel header="Skills" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {bap.map(listValue =>
+            {skillList.map(listValue =>
               <h4><Label style={{ margin: '5px' }}>{listValue}</Label></h4>)}
           </div>
         </Panel>
