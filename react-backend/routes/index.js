@@ -500,16 +500,19 @@ router.post('/username', function(req, res, next) {
 })
 
 router.post('/api/view_team', function(req, res, next) {
-  if (req.session.user){
-    console.log("in the logout route!!!\n")
-    req.session.user = null;
-    res.redirect('/')
+  if (!req.session.user){
+    res.json({
+      success:false,
+      message:"login first"
+    })
+    return
   }
   if (!req.body.event_id){
     res.json({
       success:false,
       message:"Need event id."
     })
+    return
   }
   Team.findByEventIdAndUseId(req.body.event_id,req.session.user._id,function(error,team){
     if(error||!team){
@@ -518,6 +521,7 @@ router.post('/api/view_team', function(req, res, next) {
         message:"No team found."
       })
     }else{
+      
       res.json({
         success:"success",
         team:team
