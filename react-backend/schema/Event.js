@@ -73,8 +73,8 @@ module.exports = {
       });
     },
     loadOfId: function(req, res, next){
-      if(req.body.event_id){
-        Model.findOne({_id:req.body.event_id}).populate([{
+      if(req.body.event_id||req.params.event_id){
+        Model.findOne({_id:req.body.event_id||req.params.event_id}).populate([{
           path:'host',
           model:'User',
           populate: [{

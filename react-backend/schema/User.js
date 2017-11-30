@@ -63,6 +63,9 @@ module.exports = {
         path:'eventsHosted',
         model:'Event'
       },{
+        path:'eventsJoined',
+        model:'Event'
+      },{
         path:'credential',
         model:'Credential'
       }]).exec(function (error, all) {

@@ -61,6 +61,24 @@ module.exports = {
       callback(error, one);
     });
   },
+  findByUserId: function(event_id,user_id, callback) {
+    Model.find({ members:user_id }).populate([{
+      path:'members',
+      model:'User',
+      populate: [{
+        path:'profile',
+        model:'Profile'
+      },{
+        path:'credential',
+        model:'Credential'
+      }]
+    },{
+      path:'event',
+      model:'Event',
+    }]).exec(function (error, one) {
+      callback(error, one);
+    });
+  },
   findById: function(id, callback) {
     Model.findOne({ _id : id }).
     exec(function (error, one) {
@@ -100,7 +118,7 @@ module.exports = {
     });
   },
   loadOfEvent: function(req, res, next){
-    Model.find({event:req.body.event_id}).populate([{
+    Model.find({event:req.params.event_id}).populate([{
       path:'members',
       model:'User',
       populate: [{
