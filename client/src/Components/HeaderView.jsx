@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Button, FormGroup, FormControl, Modal, Form } from 'react-bootstrap';
+import { Navbar, Button, FormGroup, FormControl, Modal, Form, Glyphicon, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -42,7 +42,9 @@ class HeaderView extends Component {
   }
 
   doSearch(e) {
-    window.location = `/events/${this.state.searchKey}`;
+    e.preventDefault();
+    const actualKey = (this.state.searchKey) ? this.state.searchKey : '$all';
+    window.location = `/events/${actualKey}`;
   }
 
   handleEmailChange(e) {
@@ -63,7 +65,7 @@ class HeaderView extends Component {
     });
   }
 
-  createAcct() {
+  createAcct() { // eslint-disable-line class-methods-use-this
     window.location = '/create_account';
   }
 
@@ -110,7 +112,7 @@ class HeaderView extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Navbar.Form pullLeft>
-              <FormGroup>
+              <FormGroup >
                 <FormControl type="text" placeholder="Search" onChange={this.handleSearchChange} />
               </FormGroup>
               {' '}
@@ -171,14 +173,5 @@ HeaderView.propTypes = {
   depromptLoginHandler: PropTypes.func.isRequired,
 
 };
-
-// const styles = {
-//     backgroundColor: 'red',
-//     display: 'flex',
-//     flex: 1,
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     alignContent: 'center',
-// };
 
 export default HeaderView;

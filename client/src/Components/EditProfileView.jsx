@@ -163,9 +163,8 @@ EditProfileView.propTypes = {
   history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
-function FieldGroup({
-  id, label, help, ...props
-}) {
+// eslint-disable-next-line object-curly-newline
+function FieldGroup({ id, label, help, ...props }) { // eslint-disable-line react/prop-types
   return (
     <FormGroup controlId={id}>
       <ControlLabel>{label}</ControlLabel>

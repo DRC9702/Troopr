@@ -4,6 +4,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import SideView from './SideView';
 import BoxView from './BoxView';
+import axios from 'axios';
+
 
 require('../styles/DashboardView.css');
 
@@ -11,11 +13,30 @@ class DashboardView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      savedProfile: ""
+      savedProfile: "",
+      userTeams: []
     };
     this.handleViewProfile = this.handleViewProfile.bind(this);
     this.handleViewEvent = this.handleViewEvent.bind(this);
     this.handleCreateEvent = this.handleCreateEvent.bind(this);
+  }
+
+  componentDidMount() {
+    axios.post('/api/user_teams', {
+    })
+      .then((response) => {
+        // console.log(response.data);
+        console.log(response.data.success);
+        if (response.data.success) {
+          console.log(response.data.teams);
+          this.setState({userTeams: response.data.teams});
+        } else {
+          console.log('teams query failed');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   handleViewProfile() {
@@ -42,7 +63,7 @@ class DashboardView extends Component {
           <Grid fluid style={{ width: '100%' }} >
             <Row className="show-grid" style={{ width: '100%' }}>
               <Col md={12} lg={6}>
-                <BoxView title="Teams" />
+                <BoxView title="Teams" teams={this.state.userTeams}/>
               </Col>
               <Col md={12} lg={6}>
                 <BoxView title="Events" />

@@ -54,15 +54,4 @@ class HomeView extends Component {
 
 }
 
-// const contentStyle = {
-//     backgroundColor: 'purple',
-//     display: 'flex',
-//     flexDirection: 'column',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     // height: '500px',
-//     // width: '500px',
-//     borderRadius: '10px',
-// };
-
 export default HomeView;

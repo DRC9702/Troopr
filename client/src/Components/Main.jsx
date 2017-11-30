@@ -10,6 +10,7 @@ import EditProfileView from './EditProfileView';
 import CreateEventView from './CreateEventView';
 import EventsView from './EventsView';
 import Matching from './Matching';
+import TeamView from './TeamView';
 
 require('../styles/Main.css');
 
@@ -162,6 +163,10 @@ class Main extends Component {
               <Route
                 path="/matches/:event"
                 component={Matching}
+              />
+              <Route
+                path="/team/:event"
+                component={TeamView}
               />
             </Switch>
           </div>

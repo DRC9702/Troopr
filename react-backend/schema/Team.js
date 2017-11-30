@@ -61,7 +61,7 @@ module.exports = {
       callback(error, one);
     });
   },
-  findByUserId: function(event_id,user_id, callback) {
+  findByUserId: function(user_id, callback) {
     Model.find({ members:user_id }).populate([{
       path:'members',
       model:'User',

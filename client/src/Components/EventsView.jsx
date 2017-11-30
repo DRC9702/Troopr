@@ -1,35 +1,22 @@
 import React, { Component } from 'react';
-import { Modal, Table, Button, FormControl, Form } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import EventsList from './EventsList';
 
-
-// const styles = {
-//   backgroundColor: 'orange',
-//   display: 'flex',
-//   flexDirection: 'column',
-//   justifyContent: 'space-around',
-//   alignItems: 'center',
-//   flexWrap: 'wrap',
-//   flexGrow: 1,
-// };
 
 class EventsView extends Component {
   constructor(props) {
     super(props);
-    const value = new Date().toISOString();
+    // const value = new Date().toISOString();
     this.state = {
       events: [],
-      display: false,
-      selectedEvent: '',
+      // display: false,
+      // selectedEvent: '',
     };
-
-
-    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
-    const _this = this;
     console.log(this.props);
     let key = '';
     if (this.props.match.params.searchKey !== '$all') {
@@ -60,12 +47,11 @@ class EventsView extends Component {
             formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
             newState[i].registration_deadline = formattedDate;
           }
-          console.log(newState)
-          _this.setState({ events: newState });
+          console.log(newState);
+          this.setState({ events: newState });
           // _this.setState({ events: response.data.events });
 
-          console.log(this.state.events[0])
-
+          console.log(this.state.events[0]);
         } else {
           console.log('events query failed');
         }
@@ -78,6 +64,7 @@ class EventsView extends Component {
   render() {
     return (
       <div className="EventsView" >
+        <h1>Events</h1>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -87,11 +74,15 @@ class EventsView extends Component {
               <th>Registraion Close Date</th>
             </tr>
           </thead>
-          <EventsList events={this.state.events}/>
+          <EventsList events={this.state.events} />
         </Table>
       </div>
     );
   }
 }
+
+EventsView.propTypes = {
+  match: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
 
 export default EventsView;
