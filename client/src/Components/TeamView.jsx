@@ -52,6 +52,7 @@ class TeamView extends Component {
           this.setState({projectName: team.projectName});
           this.setState({plan: team.projectPlan});
           this.setState({members: team.members});
+          console.log(team.projectPlan)
         } else {
           console.log('events query failed');
           alert(response.data.message);
@@ -119,6 +120,11 @@ class TeamView extends Component {
 
     axios.post('/api/edit_team', {
       event_id: this.state.event_id,
+      skillsOwned: this.state.owned,
+      skillsPrefered: this.state.preferred,
+      skillsRequired: this.state.required,
+      projectName: this.state.projectName,
+      projectPlan: this.state.plan,
     })
       .then((response) => {
         console.log(response);

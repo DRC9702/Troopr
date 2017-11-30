@@ -577,8 +577,8 @@ router.post('/api/edit_team', function(req, res, next) {
       let skillsOwnedNew = req.body.skillsOwned?req.body.skillsOwned:(team.skillsOwned?team.skillsOwned:[]);
       let skillsPreferedNew = req.body.skillsPrefered?req.body.skillsPrefered:(team.skillsPrefered?team.skillsPrefered:[]);
       let skillsRequiredNew = req.body.skillsRequired?req.body.skillsRequired:(team.skillsRequired?team.skillsRequired:[]);
-      let projectName = req.body.projectName?req.body.projectName:(team.projectName?team.projectName:[]);
-      let projectPlan = req.body.projectPlan?req.body.projectPlan:(team.projectPlan?team.projectPlan:[]);
+      let projectName = req.body.projectName?req.body.projectName:(team.projectName?team.projectName:'N/A');
+      let projectPlan = req.body.projectPlan?req.body.projectPlan:(team.projectPlan?team.projectPlan:'N/A');
       const fields={
         skillsOwned : skillsOwnedNew,
         skillsPrefered : skillsPreferedNew,
@@ -586,6 +586,8 @@ router.post('/api/edit_team', function(req, res, next) {
         projectName : projectName,
         projectPlan : projectPlan,
       }
+
+      console.log(fields);
       Team.update(team._id,fields,function(error){
         if(error){
           res.json({
