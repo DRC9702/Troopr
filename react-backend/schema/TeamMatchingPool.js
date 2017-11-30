@@ -1,17 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var TeamSchema = new Schema({
-  members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+var TeamMatchingPoolSchema = new Schema({
+  team:{type: mongoose.Schema.Types.ObjectId, ref: 'Team'},
+  pool:[{type: mongoose.Schema.Types.ObjectId, ref: 'Team'}],
   event: {type: mongoose.Schema.Types.ObjectId, ref: 'Event'},
-  skillsOwned:[String],
-  skillsPrefered:[String],
-  skillsRequired:[String],
-  projectPlan:{ type: String, default: 'N/A' },
-  projectName:{ type: String, default: 'N/A' }
-}, {collection: 'Team'})
+}, {collection: 'TeamMatchingPool'})
 
-var Model = mongoose.model("Team",TeamSchema);
+var Model = mongoose.model("TeamMatchingPool",TeamMatchingPoolSchema);
 
 module.exports = {
   add: function(fields,callback){
@@ -41,24 +37,6 @@ module.exports = {
       callback(error, some);
     });
   },
-  findByEventIdAndUseId: function(event_id,user_id, callback) {
-    Model.findOne({ event : event_id, members:user_id }).populate([{
-      path:'members',
-      model:'User',
-      populate: [{
-        path:'profile',
-        model:'Profile'
-      },{
-        path:'credential',
-        model:'Credential'
-      }]
-    },{
-      path:'event',
-      model:'Event',
-    }]).exec(function (error, one) {
-      callback(error, one);
-    });
-  },
   findById: function(id, callback) {
     Model.findOne({ _id : id }).
     exec(function (error, one) {
@@ -79,21 +57,22 @@ module.exports = {
   middleware: {
 
 		loadAll: function(req, res, next){
-      Model.find({}).populate([{
-        path:'members',
-        model:'User',
-        populate: [{
-          path:'profile',
-          model:'Profile'
-        },{
-          path:'credential',
-          model:'Credential'
-        }]
-      },{
-        path:'event',
-        model:'Event',
-      }]).exec(function (error, all) {
-      req.teams = all || [];
+      // Model.find({}).populate([{
+      //   path:'members',
+      //   model:'User',
+      //   populate: [{
+      //     path:'profile',
+      //     model:'Profile'
+      //   },{
+      //     path:'credential',
+      //     model:'Credential'
+      //   }]
+      // },{
+      //   path:'event',
+      //   model:'Event',
+      // }]).exec(function (error, all) {
+      Model.find({}).exec(function (error, all) {
+      req.events = all || [];
       next();
     });
   }

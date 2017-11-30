@@ -12,20 +12,13 @@ var MyComponent =  React.createFactory(require('../components/MyComponent'));
 /* GET home page. */
 router.get('/api', User.middleware.loadAll,function(req, res, next) {
 
-      // res.render('home', {
-      //   user:req.users,
-      //   context:'home'
-      // });
       res.json({
         user:req.users,
       });
 });
+
 router.post('/api/profile',User.middleware.loadOfLog,function(req, res, next) {
 
-      // res.render('home', {
-      //   user:req.users,
-      //   context:'home'
-      // });
       console.log(req.session.user)
       if(!req.session.user){
         res.json({
@@ -55,18 +48,53 @@ router.post('/api/profile',User.middleware.loadOfLog,function(req, res, next) {
       }
 
 });
-// router.post('/api/create_account', User.middleware.loadAll,function(req, res, next) {
-//
-//       // res.render('home', {
-//       //   user:req.users,
-//       //   context:'home'
-//       // });
-//       console.log(req.body.data)
-//       console.log("Dwqdqwwqd")
-//       res.json({
-//         success:true,
-//       });
-// });
+
+// router.post('/api/edit_profile',User.middleware.loadOfLog,function(req, res, next) {
+  router.post('/api/edit_profile', function(req, res, next) {
+      if(!req.session.user){
+        res.json({
+          success:false,
+          login:false,
+          message:'login plz',
+          error:'login plz'
+        });
+        return
+      }
+      if(req.user.profile){
+          var newName=req.body.name?req.body.name:req.user.profile.name
+          var newSkills=req.body.skills?req.body.skills:req.user.profile.skills
+          var newResume=req.body.resume?req.body.resume:req.user.profile.resume
+          var newBio=req.body.bio?req.body.bio:req.user.profile.bio
+          var fields={
+            name: newName,
+            skills: newSkills,
+            resume: newResume,
+            bio: newBio
+          }
+          Profile.update(req.session.user.profile._id,fields,function(error){
+            if(error){
+              res.json({
+                success:false,
+                message:'update failed',
+              });
+              return
+            }else{
+              res.json({
+                success:"success",
+              })
+            }
+          })
+      }else{
+        res.json({
+          success:false,
+          message:'no profile for now',
+          error:'no profile for now'
+        });
+        return
+      }
+});
+
+
 router.post('/api/create_account', User.middleware.loadAll,function(req, res, next) {
       var email=  req.body.email
       var username=  req.body.username
@@ -333,14 +361,7 @@ router.post('/api/sign_in', credential.middleware.loadOfEmail,User.middleware.lo
       console.log(fields)
 });
 router.post('/api/create_profile', function(req, res, next) {
-      // if(!req.session.user){
-      //   res.json({
-      //     success:false,
-      //     login:false,
-      //     message:"password wrong",
-      //     error:"password wrong"
-      //   })
-      // }
+
       var name = req.body.name
       var skills=  req.body.skills
       var resume = req.body.resume
@@ -353,7 +374,6 @@ router.post('/api/create_profile', function(req, res, next) {
         })
         return
       }
-      console.log(req.session.user)
 
 
       var fields = {
@@ -462,6 +482,82 @@ router.post('/username', function(req, res, next) {
     })
   }
 })
+
+router.post('/api/view_team', function(req, res, next) {
+  if (req.session.user){
+    console.log("in the logout route!!!\n")
+    req.session.user = null;
+    res.redirect('/')
+  }
+  if (req.body.event_id){
+    res.json({
+      success:false,
+      message:"Need event id."
+    })
+  }
+  Team.findByEventIdAndUseId(req.body.event_id,req.session.user._id,function(error,team){
+    if(error||!team){
+      res.json({
+        success:false,
+        message:"No team found."
+      })
+    }else{
+      res.json({
+        success:"success",
+        team:team
+      })
+    }
+  })
+})
+
+router.post('/api/edit_team', function(req, res, next) {
+  if (req.session.user){
+    console.log("in the logout route!!!\n")
+    req.session.user = null;
+    res.redirect('/')
+  }
+  if (req.body.event_id){
+    res.json({
+      success:false,
+      message:"Need event id."
+    })
+  }
+  Team.findByEventIdAndUseId(req.body.event_id,req.session.user._id,function(error,team){
+    if(error||!team){
+      res.json({
+        success:false,
+        message:"No team found."
+      })
+    }else{
+      var skillsOwnedNew = req.body.skillsOwned?req.body.skillsOwned:(team.skillsOwned?team.skillsOwned:[])
+      var skillsPreferedNew = req.body.skillsPrefered?req.body.skillsPrefered:(team.skillsPrefered?team.skillsPrefered:[])
+      var skillsRequiredNew = req.body.skillsRequired?req.body.skillsRequired:(team.skillsRequired?team.skillsRequired:[])
+      var projectName = req.body.projectName?req.body.projectName:(team.projectName?team.projectName:[])
+      var projectPlan = req.body.projectPlan?req.body.projectPlan:(team.projectPlan?team.projectPlan:[])
+      var fields={
+        skillsOwned : skillsOwnedNew,
+        skillsPrefered : skillsPreferedNew,
+        skillsRequired : skillsRequiredNew,
+        projectName : projectName,
+        projectPlan : projectPlan,
+      }
+      Team.update(team._id,fields,function(error){
+        if(error){
+          res.json({
+            success:false,
+            message:"Team update failed."
+          })
+        }else{
+          res.json({
+            success:"success",
+          })
+        }
+      })
+    }
+  })
+})
+
+
 router.post('/api/join_event', Event1.middleware.loadOfId,Team.middleware.loadAll,function(req, res, next) {
   console.log("calling api")
   // console.log(req.session.user)
