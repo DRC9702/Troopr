@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Button, FormGroup, FormControl, Modal, Form, Glyphicon, InputGroup } from 'react-bootstrap';
+import { Navbar, Button, FormGroup, FormControl, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,7 @@ class HeaderView extends Component {
     this.state = {
       show: props.show,
       email: '',
-      username: '',
+      // username: '',
       password: '',
       searchKey: '',
     };
@@ -64,12 +64,12 @@ class HeaderView extends Component {
   }
 
   showModal() {
-    console.log('Openning Modal');
+    // console.log('Openning Modal');
     this.setState({ show: true });
   }
 
   hideModal() {
-    console.log('Closing Modal');
+    // console.log('Closing Modal');
     this.setState({
       show: false,
     });
@@ -85,28 +85,23 @@ class HeaderView extends Component {
     e.preventDefault();
     // self = this
 
-    console.log(this.state);
-
-    const data = {
-      email: this.state.email,
-      password: this.state.password,
-    };
+    // console.log(this.state);
 
     // Submit form via jQuery/AJAX
-    console.log(data);
+    // console.log(data);
     axios.post('/api/sign_in', {
       email: this.state.email,
       password: this.state.password,
     }).then((response) => {
       if (response.data.success) {
-        console.log('YES');
+        // console.log('YES');
         window.location = '/dashboard';
       } else {
-        console.log('No');
-        alert('Wrong email or password!');
+        // console.log('No');
+        alert('Wrong email or password!'); // eslint-disable-line 
       }
     }).catch((error) => {
-      console.log(error);
+      console.log(error); // eslint-disable-line no-console
     });
   }
 
