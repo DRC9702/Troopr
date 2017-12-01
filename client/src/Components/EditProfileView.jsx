@@ -34,17 +34,17 @@ class EditProfileView extends Component {
             resume: response.data.resume,
             bio: response.data.bio,
           });
-          console.log(this.state.data.name);
-          console.log(this.state.data.skills);
-          console.log(this.state.data.resume);
-          console.log(this.state.data.bio);
+          // console.log(this.state.data.name);
+          // console.log(this.state.data.skills);
+          // console.log(this.state.data.resume);
+          // console.log(this.state.data.bio);
         } else {
-          console.log('failed2');
+          console.log('failed2'); // eslint-disable-line no-console
         }
       })
       .catch((error) => {
-        console.log(error);
-        console.log('failed1');
+        console.log(error); // eslint-disable-line no-console
+        console.log('failed1'); // eslint-disable-line no-console
       });
   }
 
@@ -67,15 +67,9 @@ class EditProfileView extends Component {
     // self = this
 
     // console.log(this.state);
-    const data = {
-      name: this.state.name,
-      skills: this.state.skills,
-      resume: this.state.resume,
-      bio: this.state.bio,
-    };
 
     // Submit form via jQuery/AJAX
-    console.log(data);
+    // console.log(data);
     axios.post('/api/edit_profile', {
       name: this.state.name,
       skills: this.state.skills,
@@ -83,18 +77,18 @@ class EditProfileView extends Component {
       bio: this.state.bio,
     })
       .then((response) => {
-        console.log(response);
-        console.log(response.data.success);
-        console.log(response.data.user);
+        // console.log(response);
+        // console.log(response.data.success);
+        // console.log(response.data.user);
 
         if (response.data.success) {
           this.props.history.push('/profile');
         } else {
-          alert('profile created failed');
+          alert('profile created failed'); // eslint-disable-line
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error); // eslint-disable-line no-console
       });
   }
 
@@ -131,7 +125,11 @@ class EditProfileView extends Component {
             />
 
             <FormGroup controlId="formControlsSkills">
-              <SelectSkills title="Skills" changeCheckbox={this.changeCheckbox} list={this.state.skills} />
+              <SelectSkills
+                title="Skills"
+                changeCheckbox={this.changeCheckbox}
+                list={this.state.skills}
+              />
             </FormGroup>
 
             <FormGroup controlId="formControlsFile">
