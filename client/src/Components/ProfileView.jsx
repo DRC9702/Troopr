@@ -29,17 +29,17 @@ class ProfileView extends Component {
             resume: response.data.resume,
             bio: response.data.bio,
           });
-          console.log(this.state.data.name);
-          console.log(this.state.data.skills);
-          console.log(this.state.data.resume);
-          console.log(this.state.data.bio);
+          // console.log(this.state.data.name);
+          // console.log(this.state.data.skills);
+          // console.log(this.state.data.resume);
+          // console.log(this.state.data.bio);
         } else {
-          console.log('failed2');
+          console.log('failed2'); // eslint-disable-line no-console
         }
       })
       .catch((error) => {
-        console.log(error);
-        console.log('failed1');
+        console.log(error); // eslint-disable-line no-console
+        console.log('failed1'); // eslint-disable-line no-console
       });
   }
 

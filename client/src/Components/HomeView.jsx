@@ -7,10 +7,6 @@ class HomeView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: props.show,
-      email: '',
-      username: '',
-      password: '',
       mp4URL: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/15309/developer-loop-1920x1080.mp4',
       webmURL: '../videos/Team-Work/WEBM/Team-Work.webm',
     };
