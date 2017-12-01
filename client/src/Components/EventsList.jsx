@@ -12,7 +12,6 @@ class EventsList extends Component {
 
     this.state = {
       display: null,
-      eventJoined: '',
     };
 
     this.showModal = this.showModal.bind(this);
@@ -21,10 +20,8 @@ class EventsList extends Component {
   }
 
   showModal(e, index) {
-    console.log('ShowModal is clicked');
-    console.log(index);
+    e.preventDefault();
     this.setState({ display: index });
-    // this.setState({ selectedEvent: eventId });
   }
 
   hideModal() {
@@ -34,28 +31,28 @@ class EventsList extends Component {
   }
 
   joinEvent(e) {
-    console.log('abc');
+    // console.log('abc');
 
     if (e) {
       e.preventDefault();
     }
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     axios.post('/api/join_event', {
       event_id: e.target.value,
     })
       .then((response) => {
-        console.log(response);
-        console.log(response.data.success);
+        // console.log(response);
+        // console.log(response.data.success);
 
         if (response.data.success) {
           this.props.history.push('/dashboard');
         } else {
-          alert(response.data.message);
+          alert(response.data.message); //eslint-disable-line
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error); // eslint-disable-line no-console
       });
   }
 
@@ -75,21 +72,21 @@ class EventsList extends Component {
             <Modal.Title>Event Detail</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <label>Host</label>
+            <b>Host</b>
             {JSON.stringify(this.props.events) ? (<p>{event.host.profile.name}</p>) : (<p />)}
-            <label>Start Date</label>
+            <b>Start Date</b>
             {JSON.stringify(this.props.events) ? (<p>{event.start_date}</p>) : (<p />)}
-            <label>End Date</label>
+            <b>End Date</b>
             {JSON.stringify(this.props.events) ? (<p>{event.end_date}</p>) : (<p />)}
-            <label>Deadline for Team Registration</label>
+            <b>Deadline for Team Registration</b>
             {JSON.stringify(this.props.events) ? (<p>{event.registration_deadline}</p>) : (<p />)}
-            <label>Teams</label>
+            <b>Teams</b>
             {JSON.stringify(this.props.events) ? (<p>{JSON.stringify(event.teams)}</p>) : (<p />)}
-            <label>Event Description</label>
+            <b>Event Description</b>
             {JSON.stringify(this.props.events) ? (<p>{event.description}</p>) : (<p />)}
-            <label>Max Number of Team Members</label>
+            <b>Max Number of Team Members</b>
             {JSON.stringify(this.props.events) ? (<p>{event.max}</p>) : (<p />)}
-            <label>Min Number of Team Members</label>
+            <b>Min Number of Team Members</b>
             {JSON.stringify(this.props.events) ? (<p>{event.min}</p>) : (<p />)}
           </Modal.Body>
           <Modal.Footer>
@@ -109,7 +106,7 @@ class EventsList extends Component {
 
 EventsList.propTypes = {
   history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  // showModal: PropTypes.func.isRequired,
+  events: PropTypes.array.isRequired,
 };
 
 export default withRouter(EventsList);
