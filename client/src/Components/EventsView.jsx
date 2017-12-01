@@ -1,36 +1,23 @@
 import React, { Component } from 'react';
-import { Modal, Table, Button, FormControl, Form } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import EventsList from './EventsList';
 
-
-const styles = {
-  backgroundColor: 'orange',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  flexGrow: 1,
-};
 
 class EventsView extends Component {
   constructor(props) {
     super(props);
-    const value = new Date().toISOString();
+    // const value = new Date().toISOString();
     this.state = {
       events: [],
-      display: false,
+      // display: false,
+      // selectedEvent: '',
     };
-
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
-    const _this = this;
-    console.log(this.props);
+    // console.log(this.props);
     let key = '';
     if (this.props.match.params.searchKey !== '$all') {
       key = this.props.match.params.searchKey;
@@ -42,10 +29,11 @@ class EventsView extends Component {
     })
       .then((response) => {
         // console.log(response.data);
-        console.log(response.data.success);
+        // console.log(response.data.success);
         if (response.data.success) {
+          // console.log(response.data.events);
           const newState = response.data.events;
-          for (let i = 0; i < newState.length; i++) {
+          for (let i = 0; i < newState.length; i += 1) {
             // reformatting dates
             let tokens = newState[i].start_date.split('T')[0].split('-');
             let formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
@@ -59,34 +47,24 @@ class EventsView extends Component {
             formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
             newState[i].registration_deadline = formattedDate;
           }
-          _this.setState({ events: newState });
+          // console.log(newState);
+          this.setState({ events: newState });
+          // _this.setState({ events: response.data.events });
+
+          // console.log(this.state.events[0]);
         } else {
-          console.log('events query failed');
+          alert(response.data.message); //eslint-disable-line
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error); // eslint-disable-line no-console
       });
   }
-
-  showModal() {
-    console.log('ShowModal is clicked');
-    this.setState({ display: true });
-  }
-
-  hideModal() {
-    this.setState({
-      display: false,
-    });
-  }
-
-  // joinEvent() {
-  //
-  // }
 
   render() {
     return (
       <div className="EventsView" >
+        <h1>Events</h1>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -96,25 +74,15 @@ class EventsView extends Component {
               <th>Registraion Close Date</th>
             </tr>
           </thead>
-          <EventsList events={this.state.events} showModal={this.showModal} />
+          <EventsList events={this.state.events} />
         </Table>
-
-        <Modal show={this.state.display} onHide={this.hideModal}>
-          <Modal.Header>
-            <Modal.Title>EventDetail</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>Resume:</p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button bsStyle="success" type="submit" value="Login" onClick={this.joinEvent}>
-              Join
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     );
   }
 }
+
+EventsView.propTypes = {
+  match: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
 
 export default EventsView;

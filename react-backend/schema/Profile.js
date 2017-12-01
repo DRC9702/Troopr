@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
   name:String,
-  skills: String,
+  skills: [String],
   resume: String,
   bio: String,
   links: [String]
@@ -22,6 +22,19 @@ module.exports ={
         if (callback) callback(error)
       } else {
         if (callback) callback(null,profile)
+      }
+    });
+  },
+  update: function(id, fields, callback) {
+    Model.findOne({
+      _id: id
+    }).exec(function(error, one) {
+      console.log("in the update event")
+      console.log(one)
+      if (error) {
+        callback(error,null);
+      } else {
+        one.update(fields,callback);
       }
     });
   },

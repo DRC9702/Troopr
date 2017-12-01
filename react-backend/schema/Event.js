@@ -31,10 +31,12 @@ module.exports = {
     Model.findOne({
       _id: id
     }).exec(function(error, one) {
+      console.log("in the update event")
+      console.log(one)
       if (error) {
-        callback(error);
+        callback(error,null);
       } else {
-        one.update(fields, callback);
+        one.update(fields,callback);
       }
     });
   },
@@ -62,14 +64,17 @@ module.exports = {
             path:'credential',
             model:'Credential'
           }]
+        },{
+          path:'teams',
+          model:'Team',
         }]).exec(function (error, all) {
         req.events = all || [];
         next();
       });
     },
     loadOfId: function(req, res, next){
-      if(req.body.event_id){
-        Model.findOne({id:req.body.event_id}).populate([{
+      if(req.body.event_id||req.params.event_id){
+        Model.findOne({_id:req.body.event_id||req.params.event_id}).populate([{
           path:'host',
           model:'User',
           populate: [{
@@ -84,10 +89,12 @@ module.exports = {
             next();
         });
       }else{
+        console.log("dqwdqdqwdwq")
         res.json({
           success:false,
           message:"Need pass the event_id"
         })
+        return
       }
     }
   }
