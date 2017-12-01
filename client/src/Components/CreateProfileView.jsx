@@ -36,7 +36,6 @@ class CreateProfileView extends Component {
   }
 
   changeCheckbox(e, title) {
-    console.log(this.state.skills);
     if (e.target.checked === true) {
       if (title === 'Skills') {
         this.state.skills.push(e.target.value);
@@ -47,7 +46,6 @@ class CreateProfileView extends Component {
         this.state.skills.splice(index, 1);
       }
     }
-    console.log(this.state.skills);
   }
 
   createProfile(e) {
@@ -57,35 +55,28 @@ class CreateProfileView extends Component {
     // self = this
 
     // console.log(this.state);
-    const data = {
-      name: this.state.name,
-      skills: this.state.skills,
-      resume: this.state.resume,
-      bio: this.state.bio,
-    };
+    // const data = {
+    //   name: this.state.name,
+    //   skills: this.state.skills,
+    //   resume: this.state.resume,
+    //   bio: this.state.bio,
+    // };
 
     // Submit form via jQuery/AJAX
-    console.log(data);
     axios.post('/api/create_profile', {
       name: this.state.name,
       skills: this.state.skills,
       resume: this.state.resume,
       bio: this.state.bio,
-    })
-      .then((response) => {
-        console.log(response);
-        console.log(response.data.success);
-        console.log(response.data.user);
-
-        if (response.data.success) {
-          this.props.history.push('/profile');
-        } else {
-          alert('profile created failed');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    }).then((response) => {
+      if (response.data.success) {
+        this.props.history.push('/profile');
+      } else {
+        alert('profile created failed'); // eslint-disable-line
+      }
+    }).catch((error) => {
+      console.log(error); // eslint-disable-line 
+    });
   }
 
   render() {
@@ -143,7 +134,7 @@ CreateProfileView.propTypes = {
   history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
-function FieldGroup({
+function FieldGroup({ // eslint-disable-next-line react/prop-types
   id, label, help, ...props
 }) {
   return (
