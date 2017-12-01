@@ -1,52 +1,51 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-var CredentialSchema = new Schema({
+const Schema = mongoose.Schema;
+
+const CredentialSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    lowercase: true
+    lowercase: true,
   },
   password: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-var Model = mongoose.model("Credential", CredentialSchema)
+const Model = mongoose.model('Credential', CredentialSchema);
 
 module.exports = {
-  add: function(fields,callback){
-    var one = new Model(fields);
-    one.save(function(error,cre) {
+  add(fields, callback) {
+    const one = new Model(fields);
+    one.save((error, cre) => {
       if (error) {
-        if (callback) callback(error,null)
-      } else {
-        if (callback) callback(null,cre)
-      }
+        if (callback) callback(error, null);
+      } else if (callback) callback(null, cre);
     });
     // one.save(callback);
   },
 
-  find: function(criteria,callback){
-    Model.find(criteria).exec(function (error, some) {
+  find(criteria, callback) {
+    Model.find(criteria).exec((error, some) => {
       callback(error, some);
     });
   },
   middleware: {
 
-    loadOfEmail: function(req, res, next){
-      Model.find({email:req.body.email}).exec(function (error, one) {
-      req.credential =one?one[0]:"";
-      next();
-    });
-    }
-  }
+    loadOfEmail(req, res, next) {
+      Model.find({ email: req.body.email }).exec((error, one) => {
+        req.credential = one ? one[0] : '';
+        next();
+      });
+    },
+  },
 
-}
+};

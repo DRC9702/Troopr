@@ -1,71 +1,71 @@
-var User = require('../schema/User');
-var Credential = require('../schema/Credential')
-var Profile = require('../schema/Profile')
-var Event = require('../schema/Event')
-var mongoose = require('mongoose');
+const User = require('../schema/User');
+const Credential = require('../schema/Credential');
+const Profile = require('../schema/Profile');
+const Event = require('../schema/Event');
+const mongoose = require('mongoose');
 
 mongoose.connect('localhost:27017/db');
 
-//var users = [
+// var users = [
 //  new User({
 //    id: "001",
 //    profile: ,
 //    credential: credentials[1],
 //    eventsHosted: events[0]
 //  }),
-//]
+// ]
 
-var credentials = [
+const credentials = [
   new Credential({
-    username: "Chi",
-    email: "abc@abc.com",
-    password:"123456"
+    username: 'Chi',
+    email: 'abc@abc.com',
+    password: '123456',
   }),
   new Credential({
-    username: "Victor",
-    email: "abcd@abc.com",
-    password:"123456"
+    username: 'Victor',
+    email: 'abcd@abc.com',
+    password: '123456',
   }),
   new Credential({
-    username: "Lalka",
-    email: "abcde@abc.com",
-    password:"123456"
+    username: 'Lalka',
+    email: 'abcde@abc.com',
+    password: '123456',
   }),
   new Credential({
-    username: "David",
-    email: "abcdef@abc.com",
-    password:"123456"
-  })
-]
+    username: 'David',
+    email: 'abcdef@abc.com',
+    password: '123456',
+  }),
+];
 
-var events = [
+const events = [
   new Event({
-    id: "1001",
+    id: '1001',
     host: users[0],
-    name: "DevFest",
-    teams: []
-  })
-]
+    name: 'DevFest',
+    teams: [],
+  }),
+];
 
-var profile = [
+const profile = [
   new Profile({
-    skills: ["Python", "Nodejs"],
-    resume: "",
-    bio: "Columbia SEAS Class of 2018",
-    links: [""]
-  })
-]
+    skills: ['Python', 'Nodejs'],
+    resume: '',
+    bio: 'Columbia SEAS Class of 2018',
+    links: [''],
+  }),
+];
 
-var done =0
-for (var i = 0; i<credentials.length;i++){
-  credentials[i].save(function(err,result){
-    done++
-    if (done===credentials.length){
-      exit()
+let done = 0;
+for (let i = 0; i < credentials.length; i++) {
+  credentials[i].save((err, result) => {
+    done++;
+    if (done === credentials.length) {
+      exit();
     }
-  })
+  });
 }
 
-function exit(){
+function exit() {
   mongoose.disconnect();
 }
