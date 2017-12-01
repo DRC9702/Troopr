@@ -17,7 +17,7 @@ const styles = {
 class Matching extends Component {
   constructor(props) {
     super(props);
-    const value = new Date().toISOString();
+    // const value = new Date().toISOString();
     this.state = {
       team: 'Foo Fighters',
       skillsOffered: ['html', 'css'],
@@ -35,8 +35,7 @@ class Matching extends Component {
   }
 
   componentDidMount() {
-    const _this = this;
-    console.log(this.props);
+    // const _this = this;
     let key = '';
     key = this.props.match.params.event;
     // Submit form via jQuery/AJAX
@@ -46,7 +45,6 @@ class Matching extends Component {
     })
       .then((response) => {
         if (response.data.success) {
-          console.log(response.data.team._id);
           this.setState({ team_id: response.data.team._id });
           axios.post('/api/give_team', {
             event_id: key,
@@ -58,23 +56,17 @@ class Matching extends Component {
                 response2.data.target_team.members.forEach((mem) => {
                   memName.push(mem.profile.name);
                 });
-                console.log(response2.data);
-                console.log(memName);
                 this.setState({ team: response2.data.target_team._id });
                 this.setState({ skillsOffered: response2.data.target_team.skillsOwned });
                 this.setState({ skillsWanted: response2.data.target_team.skillsRequired });
                 this.setState({ members: memName });
                 this.setState({ given_team: response2.data.target_team });
-              } else {
-                if (response2.data.allFound) {
-                  this.showModal();
-                }
-                console.log(response2.data);
+              } else if (response2.data.allFound) {
+                this.showModal();
               }
             })
             .catch((error) => {
-              console.log(error);
-              console.log('failed1');
+              alert(error);
             });
         } else {
           alert(response.data.message);
@@ -98,8 +90,6 @@ class Matching extends Component {
       .then((response) => {
         if (response.data.success) {
           window.location.reload();
-        } else {
-          console.log(response.data);
         }
       })
       .catch((error) => {
@@ -116,7 +106,6 @@ class Matching extends Component {
       team2: this.state.given_team._id,
     })
       .then((response) => {
-        console.log(response.data);
         if (response.data.success) {
           alert('Teammate found!!!Check your teammate in the team setting or keep looking for other teams');
         } else if (response.data.refresh) {
@@ -153,7 +142,9 @@ class Matching extends Component {
         <h1 style={{ color: 'grey' }} >Matching you with teams in {this.props.match.params.event} ...</h1>
         <Grid>
           <Row className="show-grid">
-            <Col md={3}><Button bsStyle="danger" bsSize="large" onClick={this.reject}>Reject</Button></Col>
+            <Col md={3}>
+              <Button bsStyle="danger" bsSize="large" onClick={this.reject}>Reject</Button>
+            </Col>
             <Col md={5} style={{ textAlign: 'left' }}>
               <Panel header={this.state.team}>
                 <h4><SkillsList skills={this.state.skillsOffered} title="Skills: " /></h4>
@@ -167,7 +158,9 @@ class Matching extends Component {
                 </div>
               </Panel>
             </Col>
-            <Col md={3}><Button bsStyle="success" bsSize="large" onClick={this.accept}>Accept</Button></Col>
+            <Col md={3}>
+              <Button bsStyle="success" bsSize="large" onClick={this.accept}>Accept</Button>
+            </Col>
           </Row>
         </Grid>
 
@@ -187,7 +180,7 @@ class Matching extends Component {
 }
 
 Matching.propTypes = {
-  // match: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default Matching;

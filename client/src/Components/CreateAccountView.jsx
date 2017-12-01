@@ -35,37 +35,28 @@ class CreateAccountView extends Component {
   }
 
   createAccount(e) {
-    // var self
-    const data = {
-      email: this.state.email,
-      username: this.state.username,
-      password: this.state.password,
-    };
     e.preventDefault();
-    // self = this
-
-    console.log(this.state);
-
+    // console.log(this.state);
     // Submit form via jQuery/AJAX
-    console.log(data);
+    // console.log(data);
     axios.post('/api/create_account', {
       email: this.state.email,
       username: this.state.username,
       password: this.state.password,
     })
       .then((response) => {
-        console.log(response);
-        console.log(response.data.success);
-        console.log(response.data.user);
+        // console.log(response);
+        // console.log(response.data.success);
+        // console.log(response.data.user);
 
         if (response.data.success) {
           this.props.history.push('/create_profile');
         } else {
-          alert('Account already exists');
+          alert('Account already exists'); // eslint-disable-line
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error); // eslint-disable-line no-console
       });
   }
 
