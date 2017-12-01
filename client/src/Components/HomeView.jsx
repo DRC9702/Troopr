@@ -9,8 +9,8 @@ class HomeView extends Component {
     this.state = {
       show: props.show,
       email: '',
-      username:'',
-      password:'',
+      username: '',
+      password: '',
       mp4URL: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/15309/developer-loop-1920x1080.mp4',
       webmURL: '../videos/Team-Work/WEBM/Team-Work.webm',
     };
@@ -41,7 +41,7 @@ class HomeView extends Component {
           Your browser does not support the video tag.
         </video>
 
-        
+
         <div className="text-copy">
           <h1>Welcome to Troopr!</h1>
           <p>Welcome to teamwork. Welcome to perfection.</p>
@@ -51,7 +51,6 @@ class HomeView extends Component {
       </div>
     );
   }
-
 }
 
 export default HomeView;

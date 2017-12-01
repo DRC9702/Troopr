@@ -24,7 +24,7 @@ class Matching extends Component {
       skillsWanted: ['node.js'],
       members: ['Dave', 'Victor'],
       show: false,
-      given_team:{}
+      given_team: {},
 
     };
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -50,23 +50,23 @@ class Matching extends Component {
           this.setState({ team_id: response.data.team._id });
           axios.post('/api/give_team', {
             event_id: key,
-            team_id: this.state.team_id
+            team_id: this.state.team_id,
           })
             .then((response2) => {
               if (response2.data.success) {
-                var memName = []
-                response2.data.target_team.members.forEach(function(mem){
-                  memName.push(mem.profile.name)
-                })
-                console.log(response2.data)
-                console.log(memName)
+                const memName = [];
+                response2.data.target_team.members.forEach((mem) => {
+                  memName.push(mem.profile.name);
+                });
+                console.log(response2.data);
+                console.log(memName);
                 this.setState({ team: response2.data.target_team._id });
                 this.setState({ skillsOffered: response2.data.target_team.skillsOwned });
                 this.setState({ skillsWanted: response2.data.target_team.skillsRequired });
-                this.setState({ members: memName});
-                this.setState({ given_team:response2.data.target_team});
+                this.setState({ members: memName });
+                this.setState({ given_team: response2.data.target_team });
               } else {
-                if(response2.data.allFound){
+                if (response2.data.allFound) {
                   this.showModal();
                 }
                 console.log(response2.data);
@@ -93,11 +93,11 @@ class Matching extends Component {
     axios.post('/api/reject_team', {
       event_id: key,
       team_id: this.state.team_id,
-      reject_team_id:this.state.given_team._id
+      reject_team_id: this.state.given_team._id,
     })
       .then((response) => {
         if (response.data.success) {
-          window.location.reload()
+          window.location.reload();
         } else {
           console.log(response.data);
         }
@@ -113,18 +113,15 @@ class Matching extends Component {
     axios.post('/api/team_matched', {
       event_id: this.props.match.params.event,
       team1: this.state.team_id,
-      team2:this.state.given_team._id
+      team2: this.state.given_team._id,
     })
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         if (response.data.success) {
-          alert(`Teammate found!!!Check your teammate in the team setting or keep looking for other teams`);
-
-        } else {
-          if(response.data.refresh){
-            alert(`Team added successfully <3`);
-            window.location.reload()
-          }
+          alert('Teammate found!!!Check your teammate in the team setting or keep looking for other teams');
+        } else if (response.data.refresh) {
+          alert('Team added successfully <3');
+          window.location.reload();
         }
       })
       .catch((error) => {
@@ -136,7 +133,7 @@ class Matching extends Component {
   }
 
   refresh() {
-    window.location.reload()
+    window.location.reload();
   }
 
   showModal() {
@@ -179,9 +176,9 @@ class Matching extends Component {
             <h1>Oops! No matching teams are available.</h1>
           </Modal.Body>
           <Modal.Footer>
-          <Button bsStyle="success" onClick={this.refresh}>
+            <Button bsStyle="success" onClick={this.refresh}>
             Go Search Again
-          </Button>
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>

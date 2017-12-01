@@ -78,7 +78,7 @@ class CreateEventView extends Component {
     // Submit form via jQuery/AJAX
     // console.log(data);
     if (this.state.minSize > this.state.maxSize) {
-      alert("Minimum and Maximum Size Error");
+      alert('Minimum and Maximum Size Error');
     } else {
       axios.post('/api/create_event', {
         event_name: this.state.eventName,

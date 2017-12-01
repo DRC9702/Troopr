@@ -13,7 +13,7 @@ class DashboardView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      savedProfile: "",
+      savedProfile: '',
       userTeams: [],
       userEvents: [],
     };
@@ -29,8 +29,8 @@ class DashboardView extends Component {
         // console.log(response.data);
         console.log(response.data.success);
         if (response.data.success) {
-          //console.log(response.data.teams);
-          this.setState({userTeams: response.data.teams});
+          // console.log(response.data.teams);
+          this.setState({ userTeams: response.data.teams });
         } else {
           alert(response.data.message);
         }
@@ -42,10 +42,10 @@ class DashboardView extends Component {
     axios.post('/api/show_event', {
     })
       .then((response) => {
-        console.log("show_event successful");
+        console.log('show_event successful');
         if (response.data.success) {
           console.log(response.data.events);
-          this.setState({userEvents: response.data.events});
+          this.setState({ userEvents: response.data.events });
         } else {
           alert(response.data.message);
         }
@@ -70,19 +70,19 @@ class DashboardView extends Component {
   render() {
     return (
       <div className="DashboardView">
-        
+
         <SideView handleViewProfile={this.handleViewProfile} handleViewEvent={this.handleViewEvent} handleCreateEvent={this.handleCreateEvent} />
         <div id="Content">
 
           {<h1>Dashboard</h1>}
-          
+
           <Grid fluid style={{ width: '100%' }} >
             <Row className="show-grid" style={{ width: '100%' }}>
               <Col md={12} lg={6}>
-                <BoxView title="Teams" teams={this.state.userTeams}/>
+                <BoxView title="Teams" teams={this.state.userTeams} />
               </Col>
               <Col md={12} lg={6}>
-                <BoxView title="Events Hosted" events={this.state.userEvents}/>
+                <BoxView title="Events Hosted" events={this.state.userEvents} />
               </Col>
             </Row>
             <Row className="show-grid" style={{ width: '100%' }}>

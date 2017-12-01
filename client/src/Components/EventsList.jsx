@@ -12,7 +12,7 @@ class EventsList extends Component {
 
     this.state = {
       display: null,
-      eventJoined:""
+      eventJoined: '',
     };
 
     this.showModal = this.showModal.bind(this);
