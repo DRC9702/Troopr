@@ -1,0 +1,6 @@
+.CreateProfileView {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden !important;
+    align-items: center;
+}

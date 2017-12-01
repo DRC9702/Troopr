@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Navbar, Button, FormGroup, FormControl, Modal, Form } from 'react-bootstrap';
-// import SearchBar from './SearchBar';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -11,29 +9,42 @@ class HeaderView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // loggedIn: props.loggedIn,
       show: props.show,
       email: '',
-      username: '',
+      // username: '',
       password: '',
+      searchKey: '',
     };
 
     this.signIn = this.signIn.bind(this);
+    this.doSearch = this.doSearch.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
     this.setState({ show: newProps.show });
   }
 
-  getText() {
-    if (this.props.loggedIn) {
-      return `Log out: ${this.state.email}:${this.state.username}`;
-    }
-    return 'Log in';
+  // getText() {
+  //   if (this.props.loggedIn) {
+  //     return `Log out: ${this.state.email}:${this.state.username}`;
+  //   }
+  //   return 'Log in';
+  // }
+
+  handleSearchChange(e) {
+    this.setState({ searchKey: e.target.value });
+  }
+
+  doSearch(e) {
+    e.preventDefault();
+    const actualKey = (this.state.searchKey) ? this.state.searchKey : '$all';
+    window.location = `/events/${actualKey}`;
   }
 
   handleEmailChange(e) {
@@ -44,18 +55,28 @@ class HeaderView extends Component {
     this.setState({ password: e.target.value });
   }
 
+  toggleModal() {
+    if (this.state.show) {
+      this.hideModal();
+    } else {
+      this.showModal();
+    }
+  }
+
   showModal() {
+    // console.log('Openning Modal');
     this.setState({ show: true });
   }
 
   hideModal() {
+    // console.log('Closing Modal');
     this.setState({
       show: false,
     });
   }
 
-  createAcct() {
-      window.location = '/create_account';
+  createAcct() { // eslint-disable-line class-methods-use-this
+    window.location = '/create_account';
   }
 
   signIn(e) {
@@ -64,28 +85,23 @@ class HeaderView extends Component {
     e.preventDefault();
     // self = this
 
-    console.log(this.state);
-
-    const data = {
-      email: this.state.email,
-      password: this.state.password,
-    };
+    // console.log(this.state);
 
     // Submit form via jQuery/AJAX
-    console.log(data);
+    // console.log(data);
     axios.post('/api/sign_in', {
       email: this.state.email,
       password: this.state.password,
     }).then((response) => {
       if (response.data.success) {
-        console.log('YES');
+        // console.log('YES');
         window.location = '/dashboard';
       } else {
-        console.log('No');
-        alert("Wrong email or password!");
+        // console.log('No');
+        alert('Wrong email or password!'); // eslint-disable-line 
       }
     }).catch((error) => {
-      console.log(error);
+      console.log(error); // eslint-disable-line no-console
     });
   }
 
@@ -95,28 +111,28 @@ class HeaderView extends Component {
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/">Brand</a>
+              <a href="/dashboard">Brand</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Navbar.Form pullLeft>
-              <FormGroup>
-                <FormControl type="text" placeholder="Search" />
+              <FormGroup >
+                <FormControl type="text" placeholder="Search" onChange={this.handleSearchChange} />
               </FormGroup>
               {' '}
-              <Button type="submit">Submit</Button>
+              <Button type="submit" onClick={this.doSearch}>Submit</Button>
             </Navbar.Form>
             <Navbar.Form pullRight>
-              <Button type="button" onClick={this.props.promptLoginHandler}>
-                {this.getText()}
+              <Button type="button" onClick={this.toggleModal}>
+                Login
               </Button>
             </Navbar.Form>
           </Navbar.Collapse>
         </Navbar>
 
         <Modal show={this.state.show} onHide={this.hideModal}>
-          <Modal.Header>
+          <Modal.Header closeButton>
             <Modal.Title>Troopr Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -140,9 +156,9 @@ class HeaderView extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button bsStyle="link" onClick={this.createAcct}>
-              {/*<Link to="/create_account" href="/create_account">*/}
+              {/* <Link to="/create_account" href="/create_account"> */}
                 Create Account
-              {/*</Link>*/}
+              {/* </Link> */}
             </Button>
             <Button bsStyle="success" type="submit" value="Login" onClick={this.signIn}>
               Sign in
@@ -156,20 +172,7 @@ class HeaderView extends Component {
 }
 
 HeaderView.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
-  promptLoginHandler: PropTypes.func.isRequired,
-  depromptLoginHandler: PropTypes.func.isRequired,
-
 };
-
-// const styles = {
-//     backgroundColor: 'red',
-//     display: 'flex',
-//     flex: 1,
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     alignContent: 'center',
-// };
 
 export default HeaderView;

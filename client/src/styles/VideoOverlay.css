@@ -1,0 +1,54 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+.video-overlay {
+    position: absolute;
+    /* top: 7.5%;
+    left: 0%; */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2;
+}
+.overlay-off .video-overlay {
+    z-index: 0;
+}
+
+video, .ie8-poster {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    -o-object-fit: fill;
+    object-fit: fill;
+    z-index: 1;
+}
+
+.text-copy {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: initial!important;
+    z-index: 2;
+    text-shadow: 1px 1px 1px #000;
+}
+.text-copy a {
+    color: #fff;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.text-copy h1 {
+    font-weight: 300;
+    color: #fff;
+}
+
+.text-copy p {
+    font-weight: 300;
+    color: #fff;
+}

@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EventSchema = new Schema({
-  id: String,
   host: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   name: String,
   teams: [{type: mongoose.Schema.Types.ObjectId, ref: 'Team'}],
@@ -32,10 +31,12 @@ module.exports = {
     Model.findOne({
       _id: id
     }).exec(function(error, one) {
+      console.log("in the update event")
+      console.log(one)
       if (error) {
-        callback(error);
+        callback(error,null);
       } else {
-        one.update(fields, callback);
+        one.update(fields,callback);
       }
     });
   },
@@ -53,22 +54,48 @@ module.exports = {
   middleware: {
 
 		loadAll: function(req, res, next){
-      Model.find({}).populate([{
-        path:'host',
-        model:'User',
-        populate: [{
-          path:'profile',
-          model:'Profile'
+        Model.find({}).populate([{
+          path:'host',
+          model:'User',
+          populate: [{
+            path:'profile',
+            model:'Profile'
+          },{
+            path:'credential',
+            model:'Credential'
+          }]
         },{
-          path:'credential',
-          model:'Credential'
-        }]
-      }]).exec(function (error, all) {
-      req.events = all || [];
-      next();
-    });
-  }
-
-
+          path:'teams',
+          model:'Team',
+        }]).exec(function (error, all) {
+        req.events = all || [];
+        next();
+      });
+    },
+    loadOfId: function(req, res, next){
+      if(req.body.event_id||req.params.event_id){
+        Model.findOne({_id:req.body.event_id||req.params.event_id}).populate([{
+          path:'host',
+          model:'User',
+          populate: [{
+            path:'profile',
+            model:'Profile'
+          },{
+            path:'credential',
+            model:'Credential'
+          }]
+        }]).exec(function (error, the_event) {
+            req.event =  the_event;
+            next();
+        });
+      }else{
+        console.log("dqwdqdqwdwq")
+        res.json({
+          success:false,
+          message:"Need pass the event_id"
+        })
+        return
+      }
+    }
   }
 }

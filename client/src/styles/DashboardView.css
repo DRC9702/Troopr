@@ -1,0 +1,20 @@
+.DashboardView {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+ }
+
+#Content {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-content: flex-start;
+ }
+
+.BoxView {
+  position: relative;
+  margin: 20px;
+
+ }
