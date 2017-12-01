@@ -166,7 +166,7 @@ class EditProfileView extends Component {
 }
 
 EditProfileView.propTypes = {
-  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
 };
 
 // eslint-disable-next-line object-curly-newline
