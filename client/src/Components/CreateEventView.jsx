@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Panel, ControlLabel, FormControl, Button, FormGroup, HelpBlock, Row, Col, Glyphicon } from 'react-bootstrap';
-import DatePicker from 'react-bootstrap-date-picker'; // eslint-disable-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import DatePicker from '../react-bootstrap-date-picker'; // eslint-disable-line import/no-extraneous-dependencies
+
 
 require('../styles/CreateEventView.css');
 
