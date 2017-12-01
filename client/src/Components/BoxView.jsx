@@ -25,6 +25,7 @@ class BoxView extends Component {
   showModal(e, index) {
     // console.log('ShowModal is clicked');
     // console.log(index);
+    e.preventDefault();
     this.setState({ display: index });
     // this.setState({ selectedEvent: eventId });
   }
@@ -102,8 +103,13 @@ class BoxView extends Component {
 
 BoxView.propTypes = {
   title: PropTypes.string.isRequired,
-  teams: PropTypes.array.isRequired,
-  events: PropTypes.array.isRequired,
+  teams: PropTypes.array,
+  events: PropTypes.array,
+};
+
+BoxView.defaultProps = {
+  teams: [],
+  events: [],
 };
 
 export default BoxView;

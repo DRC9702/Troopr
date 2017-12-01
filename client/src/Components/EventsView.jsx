@@ -17,7 +17,7 @@ class EventsView extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     let key = '';
     if (this.props.match.params.searchKey !== '$all') {
       key = this.props.match.params.searchKey;
@@ -29,9 +29,9 @@ class EventsView extends Component {
     })
       .then((response) => {
         // console.log(response.data);
-        console.log(response.data.success);
+        // console.log(response.data.success);
         if (response.data.success) {
-          console.log(response.data.events);
+          // console.log(response.data.events);
           const newState = response.data.events;
           for (let i = 0; i < newState.length; i += 1) {
             // reformatting dates
@@ -47,17 +47,17 @@ class EventsView extends Component {
             formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
             newState[i].registration_deadline = formattedDate;
           }
-          console.log(newState);
+          // console.log(newState);
           this.setState({ events: newState });
           // _this.setState({ events: response.data.events });
 
-          console.log(this.state.events[0]);
+          // console.log(this.state.events[0]);
         } else {
-          console.log('events query failed');
+          alert(response.data.message); //eslint-disable-line
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error); // eslint-disable-line no-console
       });
   }
 
