@@ -5,6 +5,8 @@
         "console": true
     },
     "rules": {
-        "react/prefer-stateless-function": "off"
+        "react/prefer-stateless-function": "off",
+        "no-underscore-dangle": "off",
+        "react/forbid-prop-types": "off"
     }
 }
