@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Row, Grid, Button, Panel, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import SkillsList from './SkillsList';
 import PropTypes from 'prop-types';
+import SkillsList from './SkillsList';
 
 const styles = {
   backgroundColor: '',
@@ -15,6 +15,10 @@ const styles = {
 };
 
 class Matching extends Component {
+  static refresh() {
+    window.location.reload();
+  }
+
   constructor(props) {
     super(props);
     // const value = new Date().toISOString();
@@ -66,19 +70,19 @@ class Matching extends Component {
               }
             })
             .catch((error) => {
-              alert(error);
+              alert(error); // eslint-disable-line
             });
         } else {
-          alert(response.data.message);
+          alert(response.data.message); // eslint-disable-line
         }
       })
       .catch((error) => {
-        alert(error);
+        alert(error); // eslint-disable-line
       });
   }
 
   reject() {
-    alert(`Team ${this.state.team} rejected`);
+    alert(`Team ${this.state.team} rejected`); // eslint-disable-line
     // get new team from jQuery/AJAX; reject
     let key = '';
     key = this.props.match.params.event;
@@ -93,8 +97,8 @@ class Matching extends Component {
         }
       })
       .catch((error) => {
-        console.log(error);
-        console.log('failed1');
+        console.log(error); // eslint-disable-line no-console
+        console.log('failed1'); // eslint-disable-line no-console
       });
   }
 
@@ -107,22 +111,18 @@ class Matching extends Component {
     })
       .then((response) => {
         if (response.data.success) {
-          alert('Teammate found!!!Check your teammate in the team setting or keep looking for other teams');
+          alert('Teammate found!!!Check your teammate in the team setting or keep looking for other teams'); // eslint-disable-line
         } else if (response.data.refresh) {
-          alert('Team added successfully <3');
+          alert('Team added successfully <3'); // eslint-disable-line
           window.location.reload();
         }
       })
       .catch((error) => {
-        console.log(error);
-        console.log('failed1');
+        console.log(error); // eslint-disable-line no-console
+        console.log('failed1'); // eslint-disable-line no-console
       });
     // this.setState({ team: 'Another option' });
     // tell jQuery/AJAX team is formed; accept
-  }
-
-  refresh() {
-    window.location.reload();
   }
 
   showModal() {
@@ -169,7 +169,7 @@ class Matching extends Component {
             <h1>Oops! No matching teams are available.</h1>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="success" onClick={this.refresh}>
+            <Button bsStyle="success" onClick={Matching.refresh}>
             Go Search Again
             </Button>
           </Modal.Footer>
