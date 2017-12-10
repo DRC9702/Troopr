@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose.Schema;
+const Schema = mongoose.Schema; // eslint-disable-line prefer-destructuring
 
 const ProfileSchema = new Schema({
   name: String,
