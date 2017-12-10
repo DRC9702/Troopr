@@ -1,30 +1,29 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-var TeamMatchingPoolSchema = new Schema({
-  team:{type: mongoose.Schema.Types.ObjectId, ref: 'Team'},
-  pool:[{type: mongoose.Schema.Types.ObjectId, ref: 'Team'}],
-  event: {type: mongoose.Schema.Types.ObjectId, ref: 'Event'},
-}, {collection: 'TeamMatchingPool'})
+const { Schema } = mongoose.Schema;
 
-var Model = mongoose.model("TeamMatchingPool",TeamMatchingPoolSchema);
+const TeamMatchingPoolSchema = new Schema({
+  team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
+  pool: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
+  event: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
+}, { collection: 'TeamMatchingPool' });
+
+const Model = mongoose.model('TeamMatchingPool', TeamMatchingPoolSchema);
 
 module.exports = {
-  add: function(fields,callback){
-    var one = new Model(fields);
-    one.save(function(error,user) {
+  add(fields, callback) {
+    const one = new Model(fields);
+    one.save((error, user) => {
       if (error) {
-        console.log("Got error: " + error + "\n")
-        if (callback) callback(error,null)
-      } else {
-        if (callback) callback(null,user)
-      }
+        console.log(`Got error: ${error}\n`);
+        if (callback) callback(error, null);
+      } else if (callback) callback(null, user);
     });
   },
-  update: function(id, fields, callback) {
+  update(id, fields, callback) {
     Model.findOne({
-      _id: id
-    }).exec(function(error, one) {
+      _id: id,
+    }).exec((error, one) => {
       if (error) {
         callback(error);
       } else {
@@ -32,21 +31,21 @@ module.exports = {
       }
     });
   },
-  find: function(criteria,callback){
-    Model.find(criteria).exec(function (error, some) {
+  find(criteria, callback) {
+    Model.find(criteria).exec((error, some) => {
       callback(error, some);
     });
   },
-  findById: function(id, callback) {
-    Model.findOne({ _id : id }).
-    exec(function (error, one) {
-      callback(error, one);
-    });
+  findById(id, callback) {
+    Model.findOne({ _id: id })
+      .exec((error, one) => {
+        callback(error, one);
+      });
   },
-  remove: function(id, callback) {
+  remove(id, callback) {
     Model.findOne({
-      _id: id
-    }).exec(function(error, one) {
+      _id: id,
+    }).exec((error, one) => {
       if (error) {
         callback(error);
       } else {
@@ -56,7 +55,7 @@ module.exports = {
   },
   middleware: {
 
-		loadAll: function(req, res, next){
+    loadAll(req, res, next) {
       // Model.find({}).populate([{
       //   path:'members',
       //   model:'User',
@@ -71,12 +70,12 @@ module.exports = {
       //   path:'event',
       //   model:'Event',
       // }]).exec(function (error, all) {
-      Model.find({}).exec(function (error, all) {
-      req.events = all || [];
-      next();
-    });
-  }
+      Model.find({}).exec((error, all) => {
+        req.events = all || [];
+        next();
+      });
+    },
 
 
-  }
-}
+  },
+};
