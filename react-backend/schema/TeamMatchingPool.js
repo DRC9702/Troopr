@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose.Schema;
+const Schema = mongoose.Schema; // eslint-disable-line prefer-destructuring
 
 const TeamMatchingPoolSchema = new Schema({
   team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },

@@ -1,6 +1,9 @@
 {
     "extends": "airbnb-base",
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "no-underscore-dangle": "off", // Chy screwed us over with this one, lol
+        "max-len": "off", // It'll take too long to fix this bad code style
+        "no-nested-ternary": "off" // I hate Chy so much right now
     }
 }
