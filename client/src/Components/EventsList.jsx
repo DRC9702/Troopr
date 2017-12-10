@@ -64,9 +64,9 @@ class EventsList extends Component {
             {event.name}
           </Button>
         </th>
-        <th>{event.start_date}</th>
-        <th>{event.end_date}</th>
-        <th>{event.registration_deadline}</th>
+        <th>{event.startDate}</th>
+        <th>{event.endDate}</th>
+        <th>{event.registrationDeadline}</th>
         <Modal id="JoinEventModal" show={this.state.display === index} onHide={this.hideModal}>
           <Modal.Header>
             <Modal.Title>Event Detail</Modal.Title>
@@ -75,11 +75,11 @@ class EventsList extends Component {
             <b>Host</b>
             {JSON.stringify(this.props.events) ? (<p>{event.host.profile.name}</p>) : (<p />)}
             <b>Start Date</b>
-            {JSON.stringify(this.props.events) ? (<p>{event.start_date}</p>) : (<p />)}
+            {JSON.stringify(this.props.events) ? (<p>{event.startDate}</p>) : (<p />)}
             <b>End Date</b>
-            {JSON.stringify(this.props.events) ? (<p>{event.end_date}</p>) : (<p />)}
+            {JSON.stringify(this.props.events) ? (<p>{event.endDate}</p>) : (<p />)}
             <b>Deadline for Team Registration</b>
-            {JSON.stringify(this.props.events) ? (<p>{event.registration_deadline}</p>) : (<p />)}
+            {JSON.stringify(this.props.events) ? (<p>{event.registrationDeadline}</p>) : (<p />)}
             <b>Teams</b>
             {JSON.stringify(this.props.events) ? (<p>{JSON.stringify(event.teams)}</p>) : (<p />)}
             <b>Event Description</b>

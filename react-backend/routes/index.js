@@ -163,14 +163,14 @@ router.post('/api/create_event', (req, res) => {
   console.log(req.body);
   const host = req.session.user;
   // var host= "5a0424d60cb1fa08d9aeaad8"
-  const eventName = req.body.event_name;
-  const startDatePara = req.body.start_date.split('/');
+  const { eventName } = req.body;
+  const startDatePara = req.body.startDate.split('/');
   const startDate = new Date(parseInt(startDatePara[2], 10), parseInt(startDatePara[0], 10) - 1, parseInt(startDatePara[1], 10), 0, 0, 0);
-  const endDatePara = req.body.end_date.split('/');
+  const endDatePara = req.body.endDate.split('/');
   const endDate = new Date(parseInt(endDatePara[2], 10), parseInt(endDatePara[0], 10) - 1, parseInt(endDatePara[1], 10), 0, 0, 0);
-  const registrationDeadlinePara = req.body.registration_deadline.split('/');
+  const registrationDeadlinePara = req.body.registrationDeadline.split('/');
   const registrationDeadline = new Date(parseInt(registrationDeadlinePara[2], 10), parseInt(registrationDeadlinePara[0], 10) - 1, parseInt(registrationDeadlinePara[1], 10), 0, 0, 0);
-  const { description } = req.body.description;
+  const { description } = req.body;
   const max = parseInt(req.body.max, 10);
   const min = parseInt(req.body.min, 10);
   if (!(host && eventName && startDate && endDate && description && max && min && registrationDeadline)) {
@@ -275,7 +275,9 @@ function strContains(p, obj) {
 
 function filterContains(obj, p) {
   let i = p.length;
-  while (i > 0) {
+
+  // I hate you Chy and your bad code. Love this code so much
+  while (i--) { // eslint-disable-line no-plusplus
     if (typeof p[i] === 'string') {
       if (strContains(p[i].toLowerCase(), JSON.stringify(obj).toLowerCase())) {
         return true;
@@ -283,7 +285,6 @@ function filterContains(obj, p) {
     } else if (p[i] === obj) {
       return true;
     }
-    i -= 1;
   }
   return false;
 }
@@ -295,6 +296,7 @@ router.post('/api/search_event', Event1.middleware.loadAll, (req, res) => {
         success: 'success',
         events: req.events,
       });
+      console.log(req.events)
       return;
     }
   }
@@ -351,6 +353,7 @@ router.post('/api/create_profile', (req, res) => {
     resume,
     bio,
   } = req.body;
+  console.log(name)
   if (!(name && skills && resume && bio)) {
     res.json({
       success: false,
