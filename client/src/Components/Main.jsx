@@ -45,65 +45,51 @@ class Main extends Component {
               <Route
                 exact
                 path="/"
-                render={
-                props => (
-                  <HomeView />
-                 )
-                }
+                render={props => (
+                  <HomeView {...props} />
+                )}
               />
               <Route
                 exact
                 path="/dashboard"
-                render={
-              props => (
-                <DashboardView />
-              )
-            }
+                render={props => (
+                  <DashboardView {...props} />
+                )}
               />
               <Route
                 exact
                 path="/create_account"
-                render={
-              props => (
-                <CreateAccountView />
-              )
-            }
+                render={props => (
+                  <CreateAccountView {...props} />
+                )}
               />
               <Route
                 exact
                 path="/create_profile"
-                render={
-              props => (
-                <CreateProfileView />
-              )
-            }
+                render={props => (
+                  <CreateProfileView {...props} />
+                )}
               />
               <Route
                 exact
                 path="/edit_profile"
-                render={
-              props => (
-                <EditProfileView />
-              )
-            }
+                render={props => (
+                  <EditProfileView {...props} />
+                )}
               />
               <Route
                 exact
                 path="/create_event"
-                render={
-              props => (
-                <CreateEventView />
-              )
-            }
+                render={props => (
+                  <CreateEventView {...props} />
+                )}
               />
               <Route
                 exact
                 path="/profile"
-                render={
-              props => (
-                <ProfileView />
-              )
-            }
+                render={props => (
+                  <ProfileView {...props} />
+                )}
               />
               <Route
                 path="/events/:searchKey"

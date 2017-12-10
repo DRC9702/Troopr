@@ -79,7 +79,7 @@ class CreateEventView extends Component {
     // Submit form via jQuery/AJAX
     // console.log(data);
     if (this.state.minSize > this.state.maxSize) {
-      alert('Minimum and Maximum Size Error');
+      alert('Minimum and Maximum Size Error'); // eslint-disable-line
     } else {
       axios.post('/api/create_event', {
         event_name: this.state.eventName,
@@ -90,19 +90,19 @@ class CreateEventView extends Component {
         max: this.state.maxSize,
         description: this.state.eventBio,
       }).then((response) => {
-        console.log(response);
-        console.log(response.data.success);
+        // console.log(response);
+        // console.log(response.data.success);
         // console.log(response.data.user);
 
         if (response.data.success) {
           this.props.history.push('/events/$all');
         } else if (response.data.message) {
-          alert(response.data.message);
+          alert(response.data.message); // eslint-disable-line
         } else {
-          alert('event created failed');
+          alert('event created failed'); // eslint-disable-line
         }
       }).catch((error) => {
-        console.log(error);
+        console.log(error); // eslint-disable-line no-console
       });
     }
   }
