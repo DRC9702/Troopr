@@ -28,24 +28,23 @@ class EventsView extends Component {
       query: key,
     })
       .then((response) => {
-        // console.log(response.data);
         // console.log(response.data.success);
         if (response.data.success) {
           // console.log(response.data.events);
           const newState = response.data.events;
           for (let i = 0; i < newState.length; i += 1) {
             // reformatting dates
-            let tokens = newState[i].start_date.split('T')[0].split('-');
+            let tokens = newState[i].startDate.split('T')[0].split('-');
             let formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
-            newState[i].start_date = formattedDate;
+            newState[i].startDate = formattedDate;
 
-            tokens = newState[i].end_date.split('T')[0].split('-');
+            tokens = newState[i].endDate.split('T')[0].split('-');
             formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
-            newState[i].end_date = formattedDate;
+            newState[i].endDate = formattedDate;
 
-            tokens = newState[i].registration_deadline.split('T')[0].split('-');
+            tokens = newState[i].registrationDeadline.split('T')[0].split('-');
             formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
-            newState[i].registration_deadline = formattedDate;
+            newState[i].registrationDeadline = formattedDate;
           }
           // console.log(newState);
           this.setState({ events: newState });

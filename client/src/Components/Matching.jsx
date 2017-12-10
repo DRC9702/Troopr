@@ -110,6 +110,7 @@ class Matching extends Component {
       team2: this.state.given_team._id,
     })
       .then((response) => {
+        console.log(response)
         if (response.data.success) {
           alert('Teammate found!!!Check your teammate in the team setting or keep looking for other teams'); // eslint-disable-line
         } else if (response.data.refresh) {
