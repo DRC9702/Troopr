@@ -276,7 +276,7 @@ function strContains(p, obj) {
 function filterContains(obj, p) {
   let i = p.length;
 
-  // I hate you Chy and your bad code. Love this code so much
+  // I hate you Chy and your bad code. Love this code so much.
   while (i--) { // eslint-disable-line no-plusplus
     if (typeof p[i] === 'string') {
       if (strContains(p[i].toLowerCase(), JSON.stringify(obj).toLowerCase())) {
@@ -296,7 +296,6 @@ router.post('/api/search_event', Event1.middleware.loadAll, (req, res) => {
         success: 'success',
         events: req.events,
       });
-      console.log(req.events)
       return;
     }
   }
@@ -353,7 +352,6 @@ router.post('/api/create_profile', (req, res) => {
     resume,
     bio,
   } = req.body;
-  console.log(name)
   if (!(name && skills && resume && bio)) {
     res.json({
       success: false,
