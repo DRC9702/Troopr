@@ -30,8 +30,10 @@ class DashboardView extends Component {
         if (response.data.success) {
           // console.log(response.data.teams);
           this.setState({ userTeams: response.data.teams });
+        } else if (response.data.message === 'Need login first.') {
+          this.props.history.push('/');
         } else {
-          alert(response.data.message); // eslint-disable-line
+            alert(response.data.message); // eslint-disable-line
         }
       })
       .catch((error) => {
@@ -61,8 +63,10 @@ class DashboardView extends Component {
           }
           // console.log(newState);
           this.setState({ userEvents: newState });
+        } else if (response.data.message === 'need login') {
+          this.props.history.push('/');
         } else {
-          alert(response.data.message); // eslint-disable-line
+            alert(response.data.message); // eslint-disable-line
         }
       })
       .catch((error) => {
