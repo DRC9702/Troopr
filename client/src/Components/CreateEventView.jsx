@@ -97,7 +97,11 @@ class CreateEventView extends Component {
         if (response.data.success) {
           this.props.history.push('/events/$all');
         } else if (response.data.message) {
-          alert(response.data.message); // eslint-disable-line
+          if (response.data.message === 'need login') {
+            this.props.history.push('/');
+          } else {
+              alert(response.data.message); // eslint-disable-line
+          }// eslint-disable-line
         } else {
           alert('event created failed'); // eslint-disable-line
         }

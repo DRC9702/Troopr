@@ -52,6 +52,8 @@ class TeamView extends Component {
             members: team.members,
           });
           // console.log(team.projectPlan)
+        } else if (response.data.message === 'Need login first.') {
+          this.props.history.push('/');
         } else {
           // console.log('events query failed');
           // eslint-disable-next-line no-undef

@@ -71,8 +71,12 @@ class CreateProfileView extends Component {
     }).then((response) => {
       if (response.data.success) {
         this.props.history.push('/profile');
-      } else {
-        alert('profile created failed'); // eslint-disable-line
+      } else if (response.data.message) {
+        if (response.data.message === 'need login') {
+          this.props.history.push('/');
+        } else {
+              alert(response.data.message); // eslint-disable-line
+          } // eslint-disable-line
       }
     }).catch((error) => {
       console.log(error); // eslint-disable-line 

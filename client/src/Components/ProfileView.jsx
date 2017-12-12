@@ -34,6 +34,13 @@ class ProfileView extends Component {
           // console.log(this.state.data.resume);
           // console.log(this.state.data.bio);
         } else {
+          if (response.data.message) {
+            if (response.data.message === 'login plz') {
+              this.props.history.push('/');
+            } else {
+              alert(error);// eslint-disable-line
+            }
+          }
           console.log('failed2'); // eslint-disable-line no-console
         }
       })

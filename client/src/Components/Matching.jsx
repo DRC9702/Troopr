@@ -77,8 +77,12 @@ class Matching extends Component {
             .catch((error) => {
               this.showModal(`Oops! There was a problem...${error}`);
             });
-        } else {
-          this.showModal(response.data.message); // eslint-disable-line
+        } else if (response.data.message) {
+          if (response.data.message === 'Need login first.') {
+            this.props.history.push('/');
+          } else {
+              this.showModal(response.data.message); // eslint-disable-line
+          }
         }
       })
       .catch((error) => {
