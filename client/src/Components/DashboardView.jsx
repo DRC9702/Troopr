@@ -101,7 +101,7 @@ class DashboardView extends Component {
           <Grid fluid style={{ width: '100%' }} >
             <Row className="show-grid" style={{ width: '100%' }}>
               <Col >
-                <h1>{''}</h1>
+                <h4>&nbsp;</h4>
               </Col>
             </Row>
             <Row className="show-grid" style={{ width: '100%' }}>
