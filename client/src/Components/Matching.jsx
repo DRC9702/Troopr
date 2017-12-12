@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Grid, Button, Panel, Modal } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import SkillsList from './SkillsList';
@@ -23,12 +24,14 @@ class Matching extends Component {
     super(props);
     // const value = new Date().toISOString();
     this.state = {
-      team: 'Foo Fighters',
-      skillsOffered: ['html', 'css'],
-      skillsWanted: ['node.js'],
-      members: ['Dave', 'Victor'],
+      team: '--------',
+      event: '',
+      skillsOffered: [],
+      skillsWanted: [],
+      members: [],
       show: false,
       given_team: {},
+      modalMessage: '',
 
     };
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -36,6 +39,7 @@ class Matching extends Component {
     this.accept = this.accept.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +53,8 @@ class Matching extends Component {
     })
       .then((response) => {
         if (response.data.success) {
-          this.setState({ team_id: response.data.team._id });
+          // console.log(response.data.team);
+          this.setState({ team_id: response.data.team._id, event: response.data.team.event.name });
           axios.post('/api/give_team', {
             event_id: key,
             team_id: this.state.team_id,
@@ -66,23 +71,27 @@ class Matching extends Component {
                 this.setState({ members: memName });
                 this.setState({ given_team: response2.data.target_team });
               } else if (response2.data.allFound) {
-                this.showModal();
+                this.showModal('Oops! No more teams are available.');
               }
             })
             .catch((error) => {
-              alert(error); // eslint-disable-line
+              this.showModal(`Oops! There was a problem...${error}`);
             });
         } else {
-          alert(response.data.message); // eslint-disable-line
+          this.showModal(response.data.message); // eslint-disable-line
         }
       })
       .catch((error) => {
-        alert(error); // eslint-disable-line
+        this.showModal(`Oops! There was a problem...${error}`);
       });
   }
 
+  redirect() {
+    this.props.history.push('/dashboard');
+  }
+
   reject() {
-    alert(`Team ${this.state.team} rejected`); // eslint-disable-line
+    // alert(`Team ${this.state.team} rejected`); // eslint-disable-line
     // get new team from jQuery/AJAX; reject
     let key = '';
     key = this.props.match.params.event;
@@ -98,7 +107,7 @@ class Matching extends Component {
       })
       .catch((error) => {
         console.log(error); // eslint-disable-line no-console
-        console.log('failed1'); // eslint-disable-line no-console
+        this.showModal(`Oops! There was a problem...${error}`); // eslint-disable-line no-console
       });
   }
 
@@ -111,22 +120,22 @@ class Matching extends Component {
     })
       .then((response) => {
         if (response.data.success) {
-          alert('Teammate found!!!Check your teammate in the team setting or keep looking for other teams'); // eslint-disable-line
+          this.showModal('Teammate found! Check your teammate in dashbaord or keep looking for other teams'); // eslint-disable-line
         } else if (response.data.refresh) {
-          alert('Team added successfully <3'); // eslint-disable-line
+          // alert('Team added successfully <3'); // eslint-disable-line
           window.location.reload();
         }
       })
       .catch((error) => {
         console.log(error); // eslint-disable-line no-console
-        console.log('failed1'); // eslint-disable-line no-console
+        this.showModal(`Oops! There was a problem...${error}`);// eslint-disable-line no-console
       });
     // this.setState({ team: 'Another option' });
     // tell jQuery/AJAX team is formed; accept
   }
 
-  showModal() {
-    this.setState({ show: true });
+  showModal(msg) {
+    this.setState({ show: true, modalMessage: msg });
   }
 
   hideModal() {
@@ -139,7 +148,7 @@ class Matching extends Component {
   render() {
     return (
       <div className="Matching" style={styles}>
-        <h1 style={{ color: 'grey' }} >Matching you with teams in {this.props.match.params.event} ...</h1>
+        <h1 style={{ color: 'grey' }} >Matching you with teams in {this.state.event} ...</h1>
         <Grid>
           <Row className="show-grid">
             <Col md={3}>
@@ -166,11 +175,14 @@ class Matching extends Component {
 
         <Modal show={this.state.show} onHide={this.hideModal}>
           <Modal.Body>
-            <h1>Oops! No matching teams are available.</h1>
+            <h1>{this.state.modalMessage}</h1>
           </Modal.Body>
           <Modal.Footer>
             <Button bsStyle="success" onClick={Matching.refresh}>
             Go Search Again
+            </Button>
+            <Button bsStyle="info" onClick={this.redirect}>
+            Go to Dashboard
             </Button>
           </Modal.Footer>
         </Modal>
@@ -181,6 +193,7 @@ class Matching extends Component {
 
 Matching.propTypes = {
   match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-export default Matching;
+export default withRouter(Matching);

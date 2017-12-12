@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
 import ProfileView from './ProfileView';
 import HeaderView from './HeaderView';
 import HomeView from './HomeView';
@@ -17,8 +18,17 @@ require('../styles/Main.css');
 class Main extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isLoggedIn: false,
+    };
     // console.log("Constructor");
     this.resize = this.resize.bind(this);
+    this.checkLoggedIn = this.checkLoggedIn.bind(this);
+    this.logOut = this.logOut.bind(this);
+  }
+
+  componentWillMount() {
+    this.checkLoggedIn();
   }
 
   componentDidMount() {
@@ -27,6 +37,32 @@ class Main extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
+  }
+
+  checkLoggedIn() {
+    axios.post('/check_login')
+      .then((response) => {
+        // console.log(response);
+        this.setState({ isLoggedIn: response.data.login });
+      }).catch((error) => {
+        console.log(error); // eslint-disable-line no-console
+        console.log('Failed To Check If Online'); // eslint-disable-line no-console
+      });
+  }
+
+  logOut() {
+    axios.get('/logout')
+      .then((response) => {
+        if (response.data.success) {
+          window.location = '/';
+          this.setState({ isLoggedIn: false });
+        } else {
+          console.log('Failed to Logout'); // eslint-disable-line no-console
+        }
+      }).catch((error) => {
+        console.log('Failed to Logout'); // eslint-disable-line no-console
+        console.log(error); // eslint-disable-line no-console
+      });
   }
 
   resize() {
@@ -40,6 +76,8 @@ class Main extends Component {
           <div id="BrowserRouterInnerDiv">
             <HeaderView
               show={false}
+              isLoggedIn={this.state.isLoggedIn}
+              logoutHandler={this.logOut}
             />
             <Switch>
               <Route
@@ -60,7 +98,7 @@ class Main extends Component {
                 exact
                 path="/create_account"
                 render={props => (
-                  <CreateAccountView {...props} />
+                  <CreateAccountView {...props} loginChecker={this.checkLoggedIn} />
                 )}
               />
               <Route
