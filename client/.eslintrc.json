@@ -1,12 +1,16 @@
 {
-    "extends": "airbnb",
-    "globals": {
-        "window": true,
-        "console": true
-    },
-    "rules": {
-        "react/prefer-stateless-function": "off",
-        "no-underscore-dangle": "off",
-        "react/forbid-prop-types": "off"
-    }
+  "extends": "airbnb",
+  "globals": {
+    "window": true,
+    "console": true
+  },
+  "rules": {
+    "react/prefer-stateless-function": "off",
+    "no-underscore-dangle": "off",
+    "react/forbid-prop-types": "off"
+  },
+  "env": {
+    "browser": true,
+    "jest": true
+  }
 }
