@@ -8,6 +8,7 @@ require('../styles/HeaderView.css');
 class HeaderView extends Component {
   constructor(props) {
     super(props);
+    // console.log(props);
     this.state = {
       show: props.show,
       email: '',
@@ -15,7 +16,6 @@ class HeaderView extends Component {
       password: '',
       searchKey: '',
     };
-
     this.signIn = this.signIn.bind(this);
     this.doSearch = this.doSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -24,10 +24,11 @@ class HeaderView extends Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.handleLoginButton = this.handleLoginButton.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({ show: newProps.show });
+    this.setState({ ...this.state, show: newProps.show, isLoggedin: newProps.isLoggedin });
   }
 
   // getText() {
@@ -38,7 +39,7 @@ class HeaderView extends Component {
   // }
 
   handleSearchChange(e) {
-    this.setState({ searchKey: e.target.value });
+    this.setState({ ...this.state, searchKey: e.target.value });
   }
 
   doSearch(e) {
@@ -48,11 +49,21 @@ class HeaderView extends Component {
   }
 
   handleEmailChange(e) {
-    this.setState({ email: e.target.value });
+    this.setState({ ...this.state, email: e.target.value });
   }
 
   handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
+    this.setState({ ...this.state, password: e.target.value });
+  }
+
+  handleLoginButton() {
+    // console.log('Hello from the handler!');
+    if (this.props.isLoggedIn) {
+      // console.log('Trying to log out');
+      this.props.logoutHandler();
+    } else {
+      this.toggleModal();
+    }
   }
 
   toggleModal() {
@@ -65,12 +76,13 @@ class HeaderView extends Component {
 
   showModal() {
     // console.log('Openning Modal');
-    this.setState({ show: true });
+    this.setState({ ...this.state, show: true });
   }
 
   hideModal() {
     // console.log('Closing Modal');
     this.setState({
+      ...this.state,
       show: false,
     });
   }
@@ -93,6 +105,7 @@ class HeaderView extends Component {
       email: this.state.email,
       password: this.state.password,
     }).then((response) => {
+      // console.log(response);
       if (response.data.success) {
         // console.log('YES');
         window.location = '/dashboard';
@@ -111,7 +124,7 @@ class HeaderView extends Component {
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/dashboard">Brand</a>
+              <a href="/dashboard">Troopr</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -124,8 +137,8 @@ class HeaderView extends Component {
               <Button type="submit" onClick={this.doSearch}>Submit</Button>
             </Navbar.Form>
             <Navbar.Form pullRight>
-              <Button type="button" onClick={this.toggleModal}>
-                Login
+              <Button type="button" onClick={this.handleLoginButton}>
+                {this.props.isLoggedIn ? 'Logout' : 'Login'}
               </Button>
             </Navbar.Form>
           </Navbar.Collapse>
@@ -173,6 +186,8 @@ class HeaderView extends Component {
 
 HeaderView.propTypes = {
   show: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  logoutHandler: PropTypes.func.isRequired,
 };
 
 export default HeaderView;
