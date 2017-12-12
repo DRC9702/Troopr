@@ -38,44 +38,53 @@ class BoxView extends Component {
 
   render() {
     let list;
-
+    let title;
     if (this.props.title === 'Teams') {
+      title = (
+        <header><h4><b>TEAMS</b></h4></header>
+      );
       list = this.props.teams.map(team => (
-        <ListGroup key={team._id}>
+        <ListGroup key={team._id} >
           <ListGroupItem href={`/team/${team.event._id}`}>
-            {team.members.map(member => (
-              <p key={member._id}>
-                {member.profile.name}
-              </p>
-            ))}
+            {/* {team.members.map(member => ( */}
+            {/* <p key={member._id}> */}
+            {/* {member.profile.name} */}
+            {/* </p> */}
+            {/* ))} */}
+            <Button type="button" bsStyle="link">
+              {team.event.name}
+            </Button>
           </ListGroupItem>
         </ListGroup>
       ));
     } else if (this.props.title === 'Events Hosted') {
+      title = (
+        <header><h4><b>EVENTS HOSTED</b></h4></header>
+      );
       list = this.props.events.map((event, index) => (
         <ListGroup key={event._id}>
-          <ListGroupItem>
+          <ListGroupItem >
             <Button type="button" bsStyle="link" onClick={e => this.showModal(e, index)}>
               {event.name}
             </Button>
           </ListGroupItem>
           <Modal show={this.state.display === index} onHide={this.hideModal}>
             <Modal.Header>
-              <Modal.Title>Event Detail</Modal.Title>
+              <Modal.Title>{event.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <b>Start Date</b>
               {this.props.events ?
-                (<p>{event.start_date}</p>) : (<p />)}
+                (<p>{event.startDate}</p>) : (<p />)}
               <b>End Date</b>
               {this.props.events ?
-                (<p>{event.end_date}</p>) : (<p />)}
+                (<p>{event.endDate}</p>) : (<p />)}
               <b>Deadline for Team Registration</b>
               {this.props.events ?
-                (<p>{event.registration_deadline}</p>) : (<p />)}
-              <b>Teams</b>
+                (<p>{event.registrationDeadline}</p>) : (<p />)}
+              <b>Number of Teams</b>
               {this.props.events ?
-                (<p>{BoxView.parseArray(JSON.stringify(event.teams))}</p>) : (<p />)}
+                (<p>{event.teams.length}</p>) : (<p />)}
               <b>Event Description</b>
               {this.props.events ?
                 (<p>{event.description}</p>) : (<p />)}
@@ -93,7 +102,7 @@ class BoxView extends Component {
 
     return (
       <div className="BoxView">
-        <Panel header={this.props.title} bsStyle="primary">
+        <Panel header={title} bsStyle="primary">
           {list}
         </Panel>
       </div>

@@ -3,6 +3,7 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: row;
+  z-index: 2;
  }
 
 #Content {
@@ -11,10 +12,33 @@
   flex: 1 1 auto;
   flex-wrap: wrap;
   align-content: flex-start;
+  z-index: 2;
  }
 
 .BoxView {
   position: relative;
   margin: 20px;
-
+  z-index: 2;
  }
+
+.SideView {
+  position: relative;
+  margin-bottom: 0;
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.BackgroundImg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: fill;
+  object-fit: fill;
+  z-index: 1;
+}
