@@ -21,7 +21,9 @@ app.set('views', 'views');
 app.set('view engine', 'ejs');
 var mongoose = require('mongoose');
 var react = require('react');
-mongoose.connect('localhost:27017/db');
+// mongoose.connect('localhost:27017/db');
+mongoose.connect('mongodb://chi:12345@ds135926.mlab.com:35926/troopr');
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
