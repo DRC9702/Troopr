@@ -51,6 +51,7 @@ class CreateAccountView extends Component {
 
         if (response.data.success) {
           this.props.history.push('/create_profile');
+          this.props.loginChecker();
         } else {
           alert('Account already exists'); // eslint-disable-line
         }
@@ -114,6 +115,7 @@ class CreateAccountView extends Component {
 
 CreateAccountView.propTypes = {
   history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  loginChecker: PropTypes.func.isRequired,
 };
 
 export default withRouter(CreateAccountView);

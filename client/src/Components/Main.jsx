@@ -98,7 +98,7 @@ class Main extends Component {
                 exact
                 path="/create_account"
                 render={props => (
-                  <CreateAccountView {...props} />
+                  <CreateAccountView {...props} loginChecker={this.checkLoggedIn} />
                 )}
               />
               <Route
