@@ -4,6 +4,7 @@ import { Col, Row, Grid, Button, Panel, FormGroup, ControlLabel, Modal, ListGrou
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import SelectSkills from './SelectSkills';
+import SkillsList from './SkillsList';
 
 class TeamView extends Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class TeamView extends Component {
             projectName: team.projectName,
             plan: team.projectPlan,
             members: team.members,
+            event: team.event.name,
           });
           // console.log(team.projectPlan)
         } else if (response.data.message === 'Need login first.') {
@@ -158,16 +160,22 @@ class TeamView extends Component {
 
     return (
       <div className="TeamView" >
-        {<h1>Team Board</h1>}
+        {<h1>{this.state.event}: Team Board</h1>}
         <br />
         <Grid>
           <Col xs={12} md={8}>
             <Row>
               <Panel collapsible defaultExpanded header="Skills" bsStyle="success" >
                 <ListGroup fill>
-                  <ListGroupItem>{JSON.stringify(this.state.owned)}</ListGroupItem>
-                  <ListGroupItem>{JSON.stringify(this.state.required)}</ListGroupItem>
-                  <ListGroupItem>{JSON.stringify(this.state.preferred)}</ListGroupItem>
+                  <ListGroupItem>
+                    <SkillsList skills={this.state.owned} title="Skills You Have: " />
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <SkillsList skills={this.state.required} title="Skills You Require: " />
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <SkillsList skills={this.state.preferred} title="Skills You Prefer: " />
+                  </ListGroupItem>
                 </ListGroup>
               </Panel>
               <Panel
