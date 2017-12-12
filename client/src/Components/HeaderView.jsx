@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar, Button, FormGroup, FormControl, Modal, Form } from 'react-bootstrap';
+import { Navbar, Button, FormGroup, FormControl, Modal, Form, Image } from 'react-bootstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import logo from '../Images/TrooprLogo.png';
 
 require('../styles/HeaderView.css');
 
@@ -25,6 +26,7 @@ class HeaderView extends Component {
     this.hideModal = this.hideModal.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleLoginButton = this.handleLoginButton.bind(this);
+    this.handleLogo = this.handleLogo.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -118,13 +120,21 @@ class HeaderView extends Component {
     });
   }
 
+  handleLogo() {
+    if (!this.props.isLoggedIn) {
+      window.location = '/';
+    } else {
+      window.location = '/dashboard';
+    }
+  }
+
   render() {
     return (
       <div className="HeaderView">
-        <Navbar>
+        <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/dashboard">Troopr</a>
+              <Image src={logo} rounded style={{ top: 0, bottom: 0, padding: 0 }} onClick={this.handleLogo} />
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
