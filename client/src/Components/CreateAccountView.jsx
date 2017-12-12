@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Panel, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import Background from '../Images/bgimg1.jpg';
 
 require('../styles/CreateAccountView.css');
 
@@ -64,8 +65,11 @@ class CreateAccountView extends Component {
   render() {
     return (
       <div className="CreateAccountView">
-        <h1>Create Account</h1>
-        <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
+        <div className="BackgroundImg">
+          <img src={Background} alt="" style={{ height: '100%', width: '100%' }} />
+        </div>
+        <h1 style={{ zIndex: '2' }}>Create Account</h1>
+        <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px', zIndex: 2 }}>
           <form>
             <FormGroup>
               <ControlLabel>Email Address</ControlLabel>

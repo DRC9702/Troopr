@@ -159,7 +159,7 @@ class Matching extends Component {
               <Button bsStyle="danger" bsSize="large" onClick={this.reject}>Reject</Button>
             </Col>
             <Col md={5} style={{ textAlign: 'left' }}>
-              <Panel header={this.state.team}>
+              <Panel header="Team" style={{ margin: '20px', zIndex: '2' }}>
                 <h4><SkillsList skills={this.state.skillsOffered} title="Skills: " /></h4>
                 <hr />
                 <h4><SkillsList skills={this.state.skillsWanted} title="Skills Wanted: " /></h4>
