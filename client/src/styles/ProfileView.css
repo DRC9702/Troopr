@@ -1,29 +1,50 @@
 .ProfileView {
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden !important;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden !important;
+  align-items: center;
+  z-index: 2;
 }
 
 #bioContent {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 2;
 }
 
 #resumeContent {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 2;
 }
 
 pre {
-    background-color: rgba(0, 0, 0, 0.05);
-    border: 0px;
-    margin: 20px;
-    text-align: left;
-    white-space: pre-wrap !important;
-    word-break: normal !important;
-    word-wrap: normal !important;
-    width: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 0px;
+  margin: 20px;
+  text-align: left;
+  white-space: pre-wrap !important;
+  word-break: normal !important;
+  word-wrap: normal !important;
+  width: 100%;
+  z-index: 2;
+}
+
+.BackgroundImg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -o-object-fit: fill;
+  object-fit: fill;
+  z-index: 1;
+}
+
+.ProfilePanels {
+  margin: 20px;
+  width: 75%;
+  z-index: 2;
 }
