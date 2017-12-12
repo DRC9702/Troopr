@@ -14,7 +14,7 @@ class SideView extends Component {
           <p>
             Username
           </p>
-          <Image src={logo} circle style={{ width: '200px' }} />
+          <Image src="https://picsum.photos/200/200/?random" circle style={{ width: '200px' }} />
         </div >
         <br />
         <br />
