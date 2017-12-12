@@ -449,7 +449,41 @@ router.get('/logout', (req, res) => {
   if (req.session.user) {
     console.log('in the logout route!!!\n');
     req.session.user = null;
-    res.redirect('/');
+    res.json({
+      success: 'success',
+    });
+  } else {
+    res.json({
+      success: false,
+    });
+  }
+});
+
+
+router.get('/get_name', (req, res) => {
+  if (req.session.user) {
+    console.log('in the logout route!!!\n');
+    req.session.user = null;
+    res.json({
+      success: 'success',
+      name: req.session.user.profile.name,
+    });
+  } else {
+    res.json({
+      success: false,
+    });
+  }
+});
+
+router.post('/check_login', (req, res) => {
+  if (req.session.user) {
+    res.json({
+      login: true,
+    });
+  } else {
+    res.json({
+      login: false,
+    });
   }
 });
 
