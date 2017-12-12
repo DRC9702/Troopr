@@ -462,11 +462,9 @@ router.get('/logout', (req, res) => {
 
 router.get('/get_name', (req, res) => {
   if (req.session.user) {
-    console.log('in the logout route!!!\n');
-    req.session.user = null;
     res.json({
       success: 'success',
-      name: req.session.user.profile.name,
+      name: req.session.user.credential.username,
     });
   } else {
     res.json({
