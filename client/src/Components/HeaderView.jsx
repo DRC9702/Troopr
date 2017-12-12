@@ -134,7 +134,12 @@ class HeaderView extends Component {
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <Image src={logo} rounded style={{ top: 0, bottom: 0, padding: 0 }} onClick={this.handleLogo} />
+              <Image
+                src={logo}
+                rounded
+                style={{ top: 0, bottom: 0, padding: 0 }}
+                onClick={this.handleLogo}
+              />
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>

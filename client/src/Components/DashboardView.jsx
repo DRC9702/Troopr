@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import SideView from './SideView';
 import BoxView from './BoxView';
+import Background from '../Images/bgimg1.jpg';
 
 
 require('../styles/DashboardView.css');
@@ -46,7 +47,23 @@ class DashboardView extends Component {
         // console.log('show_event successful');
         if (response.data.success) {
           // console.log(response.data.events);
-          this.setState({ userEvents: response.data.events });
+          const newState = response.data.events;
+          for (let i = 0; i < newState.length; i += 1) {
+            // reformatting dates
+            let tokens = newState[i].startDate.split('T')[0].split('-');
+            let formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
+            newState[i].startDate = formattedDate;
+
+            tokens = newState[i].endDate.split('T')[0].split('-');
+            formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
+            newState[i].endDate = formattedDate;
+
+            tokens = newState[i].registrationDeadline.split('T')[0].split('-');
+            formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;
+            newState[i].registrationDeadline = formattedDate;
+          }
+          // console.log(newState);
+          this.setState({ userEvents: newState });
         } else if (response.data.message === 'need login') {
           this.props.history.push('/');
         } else {
@@ -73,7 +90,9 @@ class DashboardView extends Component {
   render() {
     return (
       <div className="DashboardView">
-
+        <div className="BackgroundImg">
+          <img src={Background} alt="" style={{ height: '100%', width: '100%' }} />
+        </div>
         <SideView
           handleViewProfile={this.handleViewProfile}
           handleViewEvent={this.handleViewEvent}
@@ -81,9 +100,14 @@ class DashboardView extends Component {
         />
         <div id="Content">
 
-          {<h1>Dashboard</h1>}
+          {/* {<h1>Dashboard</h1>} */}
 
           <Grid fluid style={{ width: '100%' }} >
+            <Row className="show-grid" style={{ width: '100%' }}>
+              <Col >
+                <h1>{''}</h1>
+              </Col>
+            </Row>
             <Row className="show-grid" style={{ width: '100%' }}>
               <Col md={12} lg={6}>
                 <BoxView title="Teams" teams={this.state.userTeams} />
@@ -92,14 +116,14 @@ class DashboardView extends Component {
                 <BoxView title="Events Hosted" events={this.state.userEvents} />
               </Col>
             </Row>
-            <Row className="show-grid" style={{ width: '100%' }}>
-              <Col md={12} lg={6}>
-                <BoxView title="NewsFeed" />
-              </Col>
-              <Col md={12} lg={6}>
-                <BoxView title="Collaborators" />
-              </Col>
-            </Row>
+            {/* <Row className="show-grid" style={{ width: '100%' }}> */}
+            {/* <Col md={12} lg={6}> */}
+            {/* <BoxView title="NewsFeed" /> */}
+            {/* </Col> */}
+            {/* <Col md={12} lg={6}> */}
+            {/* <BoxView title="Collaborators" /> */}
+            {/* </Col> */}
+            {/* </Row> */}
           </Grid>
 
         </div>

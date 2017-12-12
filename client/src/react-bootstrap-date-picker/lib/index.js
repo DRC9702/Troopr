@@ -62,14 +62,14 @@ var CalendarHeader = (0, _createReactClass2.default)({
 
     var displayDate = new Date(this.props.displayDate);
     var minDate = new Date(this.props.minDate);
-    return minDate.getFullYear() == displayDate.getFullYear() && minDate.getMonth() == displayDate.getMonth();
+    return minDate.getFullYear() === displayDate.getFullYear() && minDate.getMonth() === displayDate.getMonth();
   },
   displayingMaxMonth: function displayingMaxMonth() {
     if (!this.props.maxDate) return false;
 
     var displayDate = new Date(this.props.displayDate);
     var maxDate = new Date(this.props.maxDate);
-    return maxDate.getFullYear() == displayDate.getFullYear() && maxDate.getMonth() == displayDate.getMonth();
+    return maxDate.getFullYear() === displayDate.getFullYear() && maxDate.getMonth() === displayDate.getMonth();
   },
   handleClickPrevious: function handleClickPrevious() {
     var newDisplayDate = new Date(this.props.displayDate);
@@ -170,7 +170,7 @@ var Calendar = (0, _createReactClass2.default)({
 
     var monthLength = daysInMonth[month];
     if (month == 1) {
-      if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+      if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
         monthLength = 29;
       }
     }
