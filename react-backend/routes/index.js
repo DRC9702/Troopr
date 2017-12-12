@@ -728,7 +728,7 @@ router.post('/api/give_team', Team.middleware.loadOfEvent, (req, res) => {
             good = false;
           }
         });
-        if (!filterContains(ttt._id, teamPool) && !filterContains(ttt._id, accepted) && good && (req.body.team_id != ttt._id)) {
+        if (!filterContains(ttt._id, teamPool) && !filterContains(ttt._id, accepted) && good && (req.body.team_id != ttt._id)) { // eslint-disable-line 
           target.push(ttt);
         }
       });
