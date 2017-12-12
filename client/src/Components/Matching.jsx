@@ -23,10 +23,11 @@ class Matching extends Component {
     super(props);
     // const value = new Date().toISOString();
     this.state = {
-      team: 'Foo Fighters',
-      skillsOffered: ['html', 'css'],
-      skillsWanted: ['node.js'],
-      members: ['Dave', 'Victor'],
+      team: '--------',
+      event: '',
+      skillsOffered: [],
+      skillsWanted: [],
+      members: [],
       show: false,
       given_team: {},
 
@@ -49,7 +50,8 @@ class Matching extends Component {
     })
       .then((response) => {
         if (response.data.success) {
-          this.setState({ team_id: response.data.team._id });
+          // console.log(response.data.team);
+          this.setState({ team_id: response.data.team._id, event: response.data.team.event.name });
           axios.post('/api/give_team', {
             event_id: key,
             team_id: this.state.team_id,
@@ -139,7 +141,7 @@ class Matching extends Component {
   render() {
     return (
       <div className="Matching" style={styles}>
-        <h1 style={{ color: 'grey' }} >Matching you with teams in {this.props.match.params.event} ...</h1>
+        <h1 style={{ color: 'grey' }} >Matching you with teams in {this.state.event} ...</h1>
         <Grid>
           <Row className="show-grid">
             <Col md={3}>
