@@ -449,11 +449,10 @@ router.get('/logout', (req, res) => {
   if (req.session.user) {
     console.log('in the logout route!!!\n');
     req.session.user = null;
-    res.redirect('/');
+    res.json({
+      success: 'success',
+    });
   }
-  res.json({
-    success: 'success',
-  });
 });
 
 router.post('/check_login', (req, res) => {
