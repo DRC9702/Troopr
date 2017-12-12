@@ -7,7 +7,6 @@ import SideView from './SideView';
 import BoxView from './BoxView';
 import Background from '../Images/bgimg1.jpg';
 
-
 require('../styles/DashboardView.css');
 
 class DashboardView extends Component {

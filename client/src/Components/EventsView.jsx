@@ -3,7 +3,9 @@ import { Table } from 'react-bootstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import EventsList from './EventsList';
+import Background from '../Images/bgimg1.jpg';
 
+require('../styles/EventsView.css');
 
 class EventsView extends Component {
   constructor(props) {
@@ -63,8 +65,11 @@ class EventsView extends Component {
   render() {
     return (
       <div className="EventsView" >
-        <h1>Events</h1>
-        <Table striped bordered condensed hover>
+        <div className="BackgroundImg" >
+          <img src={Background} alt="" style={{ height: '100%', width: '100%' }} />
+        </div>
+        <h1 style={{ zIndex: '2' }}>Events</h1>
+        <Table striped bordered condensed hover style={{ zIndex: '2' }}>
           <thead>
             <tr>
               <th>Event Name</th>

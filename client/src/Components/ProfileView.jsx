@@ -3,6 +3,7 @@ import { Panel, Label, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import Background from '../Images/bgimg1.jpg';
 
 require('../styles/ProfileView.css');
 
@@ -52,24 +53,29 @@ class ProfileView extends Component {
     // replace bap with this.state.skills which should be in the form of a list
     return (
       <div className="ProfileView">
-        <h1>{this.state.name}</h1>
-        <Panel header="Skills" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {skillList.map(listValue =>
-              <h4><Label style={{ margin: '5px' }}>{listValue}</Label></h4>)}
-          </div>
-        </Panel>
-        <Panel header="Bio" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
-          <div id="bioContent">
-            <pre>{this.state.bio}</pre>
-          </div>
-        </Panel>
-        <Panel header="Resume" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
-          <div id="resumeContent">
-            <pre>{this.state.resume}</pre>
-          </div>
-        </Panel>
-        <Button bsStyle="primary" onClick={this.editProfile}>
+        <div className="BackgroundImg">
+          <img src={Background} alt="" style={{ height: '100%', width: '100%' }} />
+        </div>
+        <h1 style={{ zIndex: 2 }}>{this.state.name}</h1>
+        <div className="ProfilePanels">
+          <Panel header="Skills" bsStyle="primary" >
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+              {skillList.map(listValue =>
+                <h4><Label style={{ margin: '5px' }}>{listValue}</Label></h4>)}
+            </div>
+          </Panel>
+          <Panel header="Bio" bsStyle="primary" >
+            <div id="bioContent">
+              <pre>{this.state.bio}</pre>
+            </div>
+          </Panel>
+          <Panel header="Resume" bsStyle="primary" >
+            <div id="resumeContent">
+              <pre>{this.state.resume}</pre>
+            </div>
+          </Panel>
+        </div>
+        <Button bsStyle="primary" onClick={this.editProfile} style={{ zIndex: 2 }}>
           Edit
         </Button>
       </div>

@@ -36,7 +36,7 @@ class SideView extends Component {
 
   render() {
     return (
-      <div className="SideView" style={{ backgroundColor: 'black', opacity: '0.7' }}>
+      <div className="SideView" style={{ backgroundColor: '#71788E', opacity: '0.7' }}>
         <div className="ImageAndName">
           <h1 style={{ color: 'white' }}>
             {this.state.username}
@@ -46,11 +46,11 @@ class SideView extends Component {
         <br />
         <br />
         <div style={{ padding: '10px' }} >
-          <Button bsStyle="info" onClick={this.props.handleViewProfile} block>Profile</Button>
+          <Button bsStyle="info" onClick={this.props.handleViewProfile} block >Profile</Button>
           <br />
-          <Button bsStyle="info" onClick={this.props.handleViewEvent} block>View Events</Button>
+          <Button bsStyle="info" onClick={this.props.handleViewEvent} block >View Events</Button>
           <br />
-          <Button bsStyle="info" onClick={this.props.handleCreateEvent} block>Create Event</Button>
+          <Button bsStyle="info" onClick={this.props.handleCreateEvent} block >Create Event</Button>
         </div>
 
       </div>
