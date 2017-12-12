@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Image } from 'react-bootstrap';
-import logo from '../Images/default.png';
 
 require('../styles/SideView.css');
 
