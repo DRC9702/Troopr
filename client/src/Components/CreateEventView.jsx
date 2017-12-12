@@ -82,10 +82,10 @@ class CreateEventView extends Component {
       alert('Minimum and Maximum Size Error'); // eslint-disable-line
     } else {
       axios.post('/api/create_event', {
-        event_name: this.state.eventName,
-        start_date: this.state.formattedStartValue,
-        registration_deadline: this.state.formattedDeadline,
-        end_date: this.state.formattedEndValue,
+        eventName: this.state.eventName,
+        startDate: this.state.formattedStartValue,
+        registrationDeadline: this.state.formattedDeadline,
+        endDate: this.state.formattedEndValue,
         min: this.state.minSize,
         max: this.state.maxSize,
         description: this.state.eventBio,
