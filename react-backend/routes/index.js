@@ -451,6 +451,21 @@ router.get('/logout', (req, res) => {
     req.session.user = null;
     res.redirect('/');
   }
+  res.json({
+    success: 'success',
+  });
+});
+
+router.post('/check_login', (req, res) => {
+  if (req.session.user) {
+    res.json({
+      login: true,
+    });
+  } else {
+    res.json({
+      login: false,
+    });
+  }
 });
 
 
