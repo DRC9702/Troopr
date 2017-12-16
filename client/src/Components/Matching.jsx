@@ -24,7 +24,6 @@ class Matching extends Component {
     super(props);
     // const value = new Date().toISOString();
     this.state = {
-      team: '--------',
       event: '',
       skillsOffered: [],
       skillsWanted: [],
@@ -65,7 +64,6 @@ class Matching extends Component {
                 response2.data.target_team.members.forEach((mem) => {
                   memName.push(mem.profile.name);
                 });
-                this.setState({ team: response2.data.target_team._id });
                 this.setState({ skillsOffered: response2.data.target_team.skillsOwned });
                 this.setState({ skillsWanted: response2.data.target_team.skillsRequired });
                 this.setState({ members: memName });
