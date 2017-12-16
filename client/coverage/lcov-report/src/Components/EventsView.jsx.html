@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/Components/EventsView.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/Components</a> EventsView.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">42.31% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>11/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">80% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">42.31% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>11/26</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react';
+import { Table } from 'react-bootstrap';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import EventsList from './EventsList';
+import Background from '../Images/bgimg1.jpg';
+&nbsp;
+require('../styles/EventsView.css');
+&nbsp;
+class EventsView extends Component {
+  constructor(props) {
+    super(props);
+    // const value = new Date().toISOString();
+    this.state = {
+      events: [],
+      // display: false,
+      // selectedEvent: '',
+    };
+  }
+&nbsp;
+  componentDidMount() {
+    // console.log(this.props);
+    let key = '';
+    console.log('testing eventsView');
+    console.log(this.props.match);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.props.match.params.searchKey !== '$all') {
+<span class="cstat-no" title="statement not covered" >      key = this.props.match.params.searchKey;</span>
+    }
+    // Submit form via jQuery/AJAX
+    // console.log(data);
+    axios.post('/api/search_event', {
+      query: key,
+    })
+      .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
+        // console.log(response.data.success);
+<span class="cstat-no" title="statement not covered" >        if (response.data.success) {</span>
+          // console.log(response.data.events);
+          const newState = <span class="cstat-no" title="statement not covered" >response.data.events;</span>
+<span class="cstat-no" title="statement not covered" >          for (let i = 0; i &lt; newState.length; i += 1) {</span>
+            // reformatting dates
+            let tokens = <span class="cstat-no" title="statement not covered" >newState[i].startDate.split('T')[0].split('-');</span>
+            let formattedDate = <span class="cstat-no" title="statement not covered" >`${tokens[1]}/${tokens[2]}/${tokens[0]}`;</span>
+<span class="cstat-no" title="statement not covered" >            newState[i].startDate = formattedDate;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            tokens = newState[i].endDate.split('T')[0].split('-');</span>
+<span class="cstat-no" title="statement not covered" >            formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;</span>
+<span class="cstat-no" title="statement not covered" >            newState[i].endDate = formattedDate;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            tokens = newState[i].registrationDeadline.split('T')[0].split('-');</span>
+<span class="cstat-no" title="statement not covered" >            formattedDate = `${tokens[1]}/${tokens[2]}/${tokens[0]}`;</span>
+<span class="cstat-no" title="statement not covered" >            newState[i].registrationDeadline = formattedDate;</span>
+          }
+          // console.log(newState);
+<span class="cstat-no" title="statement not covered" >          this.setState({ events: newState });</span>
+          // _this.setState({ events: response.data.events });
+&nbsp;
+          // console.log(this.state.events[0]);
+        } else {
+<span class="cstat-no" title="statement not covered" >          alert(response.data.message); </span>//eslint-disable-line
+        }
+      })
+      .catch((error) =&gt; {
+        console.log(error); // eslint-disable-line no-console
+      });
+  }
+&nbsp;
+  render() {
+    return (
+      &lt;div className="EventsView" &gt;
+        &lt;div className="BackgroundImg" &gt;
+          &lt;img src={Background} alt="" style={{ height: '100%', width: '100%' }} /&gt;
+        &lt;/div&gt;
+        &lt;h1 style={{ zIndex: '2' }}&gt;Events&lt;/h1&gt;
+        &lt;Table striped bordered condensed hover style={{ zIndex: '2' }}&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Event Name&lt;/th&gt;
+              &lt;th&gt;Event Start Date&lt;/th&gt;
+              &lt;th&gt;Event End Date&lt;/th&gt;
+              &lt;th&gt;Registraion Close Date&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;EventsList events={this.state.events} /&gt;
+        &lt;/Table&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+&nbsp;
+EventsView.propTypes = {
+  match: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
+&nbsp;
+export default EventsView;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Dec 15 2017 22:50:56 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

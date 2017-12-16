@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "PORT=3001 ./bin/www",
+    "start": "PORT=3001 ./bin/www", 
     "lint": "eslint **/*.js"
   },
   "dependencies": {
@@ -18,6 +18,7 @@
     "express-session": "^1.15.6",
     "jade": "~1.11.0",
     "mongoose": "^4.12.0",
+    "nodemon": "^1.12.1",
     "morgan": "~1.9.0",
     "node-jsx": "^0.13.3",
     "react": "^16.0.0",
