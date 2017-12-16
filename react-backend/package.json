@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon app.js",
-    "lint": "eslint **/*.js",
-    "test":"mocha -R spec test.js"
+    "lint": "eslint **/*.js"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
