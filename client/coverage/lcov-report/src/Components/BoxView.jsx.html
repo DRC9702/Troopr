@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/Components/BoxView.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/Components</a> BoxView.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>15/25</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">61.11% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>15/25</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Panel, ListGroup, ListGroupItem, Button, Modal } from 'react-bootstrap';
+&nbsp;
+class BoxView extends Component {
+<span class="fstat-no" title="function not covered" >  st</span>atic parseArray(inStr) {
+    let str = <span class="cstat-no" title="statement not covered" >inStr.substring(1, inStr.length - 1);</span>
+    let ids = <span class="cstat-no" title="statement not covered" >str.split(',');</span>
+<span class="cstat-no" title="statement not covered" >    str = ids.join(', ');</span>
+<span class="cstat-no" title="statement not covered" >    ids = str.split('"');</span>
+<span class="cstat-no" title="statement not covered" >    str = ids.join(' ');</span>
+    // str = str.split("\""),join("");
+<span class="cstat-no" title="statement not covered" >    return str;</span>
+  }
+&nbsp;
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: null,
+    };
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  sh</span>owModal(e, index) {
+    // console.log('ShowModal is clicked');
+    // console.log(index);
+<span class="cstat-no" title="statement not covered" >    e.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >    this.setState({ display: index });</span>
+    // this.setState({ selectedEvent: eventId });
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  hi</span>deModal() {
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      display: null,
+    });
+  }
+&nbsp;
+  render() {
+    let list;
+    let title;
+    if (this.props.title === 'Teams') {
+      title = (
+        &lt;header&gt;&lt;h4&gt;&lt;b&gt;TEAMS&lt;/b&gt;&lt;/h4&gt;&lt;/header&gt;
+      );
+      list = this.props.teams.map(team =&gt; (
+        &lt;ListGroup key={team._id} &gt;
+          &lt;ListGroupItem href={`/team/${team.event._id}`}&gt;
+            {/* {team.members.map(member =&gt; ( */}
+            {/* &lt;p key={member._id}&gt; */}
+            {/* {member.profile.name} */}
+            {/* &lt;/p&gt; */}
+            {/* ))} */}
+            &lt;Button type="button" bsStyle="link"&gt;
+              {team.event.name}
+            &lt;/Button&gt;
+          &lt;/ListGroupItem&gt;
+        &lt;/ListGroup&gt;
+      ));
+    } else if (this.props.title === 'Events Hosted') {
+      title = (
+        &lt;header&gt;&lt;h4&gt;&lt;b&gt;EVENTS HOSTED&lt;/b&gt;&lt;/h4&gt;&lt;/header&gt;
+      );
+      list = this.props.events.map((event, index) =&gt; (
+        &lt;ListGroup key={event._id}&gt;
+          &lt;ListGroupItem &gt;
+            &lt;Button type="button" bsStyle="link" onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >this.showModal(e, index)}</span>&gt;
+              {event.name}
+            &lt;/Button&gt;
+          &lt;/ListGroupItem&gt;
+          &lt;Modal show={this.state.display === index} onHide={this.hideModal}&gt;
+            &lt;Modal.Header&gt;
+              &lt;Modal.Title&gt;{event.name}&lt;/Modal.Title&gt;
+            &lt;/Modal.Header&gt;
+            &lt;Modal.Body&gt;
+              &lt;b&gt;Start Date&lt;/b&gt;
+              {this.props.events ?
+                (&lt;p&gt;{event.startDate}&lt;/p&gt;) : (<span class="branch-1 cbranch-no" title="branch not covered" >&lt;p /&gt;)</span>}
+              &lt;b&gt;End Date&lt;/b&gt;
+              {this.props.events ?
+                (&lt;p&gt;{event.endDate}&lt;/p&gt;) : (<span class="branch-1 cbranch-no" title="branch not covered" >&lt;p /&gt;)</span>}
+              &lt;b&gt;Deadline for Team Registration&lt;/b&gt;
+              {this.props.events ?
+                (&lt;p&gt;{event.registrationDeadline}&lt;/p&gt;) : (<span class="branch-1 cbranch-no" title="branch not covered" >&lt;p /&gt;)</span>}
+              &lt;b&gt;Number of Teams&lt;/b&gt;
+              {this.props.events ?
+                (&lt;p&gt;{event.teams.length}&lt;/p&gt;) : (<span class="branch-1 cbranch-no" title="branch not covered" >&lt;p /&gt;)</span>}
+              &lt;b&gt;Event Description&lt;/b&gt;
+              {this.props.events ?
+                (&lt;p&gt;{event.description}&lt;/p&gt;) : (<span class="branch-1 cbranch-no" title="branch not covered" >&lt;p /&gt;)</span>}
+              &lt;b&gt;Max Number of Team Members&lt;/b&gt;
+              {this.props.events ?
+                (&lt;p&gt;{event.max}&lt;/p&gt;) : (<span class="branch-1 cbranch-no" title="branch not covered" >&lt;p /&gt;)</span>}
+              &lt;b&gt;Min Number of Team Members&lt;/b&gt;
+              {this.props.events ?
+                (&lt;p&gt;{event.min}&lt;/p&gt;) : (<span class="branch-1 cbranch-no" title="branch not covered" >&lt;p /&gt;)</span>}
+            &lt;/Modal.Body&gt;
+          &lt;/Modal&gt;
+        &lt;/ListGroup&gt;
+      ));
+    }
+&nbsp;
+    return (
+      &lt;div className="BoxView"&gt;
+        &lt;Panel header={title} bsStyle="primary"&gt;
+          {list}
+        &lt;/Panel&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+&nbsp;
+BoxView.propTypes = {
+  title: PropTypes.string.isRequired,
+  teams: PropTypes.array,
+  events: PropTypes.array,
+};
+&nbsp;
+BoxView.defaultProps = {
+  teams: [],
+  events: [],
+};
+&nbsp;
+export default BoxView;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Dec 15 2017 22:50:56 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
