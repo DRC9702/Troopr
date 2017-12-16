@@ -9,7 +9,7 @@ class SelectSkills extends Component {
     this.state = { referencePropsList: (props.list != null) };
     this.isChecked = this.isChecked.bind(this);
     this.changeCheck = this.changeCheck.bind(this);
-    this.clickChecck = this.clickCheck.bind(this);
+    this.clickCheck = this.clickCheck.bind(this);
   }
 
   shouldComponentUpdate() {
@@ -18,6 +18,7 @@ class SelectSkills extends Component {
 
   isChecked(value) {
     if (this.state.referencePropsList) {
+      console.log(this.props.list);
       return this.props.list.indexOf(value) >= 0;
     }
     return null;

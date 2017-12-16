@@ -21,6 +21,8 @@ class EventsView extends Component {
   componentDidMount() {
     // console.log(this.props);
     let key = '';
+    console.log('testing eventsView');
+    console.log(this.props.match);
     if (this.props.match.params.searchKey !== '$all') {
       key = this.props.match.params.searchKey;
     }
