@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Panel, ControlLabel, FormControl, Button, FormGroup, HelpBlock, Row, Col, Glyphicon } from 'react-bootstrap';
+import { ControlLabel, FormControl, Button, FormGroup, HelpBlock, Row, Col, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import DatePicker from '../react-bootstrap-date-picker'; // eslint-disable-line import/no-extraneous-dependencies
+import Background from '../Images/bgimg2.png';
+
+// require()
 
 
 require('../styles/CreateEventView.css');
@@ -97,7 +100,11 @@ class CreateEventView extends Component {
         if (response.data.success) {
           this.props.history.push('/events/$all');
         } else if (response.data.message) {
-          alert(response.data.message); // eslint-disable-line
+          if (response.data.message === 'need login') {
+            this.props.history.push('/');
+          } else {
+              alert(response.data.message); // eslint-disable-line
+          }// eslint-disable-line
         } else {
           alert('event created failed'); // eslint-disable-line
         }
@@ -110,11 +117,14 @@ class CreateEventView extends Component {
   render() {
     return (
       <div className="CreateEventView">
-        <h1>Create Event</h1>
-        <Panel header="Info" bsStyle="success" style={{ width: '75%', margin: '20px' }}>
+        <div className="BackgroundImg" >
+          <img src={Background} alt="" style={{ height: '100%', width: '100%' }} />
+        </div>
+        <h1 style={{ zIndex: '2' }}>Create Event</h1>
+        <div style={{ width: '60%', margin: '20px', zIndex: '2' }} >
+          <ControlLabel><h3>Event Name</h3></ControlLabel>
           <FieldGroup
             id="formControlsText"
-            label="Event Name"
             type="text"
             placeholder="Event Name"
             value={this.state.eventName}
@@ -123,7 +133,7 @@ class CreateEventView extends Component {
           <Row className="show-grid" style={{ width: '100%' }}>
             <Col sm={4}>
               <FormGroup validationState="success">
-                <ControlLabel>Starting Date</ControlLabel>
+                <ControlLabel><h4>Starting Date</h4></ControlLabel>
                 <DatePicker
                   id="startDate"
                   value={this.state.startDate}
@@ -136,7 +146,7 @@ class CreateEventView extends Component {
 
             <Col sm={4}>
               <FormGroup validationState="success">
-                <ControlLabel>Closing Date</ControlLabel>
+                <ControlLabel><h4>Closing Date</h4></ControlLabel>
                 <DatePicker
                   id="endDate"
                   value={this.state.endDate}
@@ -149,7 +159,7 @@ class CreateEventView extends Component {
 
             <Col sm={4}>
               <FormGroup validationState="success">
-                <ControlLabel>Registration Deadline</ControlLabel>
+                <ControlLabel><h4>Registration Deadline</h4></ControlLabel>
                 <DatePicker
                   id="deadline"
                   value={this.state.deadline}
@@ -161,50 +171,56 @@ class CreateEventView extends Component {
             </Col>
           </Row>
 
-          <FormGroup controlId="formControlsSelect">
-            <ControlLabel>Min Team Size</ControlLabel>
-            <FormControl
-              componentClass="select"
-              placeholder="select"
-              value={this.state.minSize}
-              onChange={this.handleMinSizeChange}
-            >
-              <option value="select">select</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </FormControl>
-          </FormGroup>
+          <Row>
+            <Col sm={4} md={6}>
+              <FormGroup controlId="formControlsSelect">
+                <ControlLabel><h4>Min Team Size</h4></ControlLabel>
+                <FormControl
+                  componentClass="select"
+                  placeholder="select"
+                  value={this.state.minSize}
+                  onChange={this.handleMinSizeChange}
+                >
+                  <option value="select">select</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </FormControl>
+              </FormGroup>
+            </Col>
 
-          <FormGroup controlId="formControlsSelect">
-            <ControlLabel>Max Team Size</ControlLabel>
-            <FormControl
-              componentClass="select"
-              placeholder="select"
-              value={this.state.maxSize}
-              onChange={this.handleMaxSizeChange}
-            >
-              <option value="select">select</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </FormControl>
-          </FormGroup>
+            <Col sm={4} md={6}>
+              <FormGroup controlId="formControlsSelect">
+                <ControlLabel><h4>Max Team Size</h4></ControlLabel>
+                <FormControl
+                  componentClass="select"
+                  placeholder="select"
+                  value={this.state.maxSize}
+                  onChange={this.handleMaxSizeChange}
+                >
+                  <option value="select">select</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </FormControl>
+              </FormGroup>
+            </Col>
+          </Row>
 
           <FormGroup controlId="formControlsTextarea">
-            <ControlLabel >Event Description</ControlLabel>
+            <ControlLabel ><h3>Event Description</h3></ControlLabel>
             <FormControl
               componentClass="textarea"
               placeholder="textarea"
@@ -213,8 +229,8 @@ class CreateEventView extends Component {
               onChange={this.handleEventBioChange}
             />
           </FormGroup>
-        </Panel>
-        <Button bsStyle="success" type="submit" onClick={this.createEvent}>
+        </div>
+        <Button bsStyle="success" type="submit" onClick={this.createEvent} style={{ zIndex: '2' }}>
             Create
         </Button>
       </div>

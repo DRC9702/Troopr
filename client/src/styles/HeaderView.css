@@ -1,6 +1,7 @@
 .navbar { 
     margin-bottom: 0;
     flex: 0 1 auto;
+    z-index: 9;
 }
 
 .modal {

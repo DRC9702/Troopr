@@ -4,6 +4,10 @@ import { Col, Row, Grid, Button, Panel, FormGroup, ControlLabel, Modal, ListGrou
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import SelectSkills from './SelectSkills';
+import SkillsList from './SkillsList';
+import Background from '../Images/bgimg1.jpg';
+
+require('../styles/TeamView.css');
 
 class TeamView extends Component {
   constructor(props) {
@@ -50,8 +54,11 @@ class TeamView extends Component {
             projectName: team.projectName,
             plan: team.projectPlan,
             members: team.members,
+            event: team.event.name,
           });
           // console.log(team.projectPlan)
+        } else if (response.data.message === 'Need login first.') {
+          this.props.history.push('/');
         } else {
           // console.log('events query failed');
           // eslint-disable-next-line no-undef
@@ -156,23 +163,32 @@ class TeamView extends Component {
 
     return (
       <div className="TeamView" >
-        {<h1>Team Board</h1>}
+        <div className="BackgroundImg">
+          <img src={Background} alt="" style={{ height: '100%', width: '100%' }} />
+        </div >
+        <h1 style={{ zIndex: '2' }}>{this.state.event}: Team Board</h1>
         <br />
-        <Grid>
+        <Grid style={{ zIndex: '2' }}>
           <Col xs={12} md={8}>
             <Row>
-              <Panel collapsible defaultExpanded header="Skills" bsStyle="success" >
+              <Panel collapsible defaultExpanded header="Skills" bsStyle="primary" >
                 <ListGroup fill>
-                  <ListGroupItem>{JSON.stringify(this.state.owned)}</ListGroupItem>
-                  <ListGroupItem>{JSON.stringify(this.state.required)}</ListGroupItem>
-                  <ListGroupItem>{JSON.stringify(this.state.preferred)}</ListGroupItem>
+                  <ListGroupItem>
+                    <SkillsList skills={this.state.owned} title="Skills You Have: " />
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <SkillsList skills={this.state.required} title="Skills You Require: " />
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <SkillsList skills={this.state.preferred} title="Skills You Prefer: " />
+                  </ListGroupItem>
                 </ListGroup>
               </Panel>
               <Panel
                 collapsible
                 defaultExpanded
                 header="Project Plan"
-                bsStyle="success"
+                bsStyle="primary"
                 eventKey="2"
               >
                 <ListGroup fill>
@@ -187,7 +203,7 @@ class TeamView extends Component {
             </Row>
           </Col>
           <Col xs={6} md={4}>
-            <Panel collapsible defaultExpanded header="Members" bsStyle="success">
+            <Panel collapsible defaultExpanded header="Members" bsStyle="primary">
               <ListGroup fill>
                 <ListGroupItem>
                   {members}
@@ -195,7 +211,7 @@ class TeamView extends Component {
                 <ListGroupItem>
                   <ButtonToolbar>
                     <Button
-                      bsStyle="primary"
+                      bsStyle="info"
                       bsSize="large"
                       block
                       onClick={this.matchTeam}

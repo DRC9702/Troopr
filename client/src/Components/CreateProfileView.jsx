@@ -4,7 +4,7 @@ import { Panel, ControlLabel, FormControl, Button, FormGroup, HelpBlock } from '
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import SelectSkills from './SelectSkills';
-
+import Background from '../Images/bgimg1.jpg';
 
 require('../styles/CreateProfileView.css');
 
@@ -71,8 +71,12 @@ class CreateProfileView extends Component {
     }).then((response) => {
       if (response.data.success) {
         this.props.history.push('/profile');
-      } else {
-        alert('profile created failed'); // eslint-disable-line
+      } else if (response.data.message) {
+        if (response.data.message === 'need login') {
+          this.props.history.push('/');
+        } else {
+              alert(response.data.message); // eslint-disable-line
+          } // eslint-disable-line
       }
     }).catch((error) => {
       console.log(error); // eslint-disable-line 
@@ -82,9 +86,11 @@ class CreateProfileView extends Component {
   render() {
     return (
       <div className="CreateProfileView">
-        <br /><br />
-        <h1>Create Profile</h1>
-        <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px' }}>
+        <div className="BackgroundImg">
+          <img src={Background} alt="" style={{ height: '100%', width: '100%' }} />
+        </div >
+        <h1 style={{ zIndex: '2' }}>Create Profile</h1>
+        <Panel header="Info" bsStyle="primary" style={{ width: '75%', margin: '20px', zIndex: '2' }}>
           <form>
             <FieldGroup
               id="formControlsText"

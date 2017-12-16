@@ -449,7 +449,39 @@ router.get('/logout', (req, res) => {
   if (req.session.user) {
     console.log('in the logout route!!!\n');
     req.session.user = null;
-    res.redirect('/');
+    res.json({
+      success: 'success',
+    });
+  } else {
+    res.json({
+      success: false,
+    });
+  }
+});
+
+
+router.get('/get_name', (req, res) => {
+  if (req.session.user) {
+    res.json({
+      success: 'success',
+      name: req.session.user.credential.username,
+    });
+  } else {
+    res.json({
+      success: false,
+    });
+  }
+});
+
+router.post('/check_login', (req, res) => {
+  if (req.session.user) {
+    res.json({
+      login: true,
+    });
+  } else {
+    res.json({
+      login: false,
+    });
   }
 });
 
@@ -696,7 +728,7 @@ router.post('/api/give_team', Team.middleware.loadOfEvent, (req, res) => {
             good = false;
           }
         });
-        if (!filterContains(ttt._id, teamPool) && !filterContains(ttt._id, accepted) && good && (req.body.team_id !== ttt._id)) {
+        if (!filterContains(ttt._id, teamPool) && !filterContains(ttt._id, accepted) && good && (req.body.team_id != ttt._id)) { // eslint-disable-line 
           target.push(ttt);
         }
       });

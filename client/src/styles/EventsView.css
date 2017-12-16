@@ -1,8 +1,8 @@
-.CreateProfileView {
+.EventsView {
+  position: relative;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  overflow-x: hidden !important;
-  align-items: center;
   z-index: 2;
 }
 
