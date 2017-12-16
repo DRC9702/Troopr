@@ -6,6 +6,8 @@ import logo from '../Images/TrooprLogo.png';
 
 require('../styles/HeaderView.css');
 
+const logoStyle = { top: 0, bottom: 0, padding: 0 };
+
 class HeaderView extends Component {
   constructor(props) {
     super(props);
@@ -134,7 +136,7 @@ class HeaderView extends Component {
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <Image src={logo} rounded style={{ top: 0, bottom: 0, padding: 0 }} onClick={this.handleLogo} />
+              <Image src={logo} rounded style={logoStyle} onClick={this.handleLogo} />
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
